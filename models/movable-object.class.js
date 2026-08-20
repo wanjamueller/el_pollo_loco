@@ -1,4 +1,4 @@
-class MovableObject {
+export class MovableObject {
     x;
     y;
     img;
