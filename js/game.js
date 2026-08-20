@@ -1,3 +1,5 @@
+import { World } from "../models/world.class.js";
+
 let canvas;
 let ctx;
 let world = new World();
@@ -10,3 +12,5 @@ function init() {
     console.log(`my character is`, world.character);
     console.log(`my enemies are`, world.enemies);
 }
+
+init();
