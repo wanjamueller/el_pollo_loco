@@ -1,6 +1,8 @@
 export class MovableObject {
     x;
     y;
+    height;
+    width;
     img;
 
     constructor() {}
