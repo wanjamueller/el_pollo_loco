@@ -1,9 +1,11 @@
 import { Character } from "./character.class.js";
 import { Chicken } from "./chicken.class.js";
+import { Cloud } from "./cloud.class.js";
 
 export class World {
     character = new Character();
     enemies = [new Chicken(), new Chicken(), new Chicken()];
+    clouds = [new Cloud()];
     canvas;
     ctx;
 
@@ -30,6 +32,11 @@ export class World {
         // drawing schicken
         this.enemies.forEach((enemy) => {
             this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
+        });
+
+        // drawing cloud
+        this.clouds.forEach((cloud) => {
+            this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
         });
 
         // draw() is repeatedly run = animation

@@ -106,4 +106,8 @@ export class Imagehub {
         ],
         dead: [`assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png`],
     };
+
+    static CLOUD = {
+        move: [`./assets/img/5_background/layers/4_clouds/1.png`, `./assets/img/5_background/layers/4_clouds/2.png`],
+    };
 }
