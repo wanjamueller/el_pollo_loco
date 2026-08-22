@@ -7,6 +7,7 @@ export class MovableObject {
 
     constructor() {}
 
+    // images need loading before drawing in world()
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
