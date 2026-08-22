@@ -10,13 +10,15 @@ export class World {
     // canvas handed over from init()
     constructor(canvas) {
         this.ctx = canvas.getContext(`2d`);
-        this.canvas = canvas;
+        this.canvas = canvas; // need this to clear canvas at start of draw()
         this.draw();
     }
 
     draw() {
+        // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // drawing PEPE
         this.ctx.drawImage(
             this.character.img,
             this.character.x,
@@ -24,12 +26,14 @@ export class World {
             this.character.width,
             this.character.height,
         );
+
+        // drawing schicken
         this.enemies.forEach((enemy) => {
             this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
         });
 
-        // draw() wird immer wieder aufgerufen
-        let self = this;
+        // draw() is repeatedly run = animation
+        let self = this; // self, as this is not defined inside function body
         requestAnimationFrame(function () {
             self.draw();
         });
