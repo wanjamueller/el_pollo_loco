@@ -6,12 +6,23 @@ export class Character extends MovableObject {
     y = 155;
     height = 280;
     width = 150;
+    currentImage = 0;
 
     constructor() {
         // loading only first image for now from Imagehub
         super();
         this.loadImage(Imagehub.PEPE.move[0]);
-        Object.values(Imagehub.PEPE).forEach((group) => this.loadImages(group));
+        this.loadImages(Imagehub.PEPE.move);
+        this.animate();
+    }
+
+    animate() {
+        setInterval(() => {
+            let i = this.currentImage % Imagehub.PEPE.move.length;
+            let path = Imagehub.PEPE.move[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }, 100);
     }
     jump() {}
 }
