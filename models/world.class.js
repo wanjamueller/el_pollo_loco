@@ -37,10 +37,7 @@ export class World {
         this.addToMap(this.character);
 
         // draw() is repeatedly run = animation
-        let self = this; // self, as this is not defined inside function body
-        requestAnimationFrame(function () {
-            self.draw();
-        });
+        requestAnimationFrame(() => this.draw());
     }
 
     // Loop for Objects to draw

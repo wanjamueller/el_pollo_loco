@@ -9,7 +9,9 @@ export class Character extends MovableObject {
 
     constructor() {
         // loading only first image for now from Imagehub
-        super().loadImage(Imagehub.PEPE.move[0]);
+        super();
+        this.loadImage(Imagehub.PEPE.move[0]);
+        Object.values(Imagehub.PEPE).forEach((group) => this.loadImages(group));
     }
     jump() {}
 }

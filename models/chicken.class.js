@@ -8,7 +8,9 @@ export class Chicken extends MovableObject {
 
     constructor() {
         // loading only first image for now from Imagehub
-        super().loadImage(Imagehub.CHICKEN.move[0]);
+        super();
+        this.loadImage(Imagehub.CHICKEN.move[0]);
+        Object.values(Imagehub.CHICKEN).forEach((group) => this.loadImages(group));
         this.x = 200 + Math.random() * 500;
     }
 }
