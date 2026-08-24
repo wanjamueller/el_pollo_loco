@@ -16,6 +16,7 @@ export class Character extends MovableObject {
         this.animate();
     }
 
+    // animate PEPE walking
     animate() {
         setInterval(() => {
             let i = this.currentImage % Imagehub.PEPE.move.length;
