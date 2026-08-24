@@ -9,6 +9,7 @@ export class World {
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     clouds = [new Cloud()];
     backgroundObjects = [
+        new BackgroundObject(Imagehub.BACKGROUND.sky, 0),
         new BackgroundObject(Imagehub.BACKGROUND.plain[0], 0),
         new BackgroundObject(Imagehub.BACKGROUND.red[0], 0),
         new BackgroundObject(Imagehub.BACKGROUND.color[0], 0),
@@ -28,8 +29,8 @@ export class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // pushing to loop
-        this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
 
         // pushing PEPE to draw
