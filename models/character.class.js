@@ -1,5 +1,6 @@
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
+import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
 export class Character extends MovableObject {
@@ -20,10 +21,12 @@ export class Character extends MovableObject {
 
     // animate PEPE walking
     walking = () => {
-        let i = this.counter % Imagehub.PEPE.move.length;
-        let path = Imagehub.PEPE.move[i];
-        this.img = this.imageCache[path];
-        this.counter++;
+        if (Keyboard.RIGHT || Keyboard.LEFT) {
+            let i = this.counter % Imagehub.PEPE.move.length;
+            let path = Imagehub.PEPE.move[i];
+            this.img = this.imageCache[path];
+            this.counter++;
+        }
     };
     jump() {}
 }

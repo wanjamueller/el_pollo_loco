@@ -1,10 +1,11 @@
+import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
 
-let canvas;
+let canvas = document.getElementById(`canvas`);
 let world;
+let keyboard = new Keyboard();
 
 function init() {
-    canvas = document.getElementById(`canvas`);
     // world is initialized with canvas
     world = new World(canvas);
 
@@ -14,3 +15,44 @@ function init() {
 }
 
 init();
+
+window.addEventListener("keydown", (e) => {
+    if (e.key == "ArrowRight") {
+        Keyboard.RIGHT = true;
+        console.log(e.key);
+    }
+    if (e.key == "ArrowLeft") {
+        Keyboard.LEFT = true;
+        console.log(e.key);
+    }
+    if (e.key == "ArrowUp") {
+        Keyboard.UP = true;
+        console.log(e.key);
+    }
+    if (e.key == "ArrowDown") {
+        Keyboard.DOWN = true;
+        console.log(e.key);
+    }
+    if (e.code == "Space") {
+        Keyboard.SPACE = true;
+        console.log(e.code);
+    }
+});
+
+window.addEventListener("keyup", (e) => {
+    if (e.key == "ArrowRight") {
+        Keyboard.RIGHT = false;
+    }
+    if (e.key == "ArrowLeft") {
+        Keyboard.LEFT = false;
+    }
+    if (e.key == "ArrowUp") {
+        Keyboard.UP = false;
+    }
+    if (e.key == "ArrowDown") {
+        Keyboard.DOWN = false;
+    }
+    if (e.code == "Space") {
+        Keyboard.SPACE = false;
+    }
+});

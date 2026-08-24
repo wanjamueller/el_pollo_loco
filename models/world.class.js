@@ -4,6 +4,7 @@ import { Chicken } from "./chicken.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
+import { Keyboard } from "./keyboard.class.js";
 
 export class World {
     character = new Character();
