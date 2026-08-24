@@ -3,8 +3,8 @@ import { MovableObject } from "./movable-object.class.js";
 
 export class Character extends MovableObject {
     x = 120;
-    y = 180;
-    height = 250;
+    y = 155;
+    height = 280;
     width = 150;
 
     constructor() {
