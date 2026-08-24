@@ -16,7 +16,7 @@ export class Chicken extends MovableObject {
         this.animate();
     }
 
-    // animate walking
+    // animate chicken walking
     animate() {
         setInterval(() => {
             let i = this.currentImage % Imagehub.CHICKEN.move.length;
