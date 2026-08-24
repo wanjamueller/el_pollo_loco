@@ -10,10 +10,11 @@ export class Character extends MovableObject {
     counter = 0;
 
     constructor() {
-        // loading only first image for now from Imagehub
         super();
+        // loading images from Imagehub
         this.loadImage(Imagehub.PEPE.move[0]);
         this.loadImages(Imagehub.PEPE.move);
+        // starting intervall for PEPE walking
         IntervalHub.startInterval(this.walking, 100);
     }
 
