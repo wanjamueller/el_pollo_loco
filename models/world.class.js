@@ -3,6 +3,7 @@ import { Character } from "./character.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Imagehub } from "./image-hub.class.js";
+import { IntervalHub } from "./intervallhub.class.js";
 
 export class World {
     character = new Character();
@@ -22,6 +23,7 @@ export class World {
         this.ctx = canvas.getContext(`2d`);
         this.canvas = canvas; // need this to clear canvas at start of draw()
         this.draw();
+        // IntervalHub.startInterval(this.startCounter, 1000);
     }
 
     draw() {
