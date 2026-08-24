@@ -7,6 +7,7 @@ export class MovableObject {
     height;
     width;
     imageCache = {};
+    speed;
 
     constructor() {}
 
@@ -24,9 +25,11 @@ export class MovableObject {
         });
     }
 
-    moveRight() {
-        console.log(`moving right`);
-    }
+    moveRight = () => {
+        this.x += this.speed;
+    };
 
-    moveLeft() {}
+    moveLeft = () => {
+        this.x -= this.speed;
+    };
 }
