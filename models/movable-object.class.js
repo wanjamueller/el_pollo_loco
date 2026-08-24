@@ -1,3 +1,5 @@
+import { IntervalHub } from "./intervallhub.class.js";
+
 export class MovableObject {
     x;
     y;
