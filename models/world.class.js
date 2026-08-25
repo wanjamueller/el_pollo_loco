@@ -5,6 +5,7 @@ import { Cloud } from "./cloud.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
+import { MovableObject } from "./movable-object.class.js";
 
 export class World {
     character = new Character();
@@ -52,6 +53,16 @@ export class World {
 
     // drawing objects
     addToMap(obj) {
+        if (obj.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(obj.width, 0); // mirror in same spot and not at egde of img
+            this.ctx.scale(-1, 1);
+            obj.x = obj.x * -1; // mirrir x value
+        }
         this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height);
+        if (obj.otherDirection) {
+            obj.x = obj.x * -1; // mirrir x value
+            this.ctx.restore();
+        }
     }
 }

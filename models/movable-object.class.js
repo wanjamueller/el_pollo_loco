@@ -8,6 +8,7 @@ export class MovableObject {
     width;
     imageCache = {};
     speed;
+    otherDirection = false;
 
     constructor() {}
 
