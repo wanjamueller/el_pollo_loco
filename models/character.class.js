@@ -35,12 +35,14 @@ export class Character extends MovableObject {
     moveRight = () => {
         if (Keyboard.RIGHT) {
             this.x += this.speed;
+            this.otherDirection = false;
         }
     };
 
     moveLeft = () => {
         if (Keyboard.LEFT) {
             this.x -= this.speed;
+            this.otherDirection = true;
         }
     };
 
