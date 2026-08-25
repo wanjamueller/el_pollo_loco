@@ -2,6 +2,7 @@ import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { World } from "./world.class.js";
 
 export class Character extends MovableObject {
     x = 120;
@@ -37,6 +38,7 @@ export class Character extends MovableObject {
             this.x += this.speed;
             this.otherDirection = false;
         }
+        this.world.camera_x = -this.x; // move camera with character
     };
 
     moveLeft = () => {
@@ -44,6 +46,7 @@ export class Character extends MovableObject {
             this.x -= this.speed;
             this.otherDirection = true;
         }
+        this.world.camera_x = -this.x; // move camera with character
     };
 
     jump() {}
