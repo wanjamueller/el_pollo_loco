@@ -5,10 +5,17 @@ export class BackgroundObject extends MovableObject {
     width = 720;
     height = 480;
 
-    constructor(imgPath, x) {
+    static xPos = -720;
+    static turn = 0;
+
+    constructor(imgPath) {
+        if (BackgroundObject.turn === 4) {
+            BackgroundObject.xPos += 720;
+            BackgroundObject.turn = 0;
+        }
         // loading only first image for now from Imagehub
         super().loadImage(imgPath);
-        this.x = x;
-        // this.y = 480 - this.height;
+        this.x = BackgroundObject.xPos;
+        BackgroundObject.turn++;
     }
 }
