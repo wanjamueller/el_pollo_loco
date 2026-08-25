@@ -12,10 +12,25 @@ export class World {
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     clouds = [new Cloud()];
     backgroundObjects = [
-        new BackgroundObject(Imagehub.BACKGROUND.sky, 0),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[0], 0),
-        new BackgroundObject(Imagehub.BACKGROUND.red[0], 0),
-        new BackgroundObject(Imagehub.BACKGROUND.color[0], 0),
+        new BackgroundObject(Imagehub.BACKGROUND.sky),
+        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
+        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
+        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
+
+        new BackgroundObject(Imagehub.BACKGROUND.sky),
+        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
+        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
+        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
+
+        new BackgroundObject(Imagehub.BACKGROUND.sky),
+        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
+        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
+        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
+
+        new BackgroundObject(Imagehub.BACKGROUND.sky),
+        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
+        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
+        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
     ];
     canvas;
     ctx;
