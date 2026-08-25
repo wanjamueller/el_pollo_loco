@@ -9,6 +9,7 @@ export class Character extends MovableObject {
     height = 280;
     width = 150;
     counter = 0;
+    speed = 4;
 
     constructor() {
         super();
@@ -17,6 +18,8 @@ export class Character extends MovableObject {
         this.loadImages(Imagehub.PEPE.move);
         // starting intervall for PEPE walking
         IntervalHub.startInterval(this.walking, 1000 / 10);
+        IntervalHub.startInterval(this.moveRight, 1000 / 60);
+        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 
     // animate PEPE walking
@@ -28,5 +31,18 @@ export class Character extends MovableObject {
             this.counter++;
         }
     };
+
+    moveRight = () => {
+        if (Keyboard.RIGHT) {
+            this.x += this.speed;
+        }
+    };
+
+    moveLeft = () => {
+        if (Keyboard.LEFT) {
+            this.x -= this.speed;
+        }
+    };
+
     jump() {}
 }
