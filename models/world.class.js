@@ -19,18 +19,27 @@ export class World {
     ];
     canvas;
     ctx;
+    camera_x = 0;
 
     // canvas handed over from init()
     constructor(canvas) {
         this.ctx = canvas.getContext(`2d`);
         this.canvas = canvas; // need this to clear canvas at start of draw()
         this.draw();
+        this.setWorld();
         // IntervalHub.startInterval(this.startCounter, 1000);
+    }
+
+    // Link world to character (translate camera_x via character)
+    setWorld() {
+        this.character.world = this;
     }
 
     draw() {
         // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.ctx.translate(this.camera_x, 0);
 
         // pushing to loop
         this.addObjectsToMap(this.backgroundObjects);
@@ -39,6 +48,8 @@ export class World {
 
         // pushing PEPE to draw
         this.addToMap(this.character);
+
+        this.ctx.translate(-this.camera_x, 0);
 
         // draw() is repeatedly run = animation
         requestAnimationFrame(() => this.draw());
