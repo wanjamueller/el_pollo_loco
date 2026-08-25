@@ -16,7 +16,7 @@ export class Character extends MovableObject {
         this.loadImage(Imagehub.PEPE.move[0]);
         this.loadImages(Imagehub.PEPE.move);
         // starting intervall for PEPE walking
-        IntervalHub.startInterval(this.walking, 100);
+        IntervalHub.startInterval(this.walking, 1000 / 10);
     }
 
     // animate PEPE walking
