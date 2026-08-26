@@ -12,9 +12,6 @@ import { level1 } from "../levels/level1.js";
 export class World {
     character = new Character();
     level = level1;
-    // enemies = level1.enemies;
-    // clouds = level1.couds;
-    // backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
     camera_x = 0;

@@ -9,6 +9,7 @@ export class MovableObject {
     imageCache = {};
     speed;
     otherDirection = false;
+    counter;
 
     constructor() {}
 
@@ -24,6 +25,13 @@ export class MovableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+
+    playAnimation(images) {
+        let i = this.counter % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.counter++;
     }
 
     moveRight = () => {

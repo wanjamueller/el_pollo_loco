@@ -15,16 +15,13 @@ export class Endboss extends MovableObject {
         // loading images from Imagehub
         this.loadImage(Imagehub.ENDBOSS.move[0]);
         this.loadImages(Imagehub.ENDBOSS.move);
-        // start intervall for moving chicken
+        // start intervall for moving endboss
         IntervalHub.startInterval(this.animate, 1000 / 10);
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 
-    // animate chicken walking
+    // animate endboss walking
     animate = () => {
-        let i = this.counter % Imagehub.ENDBOSS.move.length;
-        let path = Imagehub.ENDBOSS.move[i];
-        this.img = this.imageCache[path];
-        this.counter++;
+        this.playAnimation(Imagehub.ENDBOSS.move);
     };
 }
