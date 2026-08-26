@@ -1,11 +1,12 @@
 import { BackgroundObject } from "../models/background-object.class.js";
 import { Chicken } from "../models/chicken.class.js";
 import { Cloud } from "../models/cloud.class.js";
+import { Endboss } from "../models/endboss.class.js";
 import { Imagehub } from "../models/image-hub.class.js";
 import { Level } from "../models/level.class.js";
 
 export const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken()],
+    [new Chicken(), new Chicken(), new Chicken(), new Endboss()],
     [new Cloud()],
     [
         new BackgroundObject(Imagehub.BACKGROUND.sky),
