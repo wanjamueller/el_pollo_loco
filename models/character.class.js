@@ -38,7 +38,7 @@ export class Character extends MovableObject {
             this.x += this.speed;
             this.otherDirection = false;
         }
-        this.world.camera_x = -this.x; // move camera with character
+        // world.camera_x = -this.x; // move camera with character
     };
 
     moveLeft = () => {
@@ -46,7 +46,7 @@ export class Character extends MovableObject {
             this.x -= this.speed;
             this.otherDirection = true;
         }
-        this.world.camera_x = -this.x; // move camera with character
+        // world.camera_x = -this.x; // move camera with character
     };
 
     jump() {}
