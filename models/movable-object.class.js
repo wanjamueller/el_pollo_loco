@@ -10,8 +10,20 @@ export class MovableObject {
     speed;
     otherDirection = false;
     counter;
+    speed_y = 0;
+    acc = 2.5;
 
     constructor() {}
+    // gravity for falling after jump
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.y < 155) {
+                this.y -= this.speed_y;
+                this.speed_y -= this.acc;
+            }
+        }, 1000 / 25);
+    }
 
     // images need loading before drawing in world()
     loadImage(path) {

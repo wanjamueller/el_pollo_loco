@@ -8,7 +8,7 @@ import { World } from "./world.class.js";
 
 export class Character extends MovableObject {
     x = 120;
-    y = 155;
+    y = 0;
     height = 280;
     width = 150;
     counter = 0;
@@ -19,6 +19,7 @@ export class Character extends MovableObject {
         // loading images from Imagehub
         this.loadImage(Imagehub.PEPE.move[0]);
         this.loadImages(Imagehub.PEPE.move);
+        this.applyGravity();
         // starting intervall for PEPE walking
         IntervalHub.startInterval(this.walking, 1000 / 10);
         IntervalHub.startInterval(this.moveRight, 1000 / 60);
