@@ -13,6 +13,7 @@ export class Character extends MovableObject {
     width = 150;
     counter = 0;
     speed = 4;
+    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();

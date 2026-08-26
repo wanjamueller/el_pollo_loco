@@ -12,6 +12,7 @@ export class MovableObject {
     counter;
     speed_y = 0;
     acc = 2.5;
+    showFrame = false;
 
     constructor() {}
     // gravity for falling after jump
@@ -34,6 +35,34 @@ export class MovableObject {
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
+    }
+
+    // pushing to world.addToMap()
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    // // add frame to each object for collision implementation
+    drawFrame(ctx) {
+        if (this.showFrame) {
+            ctx.beginPath();
+            ctx.lineWidth = `5`;
+            ctx.strokeStyle = `blue`;
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    flipImage(ctx) {
+        ctx.save();
+        ctx.translate(this.width, 0); // mirror in same spot and not at egde of img for PEPE
+        ctx.scale(-1, 1);
+        this.x = this.x * -1; // mirrir x value for PEPE
+    }
+
+    flipImageBack(ctx) {
+        this.x = this.x * -1; // mirror x value for PEPE
+        ctx.restore();
     }
 
     loadImages(arr) {
