@@ -23,6 +23,7 @@ export class World {
         this.draw();
         this.setWorld();
         // IntervalHub.startInterval(this.startCounter, 1000);
+        console.log(this.character.y);
     }
 
     // Link world to character (translate camera_x via character)

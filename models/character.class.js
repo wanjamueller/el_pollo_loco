@@ -18,37 +18,38 @@ export class Character extends MovableObject {
         super();
         // loading images from Imagehub
         this.loadImage(Imagehub.PEPE.move[0]);
+        this.loadImages(Imagehub.PEPE.idle);
         this.loadImages(Imagehub.PEPE.move);
+        this.loadImages(Imagehub.PEPE.jump);
         this.applyGravity();
         // starting intervall for PEPE walking
-        IntervalHub.startInterval(this.walking, 1000 / 10);
-        IntervalHub.startInterval(this.moveRight, 1000 / 60);
-        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
+        IntervalHub.startInterval(this.animatePEPE, 1000 / 10);
+        IntervalHub.startInterval(this.move, 1000 / 60);
     }
 
     // animate PEPE walking
-    walking = () => {
-        if (Keyboard.RIGHT || Keyboard.LEFT) {
-            this.playAnimation(Imagehub.PEPE.move);
+    animatePEPE = () => {
+        if (this.isAboveGround()) {
+            this.playAnimation(Imagehub.PEPE.jump);
+        } else {
+            if (Keyboard.RIGHT || Keyboard.LEFT) {
+                this.playAnimation(Imagehub.PEPE.move);
+            }
         }
     };
 
-    moveRight = () => {
+    move = () => {
         if (Keyboard.RIGHT && this.x < level1.level_end_x) {
             // for now fix for level1, need to check on how to open for more levels
-            this.x += this.speed;
             this.otherDirection = false;
+            this.moveRight();
         }
-        // world.camera_x = -this.x; // move camera with character
-    };
-
-    moveLeft = () => {
         if (Keyboard.LEFT && this.x > level1.level_start_x) {
-            this.x -= this.speed;
             this.otherDirection = true;
+            this.moveLeft();
         }
-        // world.camera_x = -this.x; // move camera with character
+        if (Keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
     };
-
-    jump() {}
 }

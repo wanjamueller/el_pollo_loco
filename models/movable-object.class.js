@@ -15,14 +15,19 @@ export class MovableObject {
 
     constructor() {}
     // gravity for falling after jump
-
     applyGravity() {
         setInterval(() => {
-            if (this.y < 155) {
+            // "above" for falling and speed_y for jumping
+            if (this.isAboveGround() || this.speed_y > 0) {
                 this.y -= this.speed_y;
                 this.speed_y -= this.acc;
             }
         }, 1000 / 25);
+    }
+
+    // for any animation when jumping flying....
+    isAboveGround() {
+        return this.y < 155;
     }
 
     // images need loading before drawing in world()
@@ -53,4 +58,8 @@ export class MovableObject {
     moveLeft = () => {
         this.x -= this.speed;
     };
+
+    jump() {
+        this.speed_y = 30;
+    }
 }
