@@ -9,6 +9,7 @@ export class Endboss extends MovableObject {
     width = 200;
     counter = 0;
     speed = 0.7;
+    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();

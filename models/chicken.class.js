@@ -8,6 +8,7 @@ export class Chicken extends MovableObject {
     width = 70;
     counter = 0;
     speed = 0.3 + Math.random();
+    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();

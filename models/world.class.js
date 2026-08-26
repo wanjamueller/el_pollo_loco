@@ -1,12 +1,12 @@
-import { BackgroundObject } from "./background-object.class.js";
+// import { BackgroundObject } from "./background-object.class.js";
 import { Character } from "./character.class.js";
-import { Chicken } from "./chicken.class.js";
-import { Cloud } from "./cloud.class.js";
-import { Imagehub } from "./image-hub.class.js";
-import { IntervalHub } from "./intervallhub.class.js";
-import { Keyboard } from "./keyboard.class.js";
-import { Level } from "./level.class.js";
-import { MovableObject } from "./movable-object.class.js";
+// import { Chicken } from "./chicken.class.js";
+// import { Cloud } from "./cloud.class.js";
+// import { Imagehub } from "./image-hub.class.js";
+// import { IntervalHub } from "./intervallhub.class.js";
+// import { Keyboard } from "./keyboard.class.js";
+// import { Level } from "./level.class.js";
+// import { MovableObject } from "./movable-object.class.js";
 import { level1 } from "../levels/level1.js";
 
 export class World {
@@ -20,10 +20,10 @@ export class World {
     constructor(canvas) {
         this.ctx = canvas.getContext(`2d`);
         this.canvas = canvas; // need this to clear canvas at start of draw()
-        this.draw();
         this.setWorld();
+        this.draw();
+
         // IntervalHub.startInterval(this.startCounter, 1000);
-        console.log(this.character.y);
     }
 
     // Link world to character (translate camera_x via character)
@@ -63,15 +63,13 @@ export class World {
     // drawing objects
     addToMap(obj) {
         if (obj.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(obj.width, 0); // mirror in same spot and not at egde of img
-            this.ctx.scale(-1, 1);
-            obj.x = obj.x * -1; // mirrir x value
+            obj.flipImage(this.ctx);
         }
-        this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.height);
+        obj.draw(this.ctx);
+        obj.drawFrame(this.ctx); // drawing frame for collisoon implememtation
+
         if (obj.otherDirection) {
-            obj.x = obj.x * -1; // mirrir x value
-            this.ctx.restore();
+            obj.flipImageBack(this.ctx);
         }
     }
 }
