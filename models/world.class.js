@@ -5,33 +5,15 @@ import { Cloud } from "./cloud.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
+import { Level } from "./level.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { level1 } from "../levels/level1.js";
 
 export class World {
     character = new Character();
-    enemies = [new Chicken(), new Chicken(), new Chicken()];
-    clouds = [new Cloud()];
-    backgroundObjects = [
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
-
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
-
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
-
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
-    ];
+    enemies = level1.enemies;
+    clouds = level1.couds;
+    backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
     camera_x = 0;
@@ -51,6 +33,8 @@ export class World {
     }
 
     draw() {
+        // move camera with character
+        this.camera_x = -this.character.x;
         // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
