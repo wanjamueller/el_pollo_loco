@@ -23,9 +23,6 @@ export class Chicken extends MovableObject {
 
     // animate chicken walking
     animate = () => {
-        let i = this.counter % Imagehub.CHICKEN.move.length;
-        let path = Imagehub.CHICKEN.move[i];
-        this.img = this.imageCache[path];
-        this.counter++;
+        this.playAnimation(Imagehub.CHICKEN.move);
     };
 }

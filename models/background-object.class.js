@@ -10,11 +10,12 @@ export class BackgroundObject extends MovableObject {
     static turn = 0;
 
     constructor(imgPath) {
+        // ensuring 4 pics are added on top of each other, before next group is added 720 px further
         if (BackgroundObject.turn === 4) {
             BackgroundObject.xPos += 720;
             BackgroundObject.turn = 0;
         }
-        // loading only first image for now from Imagehub
+        // loading images from Imagehub
         super().loadImage(imgPath);
         this.x = BackgroundObject.xPos;
         BackgroundObject.turn++;

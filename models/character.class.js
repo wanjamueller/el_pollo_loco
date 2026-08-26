@@ -28,10 +28,7 @@ export class Character extends MovableObject {
     // animate PEPE walking
     walking = () => {
         if (Keyboard.RIGHT || Keyboard.LEFT) {
-            let i = this.counter % Imagehub.PEPE.move.length;
-            let path = Imagehub.PEPE.move[i];
-            this.img = this.imageCache[path];
-            this.counter++;
+            this.playAnimation(Imagehub.PEPE.move);
         }
     };
 
@@ -46,7 +43,6 @@ export class Character extends MovableObject {
 
     moveLeft = () => {
         if (Keyboard.LEFT && this.x > level1.level_start_x) {
-            // for now fix for level1, need to check on how to open for more levels
             this.x -= this.speed;
             this.otherDirection = true;
         }
