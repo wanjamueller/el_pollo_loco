@@ -11,9 +11,10 @@ import { level1 } from "../levels/level1.js";
 
 export class World {
     character = new Character();
-    enemies = level1.enemies;
-    clouds = level1.couds;
-    backgroundObjects = level1.backgroundObjects;
+    level = level1;
+    // enemies = level1.enemies;
+    // clouds = level1.couds;
+    // backgroundObjects = level1.backgroundObjects;
     canvas;
     ctx;
     camera_x = 0;
@@ -34,16 +35,16 @@ export class World {
 
     draw() {
         // move camera with character
-        this.camera_x = -this.character.x;
+        this.camera_x = -this.character.x + 100;
         // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
 
         // pushing to loop
-        this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
 
         // pushing PEPE to draw
         this.addToMap(this.character);

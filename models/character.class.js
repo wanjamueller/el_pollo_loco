@@ -1,6 +1,8 @@
+import { level1 } from "../levels/level1.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
+import { Level } from "./level.class.js";
 import { MovableObject } from "./movable-object.class.js";
 import { World } from "./world.class.js";
 
@@ -34,7 +36,8 @@ export class Character extends MovableObject {
     };
 
     moveRight = () => {
-        if (Keyboard.RIGHT) {
+        if (Keyboard.RIGHT && this.x < level1.level_end_x) {
+            // for now fix for level1, need to check on how to open for more levels
             this.x += this.speed;
             this.otherDirection = false;
         }
@@ -42,7 +45,8 @@ export class Character extends MovableObject {
     };
 
     moveLeft = () => {
-        if (Keyboard.LEFT) {
+        if (Keyboard.LEFT && this.x > level1.level_start_x) {
+            // for now fix for level1, need to check on how to open for more levels
             this.x -= this.speed;
             this.otherDirection = true;
         }

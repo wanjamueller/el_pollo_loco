@@ -1,3 +1,4 @@
+import { Imagehub } from "./image-hub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
 export class BackgroundObject extends MovableObject {
