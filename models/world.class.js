@@ -1,6 +1,7 @@
 import { Character } from "./character.class.js";
 import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "./intervallhub.class.js";
+import { StatusBar } from "./status-bar.class.js";
 
 export class World {
     character = new Character();
@@ -8,6 +9,7 @@ export class World {
     canvas;
     ctx;
     camera_x = 0;
+    statusBar = new StatusBar();
 
     // canvas handed over from init()
     constructor(canvas) {
@@ -29,25 +31,33 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                console.log(`character energy`, this.character.energy);
+                this.statusBar.setPercentage(this.character.energy);
+                // console.log(`character energy`, this.character.energy);
             }
         });
     };
 
     draw() {
-        // move camera with character
+        // move camera with character (also statusbar)
         this.camera_x = -this.character.x + 100;
+        // this.statusBar.x = -this.camera_x + 50;
+
         // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
 
-        // pushing to loop
+        // adding to map
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
 
-        // pushing PEPE to draw
+        this.addObjectsToMap(this.level.clouds);
+
+        // space for fixed objects
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
