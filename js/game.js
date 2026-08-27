@@ -19,23 +19,18 @@ init();
 window.addEventListener("keydown", (e) => {
     if (e.key == "ArrowRight") {
         Keyboard.RIGHT = true;
-        console.log(e.key);
     }
     if (e.key == "ArrowLeft") {
         Keyboard.LEFT = true;
-        console.log(e.key);
     }
     if (e.key == "ArrowUp") {
         Keyboard.UP = true;
-        console.log(e.key);
     }
     if (e.key == "ArrowDown") {
         Keyboard.DOWN = true;
-        console.log(e.key);
     }
     if (e.code == "Space") {
         Keyboard.SPACE = true;
-        console.log(e.code);
     }
 });
 
