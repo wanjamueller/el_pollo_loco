@@ -42,10 +42,10 @@ export class Character extends MovableObject {
             this.playAnimation(Imagehub.PEPE.dead);
         } else if (this.isHurt()) {
             this.playAnimation(Imagehub.PEPE.hurt);
-        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
-            this.playAnimation(Imagehub.PEPE.move);
         } else if (this.isAboveGround()) {
             this.playAnimation(Imagehub.PEPE.jump);
+        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
+            this.playAnimation(Imagehub.PEPE.move);
         } else {
             this.playAnimation(Imagehub.PEPE.idle);
         }

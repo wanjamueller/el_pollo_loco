@@ -1,16 +1,10 @@
 import { Character } from "./character.class.js";
+import { DrawableObject } from "./drawable-objects.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 
-export class MovableObject {
-    x;
-    y;
-    img;
-    height;
-    width;
-    imageCache = {};
+export class MovableObject extends DrawableObject {
     speed;
     otherDirection = false;
-    counter;
     speed_y = 0;
     acc = 2.5;
     offset = {
@@ -28,10 +22,6 @@ export class MovableObject {
     energy = 100;
     lastHit = 0;
 
-    constructor() {
-        this.getRealFrame();
-    }
-
     // gravity for falling after jump
     applyGravity = () => {
         // "above" for falling and speed_y for jumping
@@ -46,35 +36,12 @@ export class MovableObject {
         return this.y < 155;
     }
 
-    // images need loading before drawing in world()
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    // pushing to world.addToMap()
-    draw(ctx) {
-        this.getRealFrame();
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
     // defining real frame with formula to shorten drawFrame()
     getRealFrame() {
         this.rX = this.x + this.offset.left;
         this.rY = this.y + this.offset.top;
         this.rW = this.width - this.offset.left - this.offset.right;
         this.rH = this.height - this.offset.top - this.offset.bottom;
-    }
-
-    // // add frame to each object for collision implementation
-    drawFrame(ctx) {
-        if (this.showFrame) {
-            ctx.beginPath();
-            ctx.lineWidth = `5`;
-            ctx.strokeStyle = `blue`;
-            ctx.rect(this.rX, this.rY, this.rW, this.rH);
-            ctx.stroke();
-        }
     }
 
     // Collision detection
@@ -119,14 +86,6 @@ export class MovableObject {
     flipImageBack(ctx) {
         // this.x = this.x * -1; // mirror x value for PEPE
         ctx.restore();
-    }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            const img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
     }
 
     playAnimation(images) {
