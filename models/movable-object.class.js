@@ -54,6 +54,7 @@ export class MovableObject {
 
     // pushing to world.addToMap()
     draw(ctx) {
+        this.getRealFrame();
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
@@ -68,7 +69,6 @@ export class MovableObject {
     // // add frame to each object for collision implementation
     drawFrame(ctx) {
         if (this.showFrame) {
-            this.getRealFrame();
             ctx.beginPath();
             ctx.lineWidth = `5`;
             ctx.strokeStyle = `blue`;
@@ -110,13 +110,14 @@ export class MovableObject {
 
     flipImage(ctx) {
         ctx.save();
-        ctx.translate(this.width, 0); // mirror in same spot and not at egde of img for PEPE
+        // ctx.translate(this.width, 0); // mirror in same spot and not at egde of img for PEPE
+        ctx.translate(this.x * 2 + this.width, 0);
         ctx.scale(-1, 1);
-        this.x = this.x * -1; // mirrir x value for PEPE
+        // this.x = this.x * -1; // mirrir x value for PEPE
     }
 
     flipImageBack(ctx) {
-        this.x = this.x * -1; // mirror x value for PEPE
+        // this.x = this.x * -1; // mirror x value for PEPE
         ctx.restore();
     }
 

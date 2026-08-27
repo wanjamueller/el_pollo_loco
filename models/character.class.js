@@ -15,8 +15,8 @@ export class Character extends MovableObject {
     speed = 4;
     offset = {
         top: 120,
-        right: 30,
-        bottom: 10,
+        right: 45,
+        bottom: 15,
         left: 40,
     };
     showFrame = true; // frame for collision implementation
@@ -46,6 +46,8 @@ export class Character extends MovableObject {
             this.playAnimation(Imagehub.PEPE.move);
         } else if (this.isAboveGround()) {
             this.playAnimation(Imagehub.PEPE.jump);
+        } else {
+            this.playAnimation(Imagehub.PEPE.idle);
         }
     };
 
