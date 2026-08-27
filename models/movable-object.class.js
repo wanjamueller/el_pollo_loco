@@ -53,6 +53,16 @@ export class MovableObject {
         }
     }
 
+    // Collision detection
+    isColliding(obj) {
+        return (
+            this.x + this.width > obj.x &&
+            this.y + this.height > obj.y &&
+            this.x < obj.x + obj.width &&
+            this.y < this.y + obj.height
+        );
+    }
+
     flipImage(ctx) {
         ctx.save();
         ctx.translate(this.width, 0); // mirror in same spot and not at egde of img for PEPE

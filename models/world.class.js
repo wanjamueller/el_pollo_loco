@@ -22,6 +22,7 @@ export class World {
         this.canvas = canvas; // need this to clear canvas at start of draw()
         this.setWorld();
         this.draw();
+        this.checkCollisions();
 
         // IntervalHub.startInterval(this.startCounter, 1000);
     }
@@ -29,6 +30,16 @@ export class World {
     // Link world to character (translate camera_x via character)
     setWorld() {
         this.character.world = this;
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    console.log(`collision with character`, enemy);
+                }
+            });
+        }, 1000 / 10);
     }
 
     draw() {
