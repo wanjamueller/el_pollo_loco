@@ -31,15 +31,13 @@ export class MovableObject {
     }
 
     // gravity for falling after jump
-    applyGravity() {
-        setInterval(() => {
-            // "above" for falling and speed_y for jumping
-            if (this.isAboveGround() || this.speed_y > 0) {
-                this.y -= this.speed_y;
-                this.speed_y -= this.acc;
-            }
-        }, 1000 / 25);
-    }
+    applyGravity = () => {
+        // "above" for falling and speed_y for jumping
+        if (this.isAboveGround() || this.speed_y > 0) {
+            this.y -= this.speed_y;
+            this.speed_y -= this.acc;
+        }
+    };
 
     // for any animation when jumping flying....
     isAboveGround() {
