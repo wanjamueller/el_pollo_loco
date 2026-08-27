@@ -1,3 +1,4 @@
+import { Character } from "./character.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 
 export class MovableObject {
@@ -25,6 +26,7 @@ export class MovableObject {
     rH;
     showFrame = false;
     energy = 100;
+    lastHit = 0;
 
     constructor() {
         this.getRealFrame();
@@ -85,6 +87,27 @@ export class MovableObject {
         );
     }
 
+    // object getting hit reduces eneergy by 5
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000; //difference in seconds
+        return timePassed < 1;
+    }
+
+    // if energy = 0 , then object is dead
+    isDead() {
+        return this.energy === 0;
+    }
+
     flipImage(ctx) {
         ctx.save();
         ctx.translate(this.width, 0); // mirror in same spot and not at egde of img for PEPE
@@ -106,7 +129,7 @@ export class MovableObject {
     }
 
     playAnimation(images) {
-        let i = this.counter % images.length;
+        let i = this.counter % images.length; // counter starting at 0 ending at length of array
         let path = images[i];
         this.img = this.imageCache[path];
         this.counter++;

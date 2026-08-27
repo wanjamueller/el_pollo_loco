@@ -24,24 +24,28 @@ export class Character extends MovableObject {
     constructor() {
         super();
         // loading images from Imagehub
-        this.loadImage(Imagehub.PEPE.move[0]);
+        this.loadImage(Imagehub.PEPE.idle[0]);
         this.loadImages(Imagehub.PEPE.idle);
         this.loadImages(Imagehub.PEPE.move);
         this.loadImages(Imagehub.PEPE.jump);
-        IntervalHub.startInterval(this.applyGravity, 1000 / 25);
-        // starting intervall for PEPE walking
+        this.loadImages(Imagehub.PEPE.hurt);
+        this.loadImages(Imagehub.PEPE.dead);
+        // starting intervalls for PEPE
         IntervalHub.startInterval(this.animatePEPE, 1000 / 10);
         IntervalHub.startInterval(this.move, 1000 / 60);
+        IntervalHub.startInterval(this.applyGravity, 1000 / 25);
     }
 
     // animate PEPE walking
     animatePEPE = () => {
-        if (this.isAboveGround()) {
+        if (this.isDead()) {
+            this.playAnimation(Imagehub.PEPE.dead);
+        } else if (this.isHurt()) {
+            this.playAnimation(Imagehub.PEPE.hurt);
+        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
+            this.playAnimation(Imagehub.PEPE.move);
+        } else if (this.isAboveGround()) {
             this.playAnimation(Imagehub.PEPE.jump);
-        } else {
-            if (Keyboard.RIGHT || Keyboard.LEFT) {
-                this.playAnimation(Imagehub.PEPE.move);
-            }
         }
     };
 
