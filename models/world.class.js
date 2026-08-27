@@ -1,13 +1,6 @@
-// import { BackgroundObject } from "./background-object.class.js";
 import { Character } from "./character.class.js";
-// import { Chicken } from "./chicken.class.js";
-// import { Cloud } from "./cloud.class.js";
-// import { Imagehub } from "./image-hub.class.js";
-// import { IntervalHub } from "./intervallhub.class.js";
-// import { Keyboard } from "./keyboard.class.js";
-// import { Level } from "./level.class.js";
-// import { MovableObject } from "./movable-object.class.js";
 import { level1 } from "../levels/level1.js";
+import { IntervalHub } from "./intervallhub.class.js";
 
 export class World {
     character = new Character();
@@ -22,9 +15,9 @@ export class World {
         this.canvas = canvas; // need this to clear canvas at start of draw()
         this.setWorld();
         this.draw();
-        this.checkCollisions();
 
         // IntervalHub.startInterval(this.startCounter, 1000);
+        IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
     }
 
     // Link world to character (translate camera_x via character)
@@ -32,16 +25,14 @@ export class World {
         this.character.world = this;
     }
 
-    checkCollisions() {
-        setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.energy -= 5;
-                    console.log(`character energy`, this.character.energy);
-                }
-            });
-        }, 1000 / 10);
-    }
+    checkCollisions = () => {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.energy -= 5;
+                console.log(`character energy`, this.character.energy);
+            }
+        });
+    };
 
     draw() {
         // move camera with character
