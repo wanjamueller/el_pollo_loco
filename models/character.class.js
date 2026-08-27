@@ -8,11 +8,17 @@ import { World } from "./world.class.js";
 
 export class Character extends MovableObject {
     x = 120;
-    y = 0;
+    y = 155;
     height = 280;
     width = 150;
     counter = 0;
     speed = 4;
+    offset = {
+        top: 120,
+        right: 30,
+        bottom: 10,
+        left: 40,
+    };
     showFrame = true; // frame for collision implementation
 
     constructor() {
