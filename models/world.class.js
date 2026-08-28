@@ -4,6 +4,9 @@ import { IntervalHub } from "./intervallhub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 import { Keyboard } from "./keyboard.class.js";
+import { CollectableObjects } from "./collectable-objects.class.js";
+import { BottleObjects } from "./bottle-objects-class.js";
+import { coinObjects } from "./coin-objects.class.js";
 
 export class World {
     character = new Character();
@@ -13,6 +16,22 @@ export class World {
     camera_x = 0;
     statusBar = new StatusBar();
     throwableObjects = [];
+    bottles = [
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+        new BottleObjects(),
+    ];
+    coins = [
+        new coinObjects(),
+        new coinObjects(),
+        new coinObjects(),
+        new coinObjects(),
+        new coinObjects(),
+        new coinObjects(),
+    ];
 
     // canvas handed over from init()
     constructor(canvas) {
@@ -68,6 +87,8 @@ export class World {
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
 
+        this.addObjectsToMap(this.coins);
+        this.addObjectsToMap(this.bottles);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.enemies);
 
