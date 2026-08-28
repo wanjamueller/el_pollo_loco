@@ -46,6 +46,15 @@ export class MovableObject extends DrawableObject {
         }
     }
 
+    collectBottles() {
+        this.collectedBottles += 20;
+        if (this.collectedBottles < 0) {
+            this.collectedBottles = 0;
+        } else if (this.collectedBottles > 100) {
+            this.collectedBottles = 100;
+        }
+    }
+
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000; //difference in seconds

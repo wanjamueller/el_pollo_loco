@@ -8,6 +8,7 @@ export class DrawableObject {
     counter;
     percentage;
     collectedCoins = 0;
+    collectedBottles = 0;
     offset = {
         top: 0,
         right: 0,

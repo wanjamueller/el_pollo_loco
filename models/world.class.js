@@ -45,7 +45,8 @@ export class World {
 
         // IntervalHub.startInterval(this.startCounter, 1000);
         IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
-        IntervalHub.startInterval(this.checkCollections, 1000 / 10);
+        IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
+        IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
     }
 
@@ -70,14 +71,26 @@ export class World {
         });
     };
 
-    checkCollections = () => {
-        this.coins.forEach((coin) => {
-            if (this.character.isColliding(coin)) {
+    checkCoinCollections = () => {
+        for (let i = this.coins.length - 1; i >= 0; i--) {
+            if (this.character.isColliding(this.coins[i])) {
                 this.character.collectCoins();
                 this.coinBar.setCoinPercentage(this.character.collectedCoins);
+                this.coins.splice(i, 1);
                 console.log(`character coins`, this.character.collectedCoins);
             }
-        });
+        }
+    };
+
+    checkBottleCollections = () => {
+        for (let i = this.bottles.length - 1; i >= 0; i--) {
+            if (this.character.isColliding(this.bottles[i])) {
+                this.character.collectBottles();
+                this.bottleBar.setBottlePercentage(this.character.collectedBottles);
+                this.bottles.splice(i, 1);
+                console.log(`character bottles`, this.character.collectedBottles);
+            }
+        }
     };
 
     draw() {
