@@ -11,12 +11,12 @@ export class CoinBar extends DrawableObject {
         super();
         this.loadImage(Imagehub.BARS.coins[0]);
         this.loadImages(Imagehub.BARS.coins);
-        this.setPercentage(0);
+        // this.setCoinPercentage(0);
     }
 
-    setPercentage(percentage) {
+    setCoinPercentage(percentage) {
         this.percentage = percentage; // percentage handed over
-        let path = Imagehub.BARS.coins[this.resolveImageIndex()]; // provides path based on energy
+        let path = Imagehub.BARS.coins[this.resolveImageIndex()]; // provides path based on coins
         this.img = this.imageCache[path];
     }
 

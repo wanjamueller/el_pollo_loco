@@ -3,13 +3,21 @@ import { Imagehub } from "./image-hub.class.js";
 
 export class coinObjects extends CollectableObjects {
     x;
-    y = 300;
+    y;
     height = 100;
     width = 100;
+    offset = {
+        top: 30,
+        right: 30,
+        bottom: 30,
+        left: 30,
+    };
+    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();
         this.loadImage(Imagehub.COINS.ground[0]);
-        this.x = 200 + Math.random() * 1200;
+        this.x = 300 + Math.random() * 1200;
+        this.y = 100 + Math.random() * 240;
     }
 }
