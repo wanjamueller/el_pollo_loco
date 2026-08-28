@@ -157,4 +157,8 @@ export class Imagehub {
             `./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png`,
         ],
     };
+
+    static COINS = {
+        ground: [`./assets/img/8_coin/coin_2.png`, `./assets/img/8_coin/coin_2.png`],
+    };
 }
