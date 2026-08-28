@@ -2,9 +2,7 @@ import { level1 } from "../levels/level1.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
-import { Level } from "./level.class.js";
 import { MovableObject } from "./movable-object.class.js";
-import { World } from "./world.class.js";
 
 export class Character extends MovableObject {
     x = 120;

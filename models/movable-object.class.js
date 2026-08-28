@@ -1,6 +1,4 @@
-import { Character } from "./character.class.js";
 import { DrawableObject } from "./drawable-objects.class.js";
-import { IntervalHub } from "./intervallhub.class.js";
 
 export class MovableObject extends DrawableObject {
     speed;
@@ -21,6 +19,7 @@ export class MovableObject extends DrawableObject {
     showFrame = false;
     energy = 100;
     lastHit = 0;
+    throwObj = false;
 
     // gravity for falling after jump
     applyGravity = () => {
@@ -33,6 +32,10 @@ export class MovableObject extends DrawableObject {
 
     // for any animation when jumping flying....
     isAboveGround() {
+        if (this.throwObj) {
+            // Throwable objects should always fall endless
+            return true;
+        }
         return this.y < 155;
     }
 

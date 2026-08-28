@@ -2,6 +2,8 @@ import { Character } from "./character.class.js";
 import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { StatusBar } from "./status-bar.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
+import { Keyboard } from "./keyboard.class.js";
 
 export class World {
     character = new Character();
@@ -10,6 +12,7 @@ export class World {
     ctx;
     camera_x = 0;
     statusBar = new StatusBar();
+    throwableObjects = [];
 
     // canvas handed over from init()
     constructor(canvas) {
@@ -20,12 +23,20 @@ export class World {
 
         // IntervalHub.startInterval(this.startCounter, 1000);
         IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
+        IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
     }
 
     // Link world to character (translate camera_x via character)
     setWorld() {
         this.character.world = this;
     }
+
+    checkThrowObjects = () => {
+        if (Keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 150); // handing over character x & y to Object
+            this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
+        }
+    };
 
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
@@ -57,7 +68,9 @@ export class World {
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
 
+        this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.enemies);
+
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
