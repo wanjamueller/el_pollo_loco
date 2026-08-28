@@ -7,6 +7,7 @@ export class DrawableObject {
     imageCache = {};
     counter;
     showFrame = false; // frame for collision implementation
+    percentage;
 
     // images need loading before drawing in world()
     loadImage(path) {
