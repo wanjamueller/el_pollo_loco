@@ -7,6 +7,8 @@ import { Keyboard } from "./keyboard.class.js";
 import { CollectableObjects } from "./collectable-objects.class.js";
 import { BottleObjects } from "./bottle-objects-class.js";
 import { coinObjects } from "./coin-objects.class.js";
+import { CoinBar } from "./coin-bar.class.js";
+import { BottleBar } from "./bottle-bar.class.js";
 
 export class World {
     character = new Character();
@@ -15,6 +17,8 @@ export class World {
     ctx;
     camera_x = 0;
     statusBar = new StatusBar();
+    coinBar = new CoinBar();
+    bottleBar = new BottleBar();
     throwableObjects = [];
     bottles = [
         new BottleObjects(),
@@ -85,6 +89,8 @@ export class World {
         // space for fixed objects
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.coins);
