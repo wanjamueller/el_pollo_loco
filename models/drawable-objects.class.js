@@ -6,8 +6,20 @@ export class DrawableObject {
     img;
     imageCache = {};
     counter;
-    showFrame = false; // frame for collision implementation
     percentage;
+    collectedCoins = 0;
+    offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+    };
+    // real frame of obj
+    rX;
+    rY;
+    rW;
+    rH;
+    showFrame = false; // frame for collision implementation
 
     // images need loading before drawing in world()
     loadImage(path) {
@@ -29,6 +41,14 @@ export class DrawableObject {
         });
     }
 
+    // defining real frame with formula to shorten drawFrame()
+    getRealFrame() {
+        this.rX = this.x + this.offset.left;
+        this.rY = this.y + this.offset.top;
+        this.rW = this.width - this.offset.left - this.offset.right;
+        this.rH = this.height - this.offset.top - this.offset.bottom;
+    }
+
     // // add frame to each object for collision implementation
     drawFrame(ctx) {
         if (this.showFrame) {
@@ -39,5 +59,15 @@ export class DrawableObject {
             ctx.rect(this.rX, this.rY, this.rW, this.rH);
             ctx.stroke();
         }
+    }
+
+    // Collision detection
+    isColliding(obj) {
+        return (
+            this.rX + this.rW > obj.rX &&
+            this.rY + this.rH > obj.rY &&
+            this.rX < obj.rX + obj.rW &&
+            this.rY < obj.rY + obj.rH
+        );
     }
 }

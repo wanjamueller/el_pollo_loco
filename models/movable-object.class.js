@@ -5,18 +5,6 @@ export class MovableObject extends DrawableObject {
     otherDirection = false;
     speed_y = 0;
     acc = 2.5;
-    offset = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-    };
-    // real frame of obj
-    rX;
-    rY;
-    rW;
-    rH;
-    showFrame = false;
     energy = 100;
     lastHit = 0;
     throwObj = false;
@@ -39,24 +27,6 @@ export class MovableObject extends DrawableObject {
         return this.y < 155;
     }
 
-    // defining real frame with formula to shorten drawFrame()
-    getRealFrame() {
-        this.rX = this.x + this.offset.left;
-        this.rY = this.y + this.offset.top;
-        this.rW = this.width - this.offset.left - this.offset.right;
-        this.rH = this.height - this.offset.top - this.offset.bottom;
-    }
-
-    // Collision detection
-    isColliding(obj) {
-        return (
-            this.rX + this.rW > obj.rX &&
-            this.rY + this.rH > obj.rY &&
-            this.rX < obj.rX + obj.rW &&
-            this.rY < obj.rY + obj.rH
-        );
-    }
-
     // object getting hit reduces eneergy by 5
     hit() {
         this.energy -= 5;
@@ -64,6 +34,15 @@ export class MovableObject extends DrawableObject {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
+        }
+    }
+
+    collectCoins() {
+        this.collectedCoins += 20;
+        if (this.collectedCoins < 0) {
+            this.collectedCoins = 0;
+        } else if (this.collectedCoins > 100) {
+            this.collectedCoins = 100;
         }
     }
 

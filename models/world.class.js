@@ -4,7 +4,6 @@ import { IntervalHub } from "./intervallhub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 import { Keyboard } from "./keyboard.class.js";
-import { CollectableObjects } from "./collectable-objects.class.js";
 import { BottleObjects } from "./bottle-objects-class.js";
 import { coinObjects } from "./coin-objects.class.js";
 import { CoinBar } from "./coin-bar.class.js";
@@ -46,6 +45,7 @@ export class World {
 
         // IntervalHub.startInterval(this.startCounter, 1000);
         IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
+        IntervalHub.startInterval(this.checkCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
     }
 
@@ -66,7 +66,16 @@ export class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-                // console.log(`character energy`, this.character.energy);
+            }
+        });
+    };
+
+    checkCollections = () => {
+        this.coins.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.character.collectCoins();
+                this.coinBar.setCoinPercentage(this.character.collectedCoins);
+                console.log(`character coins`, this.character.collectedCoins);
             }
         });
     };
