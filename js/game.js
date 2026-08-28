@@ -34,7 +34,6 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.key == "d") {
         Keyboard.D = true;
-        console.log(e.key);
     }
 });
 

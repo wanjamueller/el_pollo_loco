@@ -56,9 +56,11 @@ export class World {
     }
 
     checkThrowObjects = () => {
-        if (Keyboard.D) {
+        if (Keyboard.D && this.character.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 150); // handing over character x & y to Object
             this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
+            this.character.collectedBottles -= 20;
+            this.bottleBar.setBottlePercentage(this.character.collectedBottles);
         }
     };
 
