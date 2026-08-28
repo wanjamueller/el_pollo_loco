@@ -6,6 +6,13 @@ export class BottleObjects extends CollectableObjects {
     y = 350;
     height = 80;
     width = 60;
+    offset = {
+        top: 15,
+        right: 20,
+        bottom: 10,
+        left: 20,
+    };
+    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();
