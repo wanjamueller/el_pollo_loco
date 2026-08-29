@@ -5,7 +5,7 @@ export class DrawableObject {
     width;
     img;
     imageCache = {};
-    counter;
+    counter; // for playanimation() of picture arrays
     percentage;
     collectedCoins = 0;
     collectedBottles = 0;
