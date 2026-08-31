@@ -3,7 +3,6 @@ import { DrawableObject } from "./drawable-objects.class.js";
 export class MovableObject extends DrawableObject {
     speed;
     otherDirection = false;
-    speed_y = 0;
     acc = 2.5;
     energy = 100;
     lastHit = 0;
@@ -64,7 +63,8 @@ export class MovableObject extends DrawableObject {
 
     // if energy = 0 , then object is dead
     isDead() {
-        return this.energy === 0;
+        // return this.energy === 0;
+        return this.energy <= 0;
     }
 
     flipImage(ctx) {

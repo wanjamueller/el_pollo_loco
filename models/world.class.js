@@ -45,11 +45,12 @@ export class World {
         this.draw();
 
         // IntervalHub.startInterval(this.startCounter, 1000);
-        IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
+        IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
         IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
-        IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 10);
+        IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 60);
+        IntervalHub.startInterval(this.checkJumpOnChicken, 1000 / 60);
     }
 
     // Link world to character (translate camera_x via character)
@@ -67,9 +68,20 @@ export class World {
         }
     };
 
+    checkJumpOnChicken = () => {
+        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+            const enemy = this.level.enemies[i];
+            if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
+                enemy.hit();
+                this.character.speed_y = 15; // bouncing after jumping on chicken
+                console.log(`jump on`, enemy);
+            }
+        }
+    };
+
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy) && !enemy.isDead()) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -98,17 +110,6 @@ export class World {
         }
     };
 
-    // // not working
-    // checkJumpOnChicken = () => {
-    //     for (let i = this.level.enemies.length - 1; i >= 0; i--) {
-    //         if (this.character.isColliding(this.level.enemies[i])) {
-    //             this.level.enemies[i].energy -= 20;
-    //             console.log(`character bottles`, this.character.collectedBottles);
-    //         }
-    //     }
-    // };
-
-    // not working
     checkBottleHitsChicken = () => {
         for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
             const bottle = this.throwableObjects[j];
