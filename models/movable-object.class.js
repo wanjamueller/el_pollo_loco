@@ -8,6 +8,7 @@ export class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     throwObj = false;
+    dead = false;
 
     // gravity for falling after jump
     applyGravity = () => {
