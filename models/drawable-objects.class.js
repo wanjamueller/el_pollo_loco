@@ -4,6 +4,7 @@ export class DrawableObject {
     height;
     width;
     img;
+    speed_y = 0;
     imageCache = {};
     counter; // for playanimation() of picture arrays
     percentage;
@@ -30,7 +31,7 @@ export class DrawableObject {
 
     // pushing to world.addToMap()
     draw(ctx) {
-        // this.getRealFrame();
+        this.getRealFrame();
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
@@ -53,7 +54,6 @@ export class DrawableObject {
     // // add frame to each object for collision implementation
     drawFrame(ctx) {
         if (this.showFrame) {
-            this.getRealFrame(); // could go into constructor, but needs cleaning up after adding super class drawable
             ctx.beginPath();
             ctx.lineWidth = `5`;
             ctx.strokeStyle = `blue`;
@@ -70,5 +70,28 @@ export class DrawableObject {
             this.rX < obj.rX + obj.rW &&
             this.rY < obj.rY + obj.rH
         );
+    }
+
+    isJumpingOn(obj) {
+        return (
+            this.isColliding(obj) && this.speed_y < 0 && this.rY + this.rH < obj.rY + obj.rH // feet above enemy's midline
+        );
+    }
+
+    // define what image (index) is shown based on percentage
+    resolveImageIndex() {
+        if (this.percentage === 100) {
+            return 5;
+        } else if (this.percentage >= 80) {
+            return 4;
+        } else if (this.percentage >= 60) {
+            return 3;
+        } else if (this.percentage >= 40) {
+            return 2;
+        } else if (this.percentage >= 20) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
