@@ -59,7 +59,7 @@ export class World {
     }
 
     checkThrowObjects = () => {
-        if (Keyboard.D && this.character.collectedBottles > 0) {
+        if (Keyboard.D && !this.character.otherDirection && this.character.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 150); // handing over character x & y to Object
             this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
             this.character.collectedBottles -= 20;
@@ -74,6 +74,7 @@ export class World {
             if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
                 enemy.hit();
                 this.character.speed_y = 15; // bouncing after jumping on chicken
+                setTimeout(this.level.enemies.splice(i, 1), 1000);
                 console.log(`jump on`, enemy);
             }
         }
