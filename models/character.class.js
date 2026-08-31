@@ -44,6 +44,7 @@ export class Character extends MovableObject {
             this.playAnimation(Imagehub.PEPE.jump);
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(Imagehub.PEPE.move);
+            console.log(this.x);
         } else {
             this.playAnimation(Imagehub.PEPE.idle);
         }

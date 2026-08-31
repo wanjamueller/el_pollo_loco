@@ -1,6 +1,8 @@
+import { level1 } from "../levels/level1.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { MovableObject } from "./movable-object.class.js";
+import { World } from "./world.class.js";
 
 export class Endboss extends MovableObject {
     y = 230;
@@ -24,9 +26,21 @@ export class Endboss extends MovableObject {
         this.loadImages(Imagehub.ENDBOSS.alert);
         this.loadImages(Imagehub.ENDBOSS.dead);
         this.loadImages(Imagehub.ENDBOSS.hurt);
+        this.loadImages(Imagehub.ENDBOSS.move);
+        this.loadImages(Imagehub.ENDBOSS.attack);
         // start intervall for moving endboss
         IntervalHub.startInterval(this.animate, 1000 / 10);
         // IntervalHub.startInterval(this.moveLeft, 1000 / 60);
+    }
+
+    startMoving() {
+        this.speed = 10;
+        this.moveLeft();
+    }
+
+    attack() {
+        this.speed = 20;
+        this.moveLeft();
     }
 
     // animate endboss walking
@@ -36,6 +50,10 @@ export class Endboss extends MovableObject {
             this.playAnimation(Imagehub.ENDBOSS.dead);
         } else if (this.isHurt()) {
             this.playAnimation(Imagehub.ENDBOSS.hurt);
+        } else if (this.startMoving) {
+            this.playAnimation(Imagehub.ENDBOSS.move);
+        } else if (this.attack) {
+            this.playAnimation(Imagehub.ENDBOSS.attack);
         } else {
             this.playAnimation(Imagehub.ENDBOSS.alert);
         }
@@ -49,5 +67,13 @@ export class Endboss extends MovableObject {
         } else {
             this.lastHit = new Date().getTime();
         }
+    }
+
+    removeEnemy(enemy) {
+        if (enemy.isDead())
+            setTimeout(() => {
+                const index = level1.boss.indexOf(enemy);
+                if (index > -1) level1.boss.splice(index, 1);
+            }, 3000);
     }
 }

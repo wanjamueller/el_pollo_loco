@@ -1,3 +1,4 @@
+import { level1 } from "../levels/level1.js";
 import { DrawableObject } from "./drawable-objects.class.js";
 
 export class MovableObject extends DrawableObject {
@@ -97,5 +98,13 @@ export class MovableObject extends DrawableObject {
 
     jump() {
         this.speed_y = 30;
+    }
+
+    removeEnemy(enemy) {
+        if (enemy.isDead())
+            setTimeout(() => {
+                const index = level1.enemies.indexOf(enemy);
+                if (index > -1) level1.enemies.splice(index, 1);
+            }, 1000);
     }
 }

@@ -47,11 +47,12 @@ export class World {
         this.draw();
 
         // IntervalHub.startInterval(this.startCounter, 1000);
-        IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
+        IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
         IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
         IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 60);
+        IntervalHub.startInterval(this.checkBottleHitsEndboss, 1000 / 60);
         IntervalHub.startInterval(this.checkJumpOnChicken, 1000 / 60);
     }
 
@@ -117,8 +118,25 @@ export class World {
                 // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
                 if (!enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
+                    // this.endbossBar.setEndbossPercentage(enemy.energy);
+                    this.throwableObjects.splice(j, 1);
+                    enemy.removeEnemy(enemy);
+                }
+            }
+        }
+    };
+
+    checkBottleHitsEndboss = () => {
+        for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
+            const bottle = this.throwableObjects[j];
+            for (let i = this.level.boss.length - 1; i >= 0; i--) {
+                const enemy = this.level.boss[i];
+                // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
+                if (!enemy.isDead() && bottle.isColliding(enemy)) {
+                    enemy.hit();
                     this.endbossBar.setEndbossPercentage(enemy.energy);
                     this.throwableObjects.splice(j, 1);
+                    enemy.removeEnemy(enemy);
                 }
             }
         }
@@ -127,7 +145,6 @@ export class World {
     draw() {
         // move camera with character (also statusbar)
         this.camera_x = -this.character.x + 100;
-        // this.statusBar.x = -this.camera_x + 50;
 
         // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -151,6 +168,7 @@ export class World {
         this.addObjectsToMap(this.bottles);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.boss);
 
         this.addToMap(this.character);
 
