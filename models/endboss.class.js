@@ -20,15 +20,34 @@ export class Endboss extends MovableObject {
     constructor() {
         super();
         // loading images from Imagehub
-        this.loadImage(Imagehub.ENDBOSS.move[0]);
-        this.loadImages(Imagehub.ENDBOSS.move);
+        this.loadImage(Imagehub.ENDBOSS.alert[0]);
+        this.loadImages(Imagehub.ENDBOSS.alert);
+        this.loadImages(Imagehub.ENDBOSS.dead);
+        this.loadImages(Imagehub.ENDBOSS.hurt);
         // start intervall for moving endboss
         IntervalHub.startInterval(this.animate, 1000 / 10);
-        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
+        // IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 
     // animate endboss walking
     animate = () => {
-        this.playAnimation(Imagehub.ENDBOSS.move);
+        // this.playAnimation(Imagehub.ENDBOSS.alert);
+        if (this.isDead()) {
+            this.playAnimation(Imagehub.ENDBOSS.dead);
+        } else if (this.isHurt()) {
+            this.playAnimation(Imagehub.ENDBOSS.hurt);
+        } else {
+            this.playAnimation(Imagehub.ENDBOSS.alert);
+        }
     };
+
+    // chicken getting hit rreduces energy by 20
+    hit() {
+        this.energy -= 20;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
 }

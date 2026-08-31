@@ -64,7 +64,6 @@ export class World {
             this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
             this.character.collectedBottles -= 20;
             this.bottleBar.setBottlePercentage(this.character.collectedBottles);
-            console.log(`bottles left`, this.character.collectedBottles);
         }
     };
 
@@ -74,7 +73,6 @@ export class World {
             if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
                 enemy.hit(i);
                 this.character.speed_y = 15; // bouncing after jumping on chicken
-                console.log(`jump on`, enemy);
             }
         }
     };
@@ -94,7 +92,6 @@ export class World {
                 this.character.collectCoins();
                 this.coinBar.setCoinPercentage(this.character.collectedCoins);
                 this.coins.splice(i, 1);
-                console.log(`character coins`, this.character.collectedCoins);
             }
         }
     };
@@ -105,7 +102,6 @@ export class World {
                 this.character.collectBottles();
                 this.bottleBar.setBottlePercentage(this.character.collectedBottles);
                 this.bottles.splice(i, 1);
-                console.log(`character bottles`, this.character.collectedBottles);
             }
         }
     };
@@ -118,7 +114,8 @@ export class World {
                 // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
                 if (!enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
-                    console.log(`chicken hit`, enemy);
+                    console.log(`hit:`, enemy);
+                    this.throwableObjects.splice(j, 1);
                 }
             }
         }
