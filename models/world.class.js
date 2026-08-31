@@ -8,6 +8,7 @@ import { BottleObjects } from "./bottle-objects-class.js";
 import { coinObjects } from "./coin-objects.class.js";
 import { CoinBar } from "./coin-bar.class.js";
 import { BottleBar } from "./bottle-bar.class.js";
+import { Imagehub } from "./image-hub.class.js";
 
 export class World {
     character = new Character();
@@ -48,6 +49,7 @@ export class World {
         IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
+        IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 10);
     }
 
     // Link world to character (translate camera_x via character)
@@ -61,6 +63,7 @@ export class World {
             this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
             this.character.collectedBottles -= 20;
             this.bottleBar.setBottlePercentage(this.character.collectedBottles);
+            console.log(`bottles left`, this.character.collectedBottles);
         }
     };
 
@@ -91,6 +94,31 @@ export class World {
                 this.bottleBar.setBottlePercentage(this.character.collectedBottles);
                 this.bottles.splice(i, 1);
                 console.log(`character bottles`, this.character.collectedBottles);
+            }
+        }
+    };
+
+    // // not working
+    // checkJumpOnChicken = () => {
+    //     for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+    //         if (this.character.isColliding(this.level.enemies[i])) {
+    //             this.level.enemies[i].energy -= 20;
+    //             console.log(`character bottles`, this.character.collectedBottles);
+    //         }
+    //     }
+    // };
+
+    // not working
+    checkBottleHitsChicken = () => {
+        for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
+            const bottle = this.throwableObjects[j];
+            for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+                const enemy = this.level.enemies[i];
+                // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
+                if (!enemy.isDead() && bottle.isColliding(enemy)) {
+                    enemy.hit();
+                    console.log(`chicken hit`, enemy);
+                }
             }
         }
     };

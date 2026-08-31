@@ -21,6 +21,7 @@ export class Chicken extends MovableObject {
         // loading images from Imagehub
         this.loadImage(Imagehub.CHICKEN.move[0]);
         this.loadImages(Imagehub.CHICKEN.move);
+        this.loadImages(Imagehub.CHICKEN.dead);
         // random positioning at start
         this.x = 200 + Math.random() * 1200;
         // start intervall for moving chicken
@@ -30,6 +31,16 @@ export class Chicken extends MovableObject {
 
     // animate chicken walking
     animate = () => {
-        this.playAnimation(Imagehub.CHICKEN.move);
+        if (this.isDead()) {
+            this.playAnimation(Imagehub.CHICKEN.dead);
+            this.speed = 0;
+        } else {
+            this.playAnimation(Imagehub.CHICKEN.move);
+        }
     };
+
+    // chicken getting hit rreduces energy by 20
+    hit() {
+        this.energy -= 100;
+    }
 }

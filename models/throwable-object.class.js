@@ -8,7 +8,14 @@ export class ThrowableObject extends MovableObject {
     height = 80;
     width = 60;
     counter = 0;
+    offset = {
+        top: 15,
+        right: 20,
+        bottom: 10,
+        left: 20,
+    };
     throwObj = true;
+    showFrame = true; // frame for collision implementation
 
     constructor(x, y) {
         super();
