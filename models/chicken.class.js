@@ -1,6 +1,7 @@
 import { MovableObject } from "./movable-object.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
+import { level1 } from "../levels/level1.js";
 
 export class Chicken extends MovableObject {
     y = 360;
@@ -40,7 +41,11 @@ export class Chicken extends MovableObject {
     };
 
     // chicken getting hit rreduces energy by 20
-    hit() {
+    hit(i) {
         this.energy -= 100;
+        // chicken disappearing after 1 sec if dead
+        setTimeout(() => {
+            level1.enemies.splice(i, 1);
+        }, 1000);
     }
 }

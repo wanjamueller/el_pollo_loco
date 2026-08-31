@@ -72,9 +72,8 @@ export class World {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             const enemy = this.level.enemies[i];
             if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
-                enemy.hit();
+                enemy.hit(i);
                 this.character.speed_y = 15; // bouncing after jumping on chicken
-                setTimeout(this.level.enemies.splice(i, 1), 1000);
                 console.log(`jump on`, enemy);
             }
         }
