@@ -41,19 +41,7 @@ export class Chicken extends MovableObject {
     };
 
     // chicken getting hit rreduces energy by 20
-    hit(i) {
-        // chicken disappearing after 1 sec if dead
-        // setTimeout(() => {
-        //     level1.enemies.splice(i, 1);
-        // }, 1000);
+    hit() {
         this.energy -= 100;
-    }
-
-    removeEnemy(enemy) {
-        if (enemy.isDead())
-            setTimeout(() => {
-                const index = level1.enemies.indexOf(enemy);
-                if (index > -1) level1.enemies.splice(index, 1);
-            }, 1000);
     }
 }
