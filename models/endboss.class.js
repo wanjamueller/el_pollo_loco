@@ -42,7 +42,7 @@ export class Endboss extends MovableObject {
     };
 
     // chicken getting hit rreduces energy by 20
-    hit() {
+    hit(i) {
         this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;

@@ -74,7 +74,7 @@ export class DrawableObject {
 
     isJumpingOn(obj) {
         return (
-            this.isColliding(obj) && this.speed_y < 0 && this.rY + this.rH < obj.rY + obj.rH // feet above enemy's midline
+            this.isColliding(obj) && this.speed_y < 0 && this.rY + this.rH < obj.rY + obj.rH // PEPE above Chicken
         );
     }
 

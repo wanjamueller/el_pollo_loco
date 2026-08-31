@@ -9,6 +9,7 @@ import { coinObjects } from "./coin-objects.class.js";
 import { CoinBar } from "./coin-bar.class.js";
 import { BottleBar } from "./bottle-bar.class.js";
 import { Imagehub } from "./image-hub.class.js";
+import { EndbossBar } from "./endboss-bar.class.js";
 
 export class World {
     character = new Character();
@@ -19,6 +20,7 @@ export class World {
     statusBar = new StatusBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
+    endbossBar = new EndbossBar();
     throwableObjects = [];
     bottles = [
         new BottleObjects(),
@@ -72,6 +74,7 @@ export class World {
             const enemy = this.level.enemies[i];
             if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
                 enemy.hit(i);
+                console.log(`hit:`, enemy, enemy.energy);
                 this.character.speed_y = 15; // bouncing after jumping on chicken
             }
         }
@@ -114,7 +117,8 @@ export class World {
                 // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
                 if (!enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
-                    console.log(`hit:`, enemy);
+                    this.endbossBar.setEndbossPercentage(enemy.energy);
+                    console.log(`hit:`, enemy, enemy.energy);
                     this.throwableObjects.splice(j, 1);
                 }
             }
@@ -141,6 +145,7 @@ export class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.endbossBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.coins);
