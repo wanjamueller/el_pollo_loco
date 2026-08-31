@@ -74,8 +74,8 @@ export class World {
             const enemy = this.level.enemies[i];
             if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
                 enemy.hit(i);
-                console.log(`hit:`, enemy, enemy.energy);
                 this.character.speed_y = 15; // bouncing after jumping on chicken
+                enemy.removeEnemy(enemy);
             }
         }
     };
@@ -118,7 +118,6 @@ export class World {
                 if (!enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
                     this.endbossBar.setEndbossPercentage(enemy.energy);
-                    console.log(`hit:`, enemy, enemy.energy);
                     this.throwableObjects.splice(j, 1);
                 }
             }
