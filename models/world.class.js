@@ -54,6 +54,8 @@ export class World {
         IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 60);
         IntervalHub.startInterval(this.checkBottleHitsEndboss, 1000 / 60);
         IntervalHub.startInterval(this.checkJumpOnChicken, 1000 / 60);
+        IntervalHub.startInterval(this.characterApproachesEndboss, 1000 / 10);
+        IntervalHub.startInterval(this.endbossAttacks, 1000 / 10);
     }
 
     // Link world to character (translate camera_x via character)
@@ -140,6 +142,21 @@ export class World {
                 }
             }
         }
+    };
+
+    characterApproachesEndboss = () => {
+        if (this.character.x > 980) {
+            this.level.boss.forEach((boss) => boss.startMoving());
+        }
+    };
+
+    endbossAttacks = () => {
+        this.level.boss.forEach((boss) => {
+            if (Math.abs(boss.x - this.character.x) < 300 && !boss.isDead()) {
+                // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
+                boss.attack();
+            }
+        });
     };
 
     draw() {
