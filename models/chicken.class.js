@@ -44,7 +44,7 @@ export class Chicken extends MovableObject {
     hit(i) {
         this.energy -= 100;
         // chicken disappearing after 1 sec if dead
-        setTimeout(() => {
+        setTimeout((i) => {
             level1.enemies.splice(i, 1);
         }, 1000);
     }
