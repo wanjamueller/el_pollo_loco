@@ -1,5 +1,4 @@
 export class Keyboard {
-    // ########### Attributes ###########
     static UP = false;
     static DOWN = false;
     static LEFT = false;
