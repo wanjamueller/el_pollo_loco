@@ -14,13 +14,16 @@ export class ThrowableObject extends MovableObject {
         bottom: 10,
         left: 20,
     };
+    speed = 10;
     throwObj = true;
+    hitEnemy = false;
     showFrame = true; // frame for collision implementation
 
     constructor(x, y) {
         super();
         this.loadImage(Imagehub.BOTTLES.flying[0]);
         this.loadImages(Imagehub.BOTTLES.flying);
+        this.loadImages(Imagehub.BOTTLES.splash);
         this.x = x; // receiving when thrown
         this.y = y; // receiving when thrown
 
@@ -31,8 +34,20 @@ export class ThrowableObject extends MovableObject {
     }
 
     animateBottle = () => {
-        this.playAnimation(Imagehub.BOTTLES.flying);
+        if (this.hitEnemy) {
+            this.playAnimation(Imagehub.BOTTLES.splash);
+        } else {
+            this.playAnimation(Imagehub.BOTTLES.flying);
+        }
     };
+
+    // if bottle hits Endboss
+    hit() {
+        this.hitEnemy = true; // for starting animation of splash in animateBottle
+        this.speed = 0; // stops movement to right
+        this.speed_y = -2; // slows down movement after splash
+        this.acc = 0;
+    }
 
     throw() {
         this.speed_y = 30;
@@ -41,6 +56,6 @@ export class ThrowableObject extends MovableObject {
     }
 
     speedX = () => {
-        this.x += 10;
+        this.x += this.speed;
     };
 }

@@ -120,10 +120,15 @@ export class World {
                 // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
                 if (!enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
-                    // this.endbossBar.setEndbossPercentage(enemy.energy);
-                    this.throwableObjects.splice(j, 1);
-                    enemy.removeEnemy(enemy);
+                    bottle.hit();
+                    setTimeout(() => {
+                        const index = this.throwableObjects.indexOf(bottle);
+                        if (index > -1) this.throwableObjects.splice(index, 1);
+                    }, 600);
+                    break;
+                    // this.throwableObjects.splice(j, 1);
                 }
+                enemy.removeEnemy(enemy);
             }
         }
     };
@@ -134,12 +139,18 @@ export class World {
             for (let i = this.level.boss.length - 1; i >= 0; i--) {
                 const enemy = this.level.boss[i];
                 // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
-                if (!enemy.isDead() && bottle.isColliding(enemy)) {
+                // !bottle.hitChicken so the bottle does not hit the chicken multiple times as long as they overlapp
+                if (!bottle.hitChicken && !enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
                     this.endbossBar.setEndbossPercentage(enemy.energy);
-                    this.throwableObjects.splice(j, 1);
-                    enemy.removeEnemy(enemy);
+                    bottle.hit();
+                    setTimeout(() => {
+                        const index = this.throwableObjects.indexOf(bottle);
+                        if (index > -1) this.throwableObjects.splice(index, 1);
+                    }, 2000);
+                    break;
                 }
+                enemy.removeEnemy(enemy);
             }
         }
     };
@@ -183,9 +194,9 @@ export class World {
 
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.bottles);
-        this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.boss);
+        this.addObjectsToMap(this.throwableObjects);
 
         this.addToMap(this.character);
 
