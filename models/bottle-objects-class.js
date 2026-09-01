@@ -17,6 +17,6 @@ export class BottleObjects extends CollectableObjects {
     constructor() {
         super();
         this.loadImage(Imagehub.BOTTLES.right[0]);
-        this.x = 200 + Math.random() * 1200;
+        this.x = 250 + Math.random() * 1200;
     }
 }
