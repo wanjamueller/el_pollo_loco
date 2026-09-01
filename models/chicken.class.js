@@ -24,7 +24,7 @@ export class Chicken extends MovableObject {
         this.loadImages(Imagehub.CHICKEN.move);
         this.loadImages(Imagehub.CHICKEN.dead);
         // random positioning at start
-        this.x = 200 + Math.random() * 1200;
+        this.x = 300 + Math.random() * 1200;
         // start intervall for moving chicken
         IntervalHub.startInterval(this.animate, 1000 / 10);
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);

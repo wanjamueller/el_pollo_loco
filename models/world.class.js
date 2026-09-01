@@ -104,7 +104,7 @@ export class World {
 
     checkBottleCollections = () => {
         for (let i = this.bottles.length - 1; i >= 0; i--) {
-            if (this.character.isColliding(this.bottles[i])) {
+            if (this.character.collectedBottles < 100 && this.character.isColliding(this.bottles[i])) {
                 this.character.collectBottles();
                 this.bottleBar.setBottlePercentage(this.character.collectedBottles);
                 this.bottles.splice(i, 1);
@@ -140,14 +140,15 @@ export class World {
                 const enemy = this.level.boss[i];
                 // !enemy.isDead() so the chicken does not come alive again after getting hit a second time
                 // !bottle.hitChicken so the bottle does not hit the chicken multiple times as long as they overlapp
-                if (!bottle.hitChicken && !enemy.isDead() && bottle.isColliding(enemy)) {
+                if (!bottle.hitEnemy && !enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
                     this.endbossBar.setEndbossPercentage(enemy.energy);
                     bottle.hit();
                     setTimeout(() => {
                         const index = this.throwableObjects.indexOf(bottle);
                         if (index > -1) this.throwableObjects.splice(index, 1);
-                    }, 2000);
+                    }, 1500);
+                    // stops bottle from reducing energy continueously
                     break;
                 }
                 enemy.removeEnemy(enemy);
