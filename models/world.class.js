@@ -82,6 +82,8 @@ export class World {
             this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
             this.character.collectedBottles -= 20;
             this.bottleBar.setBottlePercentage(this.character.collectedBottles);
+        } else if (!this.bottles.length && this.character.collectedBottles <= 0) {
+            this.bottles = [new BottleObjects(), new BottleObjects(), new BottleObjects()]; // adding 3 bottles in case there are none left to collect / throw
         }
     };
 
@@ -207,9 +209,21 @@ export class World {
         if (this.character.x >= 1980) {
             this.camera_x = -1880;
             this.level.level_end_x = 2480;
+        } else if (this.character.x > this.level.boss.x) {
+            this.camera_x = -this.character.x + 400;
         } else {
             this.camera_x = -this.character.x + 100; // move camera with character (also statusbar)
         }
+    }
+
+    addStatusbars() {
+        // space for fixed objects
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
+        this.addToMap(this.endbossBar);
+        this.ctx.translate(this.camera_x, 0);
     }
 
     draw() {
@@ -222,23 +236,16 @@ export class World {
 
         // adding to map
         this.addObjectsToMap(this.level.backgroundObjects);
-
         this.addObjectsToMap(this.level.clouds);
 
-        // space for fixed objects
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
-        this.addToMap(this.coinBar);
-        this.addToMap(this.bottleBar);
-        this.addToMap(this.endbossBar);
-        this.ctx.translate(this.camera_x, 0);
+        // fix Statusbars
+        this.addStatusbars();
 
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.boss);
         this.addObjectsToMap(this.throwableObjects);
-
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);

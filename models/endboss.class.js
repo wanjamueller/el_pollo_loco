@@ -5,7 +5,7 @@ import { MovableObject } from "./movable-object.class.js";
 
 export class Endboss extends MovableObject {
     y = 230;
-    x = 1500; // fix for now, based on level1
+    x = 2300; // fix for now, based on level1
     height = 200;
     width = 200;
     counter = 0;
