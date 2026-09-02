@@ -18,6 +18,7 @@ export class Character extends MovableObject {
         left: 40,
     };
     showFrame = true; // frame for collision implementation
+    lastActivity = new Date().getTime();
 
     constructor() {
         super();
@@ -28,10 +29,16 @@ export class Character extends MovableObject {
         this.loadImages(Imagehub.PEPE.jump);
         this.loadImages(Imagehub.PEPE.hurt);
         this.loadImages(Imagehub.PEPE.dead);
+        this.loadImages(Imagehub.PEPE.long_idle);
         // starting intervalls for PEPE
         IntervalHub.startInterval(this.animatePEPE, 1000 / 10);
         IntervalHub.startInterval(this.move, 1000 / 60);
         IntervalHub.startInterval(this.applyGravity, 1000 / 25);
+    }
+
+    isLongIdle() {
+        const secondsPassed = (new Date().getTime() - this.lastActivity) / 1000;
+        return secondsPassed > 3;
     }
 
     // animate PEPE walking
@@ -45,6 +52,8 @@ export class Character extends MovableObject {
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(Imagehub.PEPE.move);
             console.log(this.x);
+        } else if (this.isLongIdle()) {
+            this.playAnimation(Imagehub.PEPE.long_idle);
         } else {
             this.playAnimation(Imagehub.PEPE.idle);
         }
@@ -55,13 +64,16 @@ export class Character extends MovableObject {
             // for now fix for level1, need to check on how to open for more levels
             this.otherDirection = false;
             this.moveRight();
+            this.lastActivity = new Date().getTime();
         }
         if (Keyboard.LEFT && this.x > level1.level_start_x) {
             this.otherDirection = true;
             this.moveLeft();
+            this.lastActivity = new Date().getTime();
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+            this.lastActivity = new Date().getTime();
         }
     };
 }
