@@ -173,14 +173,17 @@ export class World {
     };
 
     characterApproachesEndboss = () => {
-        if (this.character.x > 980) {
-            this.level.boss.forEach((boss) => boss.startMoving());
-        }
+        this.level.boss.forEach((boss) => {
+            if (Math.abs(boss.x - this.character.x) < 300) {
+                // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
+                this.level.boss.forEach((boss) => boss.startMoving());
+            }
+        });
     };
 
     endbossAttacks = () => {
         this.level.boss.forEach((boss) => {
-            if (Math.abs(boss.x - this.character.x) < 300 && !boss.isDead()) {
+            if (Math.abs(boss.x - this.character.x) < 150 && !boss.isDead()) {
                 // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
                 boss.attack();
             }
