@@ -36,15 +36,15 @@ export class Endboss extends MovableObject {
 
     startMoving() {
         if (!this.moving && !this.isDead()) {
-            this.moving = true;
+            this.moving = true; // turns on move animation
             IntervalHub.startInterval(this.walkAgain, 1000 / 60);
         }
     }
 
     walkAgain = () => {
         if (!this.attacking && !this.isDead()) {
-            this.speed = 0.5;
-            this.moveLeft();
+            this.speed = 5;
+            // this.moveLeft();
         }
     };
 

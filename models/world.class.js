@@ -180,7 +180,14 @@ export class World {
 
     characterApproachesEndboss = () => {
         this.level.boss.forEach((boss) => {
-            if (Math.abs(boss.x - this.character.x) < 300) {
+            if (Math.abs(boss.x - this.character.x) < 500 && this.character.x > boss.x) {
+                boss.otherDirection = true;
+                this.level.boss.forEach((boss) => boss.moveRight());
+                // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
+                this.level.boss.forEach((boss) => boss.startMoving());
+            } else if (Math.abs(boss.x - this.character.x) < 500 && this.character.x < boss.x) {
+                boss.otherDirection = false;
+                this.level.boss.forEach((boss) => boss.moveLeft());
                 // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
                 this.level.boss.forEach((boss) => boss.startMoving());
             }
