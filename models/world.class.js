@@ -54,6 +54,7 @@ export class World {
 
         // IntervalHub.startInterval(this.startCounter, 1000);
         IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
+        IntervalHub.startInterval(this.checkEndbossCollisions, 1000 / 10);
         IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
         IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
@@ -91,6 +92,15 @@ export class World {
 
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy) && !enemy.isDead()) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        });
+    };
+
+    checkEndbossCollisions = () => {
+        this.level.boss.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy) && !enemy.isDead()) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
