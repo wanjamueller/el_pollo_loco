@@ -202,10 +202,18 @@ export class World {
             }
         });
     };
+    cameraPosition() {
+        // let character move freely at end to level end
+        if (this.character.x >= 1980) {
+            this.camera_x = -1880;
+            this.level.level_end_x = 2480;
+        } else {
+            this.camera_x = -this.character.x + 100; // move camera with character (also statusbar)
+        }
+    }
 
     draw() {
-        // move camera with character (also statusbar)
-        this.camera_x = -this.character.x + 100;
+        this.cameraPosition();
 
         // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
