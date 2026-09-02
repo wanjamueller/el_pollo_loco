@@ -2,10 +2,10 @@ import { MovableObject } from "./movable-object.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 
-export class Chicken extends MovableObject {
-    y = 360;
-    height = 70;
-    width = 70;
+export class SmallChicken extends MovableObject {
+    y = 380;
+    height = 50;
+    width = 50;
     counter = 0;
     speed = 0.3 + Math.random();
     offset = {
@@ -19,9 +19,9 @@ export class Chicken extends MovableObject {
     constructor() {
         super();
         // loading images from Imagehub
-        this.loadImage(Imagehub.CHICKEN.move[0]);
-        this.loadImages(Imagehub.CHICKEN.move);
-        this.loadImages(Imagehub.CHICKEN.dead);
+        this.loadImage(Imagehub.SMALL_CHICKEN.move[0]);
+        this.loadImages(Imagehub.SMALL_CHICKEN.move);
+        this.loadImages(Imagehub.SMALL_CHICKEN.dead);
         // random positioning at start
         this.x = 300 + Math.random() * 2000;
         // start intervall for moving chicken
@@ -32,10 +32,10 @@ export class Chicken extends MovableObject {
     // animate chicken walking
     animate = () => {
         if (this.isDead()) {
-            this.playAnimation(Imagehub.CHICKEN.dead);
+            this.playAnimation(Imagehub.SMALL_CHICKEN.dead);
             this.speed = 0;
         } else {
-            this.playAnimation(Imagehub.CHICKEN.move);
+            this.playAnimation(Imagehub.SMALL_CHICKEN.move);
         }
     };
 
