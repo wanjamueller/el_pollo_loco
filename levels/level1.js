@@ -8,7 +8,14 @@ import { Level } from "../models/level.class.js";
 export const level1 = new Level(
     [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken()],
     [new Endboss()],
-    [new Cloud()],
+    [
+        new Cloud(100, 0),
+        new Cloud(500, 1),
+        new Cloud(900, 0),
+        new Cloud(1400, 1),
+        new Cloud(1900, 0),
+        new Cloud(2400, 1),
+    ],
     [
         new BackgroundObject(Imagehub.BACKGROUND.sky),
         new BackgroundObject(Imagehub.BACKGROUND.plain[0]),

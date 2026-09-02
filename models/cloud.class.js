@@ -8,10 +8,11 @@ export class Cloud extends MovableObject {
     width = 500;
     speed = 0.15;
 
-    constructor() {
+    constructor(x, img) {
         // loading image from Imagehub
-        super().loadImage(Imagehub.CLOUD.move[0]);
-        this.x = Math.random() * 500;
+        super().loadImage(Imagehub.CLOUD.move[img]);
+        // this.x = Math.random() * 500;
+        this.x = x;
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 }
