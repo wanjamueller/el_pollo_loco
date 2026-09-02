@@ -71,7 +71,13 @@ export class World {
     }
 
     checkThrowObjects = () => {
-        if (Keyboard.D && !this.character.otherDirection && this.character.collectedBottles > 0) {
+        if (Keyboard.D && this.character.otherDirection && this.character.collectedBottles > 0) {
+            let bottle = new ThrowableObject(this.character.x, this.character.y + 150); // handing over character x & y to Object
+            this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
+            bottle.otherDirection = true; // to throw left
+            this.character.collectedBottles -= 20;
+            this.bottleBar.setBottlePercentage(this.character.collectedBottles);
+        } else if (Keyboard.D && !this.character.otherDirection && this.character.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 150); // handing over character x & y to Object
             this.throwableObjects.push(bottle); // adding bottles to array when throwind with "d"
             this.character.collectedBottles -= 20;

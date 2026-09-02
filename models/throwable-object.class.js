@@ -18,6 +18,7 @@ export class ThrowableObject extends MovableObject {
     throwObj = true;
     hitEnemy = false;
     showFrame = true; // frame for collision implementation
+    throwReversed = Imagehub.BOTTLES.flying.reverse();
 
     constructor(x, y) {
         super();
@@ -36,6 +37,8 @@ export class ThrowableObject extends MovableObject {
     animateBottle = () => {
         if (this.hitEnemy) {
             this.playAnimation(Imagehub.BOTTLES.splash);
+        } else if (this.otherDirection) {
+            this.playAnimation(this.throwReversed); // animation reversed when throwing left
         } else {
             this.playAnimation(Imagehub.BOTTLES.flying);
         }
@@ -48,14 +51,23 @@ export class ThrowableObject extends MovableObject {
         this.speed_y = -2; // slows down movement after splash
         this.acc = 0;
     }
-
     throw() {
-        this.speed_y = 30;
-        this.applyGravity();
-        this.speedX();
+        if (this.otherDirection) {
+            this.speed_y = -30;
+            this.applyGravity();
+            this.speedX();
+        } else {
+            this.speed_y = 30;
+            this.applyGravity();
+            this.speedX();
+        }
     }
 
     speedX = () => {
-        this.x += this.speed;
+        if (this.otherDirection) {
+            this.x -= this.speed;
+        } else {
+            this.x += this.speed;
+        }
     };
 }
