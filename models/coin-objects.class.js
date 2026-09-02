@@ -17,7 +17,7 @@ export class coinObjects extends CollectableObjects {
     constructor() {
         super();
         this.loadImage(Imagehub.COINS.ground[0]);
-        this.x = 300 + Math.random() * 1200;
+        this.x = 300 + Math.random() * 2000;
         this.y = 100 + Math.random() * 240;
     }
 }
