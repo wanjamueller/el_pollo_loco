@@ -18,7 +18,6 @@ export class ThrowableObject extends MovableObject {
     speed = 10;
     throwObj = true;
     hitEnemy = false;
-    showFrame = true; // frame for collision implementation
     throwReversed = Imagehub.BOTTLES.flying.reverse();
 
     constructor(x, y) {

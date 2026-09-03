@@ -37,6 +37,7 @@ export class World {
         new BottleObjects(),
         new BottleObjects(),
     ];
+
     coins = [
         new coinObjects(),
         new coinObjects(),
