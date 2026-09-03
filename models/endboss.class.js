@@ -19,7 +19,6 @@ export class Endboss extends MovableObject {
     };
     moving = false;
     attacking = false;
-    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();

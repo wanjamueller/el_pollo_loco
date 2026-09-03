@@ -13,11 +13,11 @@ export class BottleObjects extends CollectableObjects {
         bottom: 10,
         left: 20,
     };
-    showFrame = true; // frame for collision implementation
 
-    constructor() {
+    constructor(amount) {
         super();
-        this.loadImage(Imagehub.BOTTLES.right[0]);
+        const bottles = Imagehub.BOTTLES.ground;
+        this.loadImage(bottles[Math.floor(Math.random() * bottles.length)]); // random * length(2) -> decimals between 0 and 2, with floor rounding it down (index 0, 1) randomly
         this.x = 250 + Math.random() * 2000;
     }
 }

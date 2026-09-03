@@ -18,7 +18,6 @@ export class Character extends MovableObject {
         bottom: 15,
         left: 40,
     };
-    showFrame = true; // frame for collision implementation
     lastActivity = new Date().getTime();
 
     constructor() {

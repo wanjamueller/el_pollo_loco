@@ -15,7 +15,6 @@ export class SmallChicken extends MovableObject {
         bottom: 15,
         left: 5,
     };
-    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();

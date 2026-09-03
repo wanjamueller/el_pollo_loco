@@ -12,7 +12,6 @@ export class coinObjects extends CollectableObjects {
         bottom: 30,
         left: 30,
     };
-    showFrame = true; // frame for collision implementation
 
     constructor() {
         super();
