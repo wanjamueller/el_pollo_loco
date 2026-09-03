@@ -1,4 +1,5 @@
 import { level1 } from "../levels/level1.js";
+import { AudioHub } from "./AudioHub.class.js";
 import { DrawableObject } from "./drawable-objects.class.js";
 
 export class MovableObject extends DrawableObject {
@@ -59,12 +60,11 @@ export class MovableObject extends DrawableObject {
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         timePassed = timePassed / 1000; //difference in seconds
-        return timePassed < 1;
+        return timePassed < 0.5;
     }
 
-    // if energy = 0 , then object is dead
+    // if energy = 0 0r smaller , then object is dead
     isDead() {
-        // return this.energy === 0;
         return this.energy <= 0;
     }
 

@@ -10,6 +10,7 @@ import { CoinBar } from "./coin-bar.class.js";
 import { BottleBar } from "./bottle-bar.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { EndbossBar } from "./endboss-bar.class.js";
+import { AudioHub } from "./AudioHub.class.js";
 
 export class World {
     character = new Character();
