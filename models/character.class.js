@@ -1,4 +1,5 @@
 import { level1 } from "../levels/level1.js";
+import { AudioHub } from "./AudioHub.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
@@ -41,21 +42,58 @@ export class Character extends MovableObject {
         return secondsPassed > 3;
     }
 
+    deadAnimation() {
+        this.playAnimation(Imagehub.PEPE.dead);
+        AudioHub.playOne(AudioHub.CHARACTER_DEAD, false);
+        AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+    }
+
+    idleAnimation() {
+        AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        this.playAnimation(Imagehub.PEPE.idle);
+    }
+
+    longIdleAnimation() {
+        AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        this.playAnimation(Imagehub.PEPE.long_idle);
+        AudioHub.playOne(AudioHub.CHARACTER_SNORING, false);
+    }
+
+    hurtAnimation() {
+        this.playAnimation(Imagehub.PEPE.hurt);
+        AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        AudioHub.playOne(AudioHub.CHARACTER_DAMAGE, true);
+    }
+
+    walkingAnimation() {
+        this.playAnimation(Imagehub.PEPE.move);
+        AudioHub.playOne(AudioHub.CHARACTER_RUN, false);
+    }
+
+    jumpAnimation() {
+        AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        AudioHub.playOne(AudioHub.CHARACTER_JUMP, true);
+    }
+
+    aboveGroundAnimation() {
+        AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        this.playAnimation(Imagehub.PEPE.jump);
+    }
+
     // animate PEPE walking
     animatePEPE = () => {
         if (this.isDead()) {
-            this.playAnimation(Imagehub.PEPE.dead);
+            this.deadAnimation();
         } else if (this.isHurt()) {
-            this.playAnimation(Imagehub.PEPE.hurt);
+            this.hurtAnimation();
         } else if (this.isAboveGround()) {
-            this.playAnimation(Imagehub.PEPE.jump);
+            this.aboveGroundAnimation();
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
-            this.playAnimation(Imagehub.PEPE.move);
-            console.log(this.x);
+            this.walkingAnimation();
         } else if (this.isLongIdle()) {
-            this.playAnimation(Imagehub.PEPE.long_idle);
+            this.longIdleAnimation();
         } else {
-            this.playAnimation(Imagehub.PEPE.idle);
+            this.idleAnimation();
         }
     };
 
@@ -73,6 +111,7 @@ export class Character extends MovableObject {
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+            this.jumpAnimation(); // in here, as the sound is not triggered while above ground, but only once at the jump
             this.lastActivity = new Date().getTime();
         }
     };
