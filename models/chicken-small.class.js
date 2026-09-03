@@ -1,6 +1,7 @@
 import { MovableObject } from "./movable-object.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
+import { AudioHub } from "./AudioHub.class.js";
 
 export class SmallChicken extends MovableObject {
     y = 380;
@@ -34,6 +35,10 @@ export class SmallChicken extends MovableObject {
         if (this.isDead()) {
             this.playAnimation(Imagehub.SMALL_CHICKEN.dead);
             this.speed = 0;
+            if (!this.soundPlayed) {
+                AudioHub.playOne(AudioHub.CHICKEN_DEAD, true);
+                this.soundPlayed = true;
+            }
         } else {
             this.playAnimation(Imagehub.SMALL_CHICKEN.move);
         }

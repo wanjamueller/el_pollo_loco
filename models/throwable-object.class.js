@@ -1,3 +1,4 @@
+import { AudioHub } from "./AudioHub.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { MovableObject } from "./movable-object.class.js";
@@ -50,6 +51,7 @@ export class ThrowableObject extends MovableObject {
         this.speed = 0; // stops movement to right
         this.speed_y = -2; // slows down movement after splash
         this.acc = 0;
+        AudioHub.playOne(AudioHub.BOTTLE_BREAK, true);
     }
     throw() {
         if (this.otherDirection) {

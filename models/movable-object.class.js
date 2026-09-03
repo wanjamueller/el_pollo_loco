@@ -10,6 +10,7 @@ export class MovableObject extends DrawableObject {
     lastHit = 0;
     throwObj = false;
     dead = false;
+    soundPlayed = false;
 
     // gravity for falling after jump
     applyGravity = () => {
@@ -41,6 +42,7 @@ export class MovableObject extends DrawableObject {
 
     collectCoins() {
         this.collectedCoins += 20;
+        AudioHub.playOne(AudioHub.COIN_COLLECTED, true);
         if (this.collectedCoins < 0) {
             this.collectedCoins = 0;
         } else if (this.collectedCoins > 100) {
@@ -50,6 +52,7 @@ export class MovableObject extends DrawableObject {
 
     collectBottles() {
         this.collectedBottles += 20;
+        AudioHub.playOne(AudioHub.BOTTLE_COLLECTED, true);
         if (this.collectedBottles < 0) {
             this.collectedBottles = 0;
         } else if (this.collectedBottles > 100) {
