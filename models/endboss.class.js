@@ -1,4 +1,5 @@
 import { level1 } from "../levels/level1.js";
+import { AudioHub } from "./AudioHub.class.js";
 import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { MovableObject } from "./movable-object.class.js";
@@ -9,9 +10,9 @@ export class Endboss extends MovableObject {
     height = 200;
     width = 200;
     counter = 0;
-    speed = 0.7;
+    speed = 0;
     offset = {
-        top: 30,
+        top: 40,
         right: 30,
         bottom: 30,
         left: 20,
@@ -43,7 +44,10 @@ export class Endboss extends MovableObject {
 
     walkAgain = () => {
         if (!this.attacking && !this.isDead()) {
-            this.speed = 5;
+            this.speed = 10;
+            AudioHub.playOne(AudioHub.ENDBOSS_APPROACH, false);
+            console.log(`speed`, this.speed);
+
             // this.moveLeft();
         }
     };
@@ -51,25 +55,34 @@ export class Endboss extends MovableObject {
     attack() {
         if (!this.attacking && !this.isDead()) {
             this.moving = false;
-            this.speed = 0;
+            this.speed = 6;
             this.attacking = true;
             setTimeout(() => (this.attacking = false), 800); // length of the attack animation
             this.startMoving();
         }
     }
 
+    deadAnimation() {
+        this.playAnimation(Imagehub.ENDBOSS.dead);
+        if (!this.soundPlayed) {
+            AudioHub.playOne(AudioHub.CHICKEN_DEAD_2, false);
+            this.soundPlayed = true;
+        }
+    }
+
     // animate endboss walking
     animate = () => {
         if (this.isDead()) {
-            this.playAnimation(Imagehub.ENDBOSS.dead);
+            this.deadAnimation();
         } else if (this.isHurt()) {
             this.playAnimation(Imagehub.ENDBOSS.hurt);
         } else if (this.attacking) {
             this.playAnimation(Imagehub.ENDBOSS.attack);
         } else if (this.moving) {
             this.playAnimation(Imagehub.ENDBOSS.move);
-        } else {
+        } else if (!this.moving) {
             this.playAnimation(Imagehub.ENDBOSS.alert);
+            AudioHub.stopOne(AudioHub.ENDBOSS_APPROACH);
         }
     };
 

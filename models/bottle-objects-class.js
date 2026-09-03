@@ -1,3 +1,4 @@
+import { AudioHub } from "./AudioHub.class.js";
 import { CollectableObjects } from "./collectable-objects.class.js";
 import { Imagehub } from "./image-hub.class.js";
 

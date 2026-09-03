@@ -43,9 +43,12 @@ export class Character extends MovableObject {
     }
 
     deadAnimation() {
-        this.playAnimation(Imagehub.PEPE.dead);
-        AudioHub.playOne(AudioHub.CHARACTER_DEAD, false);
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        this.playAnimation(Imagehub.PEPE.dead);
+        if (!this.soundPlayed) {
+            AudioHub.playOne(AudioHub.CHARACTER_DEAD, false);
+            this.soundPlayed = true;
+        }
     }
 
     idleAnimation() {
@@ -62,7 +65,7 @@ export class Character extends MovableObject {
     hurtAnimation() {
         this.playAnimation(Imagehub.PEPE.hurt);
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
-        AudioHub.playOne(AudioHub.CHARACTER_DAMAGE, true);
+        AudioHub.playOne(AudioHub.CHARACTER_DAMAGE, false);
     }
 
     walkingAnimation() {

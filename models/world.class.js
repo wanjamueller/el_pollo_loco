@@ -52,6 +52,7 @@ export class World {
         this.canvas = canvas; // need this to clear canvas at start of draw()
         this.setWorld();
         this.draw();
+        AudioHub.playOne(AudioHub.GAME_START, false);
 
         // IntervalHub.startInterval(this.startCounter, 1000);
         IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
@@ -183,7 +184,7 @@ export class World {
 
     characterApproachesEndboss = () => {
         this.level.boss.forEach((boss) => {
-            if (Math.abs(boss.x - this.character.x) < 500 && this.character.x > boss.x) {
+            if (Math.abs(boss.x - this.character.x) < 400 && this.character.x > boss.x) {
                 boss.otherDirection = true;
                 this.level.boss.forEach((boss) => boss.moveRight());
                 // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
@@ -193,6 +194,8 @@ export class World {
                 this.level.boss.forEach((boss) => boss.moveLeft());
                 // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
                 this.level.boss.forEach((boss) => boss.startMoving());
+            } else {
+                this.level.boss.forEach((boss) => (boss.moving = false));
             }
         });
     };
