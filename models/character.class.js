@@ -44,6 +44,7 @@ export class Character extends MovableObject {
     deadAnimation() {
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         this.playAnimation(Imagehub.PEPE.dead);
+        this.dead = true;
         if (!this.soundPlayed) {
             AudioHub.playOne(AudioHub.CHARACTER_DEAD, false);
             this.soundPlayed = true;

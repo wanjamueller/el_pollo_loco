@@ -63,6 +63,7 @@ export class Endboss extends MovableObject {
 
     deadAnimation() {
         this.playAnimation(Imagehub.ENDBOSS.dead);
+        this.dead = true;
         if (!this.soundPlayed) {
             AudioHub.playOne(AudioHub.CHICKEN_DEAD_2, false);
             this.soundPlayed = true;

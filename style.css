@@ -7,7 +7,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: "Rancho";
+    font-family: "Rancho", Arial, Helvetica, sans-serif;
 
     h1 {
         font-size: 4rem;
