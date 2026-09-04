@@ -179,7 +179,6 @@ export class World {
                     // stops bottle from reducing energy continueously
                     break;
                 }
-                enemy.removeEnemy(enemy);
             }
         }
     };
@@ -284,6 +283,15 @@ export class World {
         if (this.character.dead || this.level.boss.some((boss) => boss.dead)) {
             IntervalHub.stopAllIntervals();
             AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+            this.endScreen();
         }
     };
+
+    endScreen() {
+        if (this.level.boss.some((boss) => boss.dead)) {
+            document.getElementById("won").classList.remove("d_none");
+        } else {
+            document.getElementById("lost").classList.remove("d_none");
+        }
+    }
 }
