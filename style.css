@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -16,4 +22,21 @@ body {
 
 canvas {
     background-color: black;
+}
+
+.you-won {
+    top: -300px;
+    align-items: center;
+
+    img {
+        width: 700px;
+    }
+}
+
+.you-lost {
+    top: -400px;
+}
+
+.d_none {
+    display: none;
 }
