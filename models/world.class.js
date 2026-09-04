@@ -66,6 +66,7 @@ export class World {
         IntervalHub.startInterval(this.checkJumpOnChicken, 1000 / 60);
         IntervalHub.startInterval(this.characterApproachesEndboss, 1000 / 10);
         IntervalHub.startInterval(this.endbossAttacks, 1000 / 10);
+        IntervalHub.startInterval(this.gameEnds, 1000);
     }
 
     // Link world to character (translate camera_x via character)
@@ -278,4 +279,11 @@ export class World {
             obj.flipImageBack(this.ctx);
         }
     }
+
+    gameEnds = () => {
+        if (this.character.dead || this.level.boss.some((boss) => boss.dead)) {
+            IntervalHub.stopAllIntervals();
+            AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+        }
+    };
 }
