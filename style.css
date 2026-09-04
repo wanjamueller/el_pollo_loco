@@ -7,7 +7,13 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: "Rancho";
+
+    h1 {
+        font-size: 4rem;
+    }
 }
+
 canvas {
     background-color: black;
 }
