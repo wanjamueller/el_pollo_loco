@@ -2,7 +2,7 @@ export class MyAudio {
     file;
     isLoaded;
     isPlaying = false;
-    volume = 0.2;
+    volume = 0.3;
     static muted = false;
 
     constructor(_file) {
