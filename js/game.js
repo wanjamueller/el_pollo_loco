@@ -6,6 +6,9 @@ let canvas = document.getElementById(`canvas`);
 let world;
 let keyboard = new Keyboard();
 
+document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
+document.getElementById(`play`).addEventListener(`click`, startGame);
+
 function init() {
     // world is initialized with canvas
     world = new World(canvas);
@@ -15,9 +18,11 @@ function init() {
     console.log(`my enemies are`, world.level.enemies);
 }
 
-init();
-
-document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
+function startGame() {
+    init();
+    document.getElementById("start").classList.toggle("d_none");
+    document.getElementById("play").classList.toggle("d_none");
+}
 
 function toggleMute() {
     MyAudio.muted = !MyAudio.muted;
