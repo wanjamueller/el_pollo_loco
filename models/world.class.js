@@ -1,5 +1,5 @@
 import { Character } from "./character.class.js";
-import { level1 } from "../levels/level1.js";
+import { createLevel1, level1 } from "../levels/level1.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
@@ -14,7 +14,7 @@ import { AudioHub } from "./AudioHub.class.js";
 
 export class World {
     character = new Character();
-    level = level1;
+    level = createLevel1();
     canvas;
     ctx;
     camera_x = 0;
@@ -290,8 +290,16 @@ export class World {
     endScreen() {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");
+            setTimeout(() => {
+                document.getElementById("play").classList.toggle(`d_none`);
+                document.getElementById("play").innerText = `PLAY AGAIN!`;
+            }, 3000);
         } else {
             document.getElementById("lost").classList.remove("d_none");
+            setTimeout(() => {
+                document.getElementById("play").classList.toggle(`d_none`);
+                document.getElementById("play").innerText = `PLAY AGAIN!`;
+            }, 3000);
         }
     }
 }

@@ -12,16 +12,15 @@ document.getElementById(`play`).addEventListener(`click`, startGame);
 function init() {
     // world is initialized with canvas
     world = new World(canvas);
-
-    console.log(`my world is`, world);
-    console.log(`my character is`, world.character);
-    console.log(`my enemies are`, world.level.enemies);
 }
 
 function startGame() {
     init();
     document.getElementById("start").classList.toggle("d_none");
     document.getElementById("play").classList.toggle("d_none");
+    document.getElementById("won").classList.add("d_none");
+    document.getElementById("lost").classList.add("d_none");
+    document.getElementById("start").classList.add("d_none");
 }
 
 function toggleMute() {
@@ -32,45 +31,3 @@ function toggleMute() {
         sound.file.volume = MyAudio.muted ? 0 : sound.volume;
     });
 }
-
-// window.addEventListener("keydown", (e) => {
-//     if (e.key == "ArrowRight") {
-//         Keyboard.RIGHT = true;
-//     }
-//     if (e.key == "ArrowLeft") {
-//         Keyboard.LEFT = true;
-//     }
-//     if (e.key == "ArrowUp") {
-//         Keyboard.UP = true;
-//     }
-//     if (e.key == "ArrowDown") {
-//         Keyboard.DOWN = true;
-//     }
-//     if (e.code == "Space") {
-//         Keyboard.SPACE = true;
-//     }
-//     if (e.key == "d") {
-//         Keyboard.D = true;
-//     }
-// });
-
-// window.addEventListener("keyup", (e) => {
-//     if (e.key == "ArrowRight") {
-//         Keyboard.RIGHT = false;
-//     }
-//     if (e.key == "ArrowLeft") {
-//         Keyboard.LEFT = false;
-//     }
-//     if (e.key == "ArrowUp") {
-//         Keyboard.UP = false;
-//     }
-//     if (e.key == "ArrowDown") {
-//         Keyboard.DOWN = false;
-//     }
-//     if (e.code == "Space") {
-//         Keyboard.SPACE = false;
-//     }
-//     if (e.key == "d") {
-//         Keyboard.D = false;
-//     }
-// });
