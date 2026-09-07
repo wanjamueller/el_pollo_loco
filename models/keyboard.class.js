@@ -44,7 +44,7 @@ window.addEventListener("keydown", (e) => {
         Keyboard.DOWN = true;
     }
     if (e.code == "Space") {
-        e.preventDefault();
+        e.preventDefault(); // prevents space from togglingmute after muting once
         Keyboard.SPACE = true;
     }
     if (e.key == "d") {
