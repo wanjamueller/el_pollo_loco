@@ -22,6 +22,10 @@ body {
             font-size: clamp(1rem, -2.3529rem + 14.1176vw, 4rem);
         }
 
+        img {
+            max-width: 100%;
+        }
+
         .canvas {
             width: min(100%, 720px);
             display: flex;
@@ -54,42 +58,6 @@ body {
             }
         }
 
-        /* .move-button-container {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            z-index: 1;
-            display: flex;
-            gap: 20px;
-
-            .control {
-                background: none;
-                border: none;
-
-                img {
-                    width: 50px;
-                }
-            }
-        }
-
-        .action-button-container {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            z-index: 1;
-            display: flex;
-            gap: 20px;
-
-            .control {
-                background: none;
-                border: none;
-
-                img {
-                    width: 50px;
-                }
-            }
-        } */
-
         .start-button {
             display: flex;
             justify-content: center;
@@ -108,12 +76,14 @@ body {
         }
 
         .you-won {
+            width: 100%;
             position: absolute;
             top: clamp(4.0625rem, -1.875rem + 25vw, 9.375rem);
             align-items: center;
 
             img {
-                width: clamp(18.75rem, -9.1912rem + 117.6471vw, 43.75rem);
+                width: 90%;
+                max-width: 640px;
             }
         }
 
@@ -121,18 +91,20 @@ body {
             position: absolute;
 
             img {
-                width: min(100%, 720px);
+                width: clamp(15.625rem, -17.2059rem + 138.2353vw, 45rem);
                 border: 3px solid black;
                 border-radius: 20px;
             }
         }
 
         .you-lost {
+            width: 100%;
             position: absolute;
             top: clamp(1.5625rem, -1.5809rem + 13.2353vw, 4.375rem);
 
             img {
-                width: clamp(15.625rem, -5.3309rem + 88.2353vw, 34.375rem);
+                width: 90%;
+                max-width: 640px;
                 display: flex;
                 justify-self: center;
             }
@@ -148,63 +120,87 @@ body {
     }
 }
 
-@media screen and (hover: none) {
-    .canvas {
-        touch-action: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    .move-button-container {
-        touch-action: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        position: absolute;
-        bottom: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
-        right: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
-        z-index: 1;
-        display: flex;
-        gap: clamp(0.3125rem, -0.7353rem + 4.4118vw, 1.25rem);
-
-        .control {
-            background: none;
-            border: none;
-
-            img {
-                width: clamp(1.25rem, -0.8456rem + 8.8235vw, 3.125rem);
+@media screen and (pointer: coarse) {
+    body {
+        main {
+            .canvas:fullscreen {
+                width: 100dvw;
+                height: 100dvh;
+                max-width: none;
             }
-        }
-    }
 
-    .action-button-container {
-        touch-action: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        position: absolute;
-        bottom: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
-        left: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
-        z-index: 1;
-        display: flex;
-        gap: clamp(0.3125rem, -0.386rem + 2.9412vw, 0.9375rem);
+            h1 {
+                display: none;
+            }
 
-        .control {
-            background: none;
-            border: none;
+            .canvas {
+                max-height: 95dvh;
+                touch-action: none;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                margin-top: 10px;
 
-            img {
-                width: clamp(1.25rem, -0.8456rem + 8.8235vw, 3.125rem);
+                canvas {
+                    aspect-ratio: 720 / 480;
+                }
+
+                .move-button-container {
+                    touch-action: none;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                    -webkit-tap-highlight-color: transparent;
+                    position: absolute;
+                    bottom: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
+                    right: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
+                    z-index: 1;
+                    display: flex;
+                    gap: clamp(0.3125rem, -0.7353rem + 4.4118vw, 1.25rem);
+
+                    .control {
+                        background: none;
+                        border: none;
+
+                        img {
+                            width: clamp(1.25rem, -0.8456rem + 8.8235vw, 3.125rem);
+                        }
+                    }
+                }
+
+                .action-button-container {
+                    touch-action: none;
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                    -webkit-tap-highlight-color: transparent;
+                    position: absolute;
+                    bottom: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
+                    left: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
+                    z-index: 1;
+                    display: flex;
+                    gap: clamp(0.3125rem, -0.386rem + 2.9412vw, 0.9375rem);
+
+                    .control {
+                        background: none;
+                        border: none;
+
+                        img {
+                            width: clamp(1.25rem, -0.8456rem + 8.8235vw, 3.125rem);
+                        }
+                    }
+                }
+
+                .d_none {
+                    display: none;
+                }
             }
         }
     }
 }
 
-@media screen and (orientation: portrait) and (hover: none) {
+@media screen and (orientation: portrait) and (pointer: coarse) {
     body {
         main {
             .rotate-hint {

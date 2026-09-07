@@ -6,14 +6,19 @@ let canvas = document.getElementById(`canvas`);
 let world;
 let keyboard = new Keyboard();
 
-document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
-document.getElementById(`play`).addEventListener(`click`, startGame);
+window.addEventListener(`load`, () => {
+    document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
+    document.getElementById(`play`).addEventListener(`click`, startGame);
+    document.getElementById(`fullscreen`).addEventListener(`click`, toggleFullscreen);
+    fullscreenMode(); // checks if mobile
+});
 
 function init() {
     // world is initialized with canvas
     world = new World(canvas);
 }
 
+// game starts and overlays settings
 function startGame() {
     init();
     document.getElementById("start").classList.toggle("d_none");
@@ -24,6 +29,7 @@ function startGame() {
     mobile();
 }
 
+// mobile button functions and having them appear
 function mobile() {
     if (hasTouch()) {
         mobileButtons(`btnLeft`, `LEFT`);
@@ -35,6 +41,7 @@ function mobile() {
     }
 }
 
+// muting game
 function toggleMute() {
     MyAudio.muted = !MyAudio.muted;
     document.getElementById("mute").classList.toggle("d_none");
@@ -47,4 +54,30 @@ function toggleMute() {
 // check for touch device
 function hasTouch() {
     return window.matchMedia(`(pointer: coarse)`).matches;
+}
+
+// fullscreen
+function toggleFullscreen() {
+    const el = document.querySelector(`.canvas`);
+
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    } else {
+        if (el.requestFullscreen) {
+            el.requestFullscreen().catch(() => {});
+        } else if (el.webkitRequestFullscreen) {
+            el.webkitRequestFullscreen();
+        }
+    }
+}
+
+// fullscreen by default if mobile (if widescreen orientation)
+function fullscreenMode() {
+    if (hasTouch()) {
+        toggleFullscreen();
+    }
 }
