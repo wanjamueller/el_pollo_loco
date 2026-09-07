@@ -18,7 +18,7 @@ export class ThrowableObject extends MovableObject {
     speed = 10;
     throwObj = true;
     hitEnemy = false;
-    throwReversed = Imagehub.BOTTLES.flying.reverse();
+    throwReversed = Imagehub.BOTTLES.flying.reverse(); // for throwing left
 
     constructor(x, y) {
         super();
@@ -29,9 +29,9 @@ export class ThrowableObject extends MovableObject {
         this.y = y; // receiving when thrown
 
         this.throw();
-        IntervalHub.startInterval(this.animateBottle, 1000 / 10);
-        IntervalHub.startInterval(this.applyGravity, 1000 / 25);
-        IntervalHub.startInterval(this.speedX, 1000 / 40);
+        this.intervals.push(IntervalHub.startInterval(this.animateBottle, 1000 / 10));
+        this.intervals.push(IntervalHub.startInterval(this.applyGravity, 1000 / 25));
+        this.intervals.push(IntervalHub.startInterval(this.speedX, 1000 / 40));
     }
 
     animateBottle = () => {

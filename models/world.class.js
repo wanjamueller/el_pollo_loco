@@ -149,14 +149,15 @@ export class World {
                 if (!enemy.isDead() && bottle.isColliding(enemy)) {
                     enemy.hit();
                     bottle.hit();
+                    enemy.removeEnemy(enemy);
                     setTimeout(() => {
+                        bottle.stopIntervals();
                         const index = this.throwableObjects.indexOf(bottle);
                         if (index > -1) this.throwableObjects.splice(index, 1);
                     }, 600);
                     break;
                     // this.throwableObjects.splice(j, 1);
                 }
-                enemy.removeEnemy(enemy);
             }
         }
     };
@@ -173,6 +174,7 @@ export class World {
                     this.endbossBar.setEndbossPercentage(enemy.energy);
                     bottle.hit();
                     setTimeout(() => {
+                        bottle.stopIntervals();
                         const index = this.throwableObjects.indexOf(bottle);
                         if (index > -1) this.throwableObjects.splice(index, 1);
                     }, 1500);

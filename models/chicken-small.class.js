@@ -25,8 +25,8 @@ export class SmallChicken extends MovableObject {
         // random positioning at start
         this.x = 300 + Math.random() * 2000;
         // start intervall for moving chicken
-        IntervalHub.startInterval(this.animate, 1000 / 10);
-        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
+        this.intervals.push(IntervalHub.startInterval(this.animate, 1000 / 10));
+        this.intervals.push(IntervalHub.startInterval(this.moveLeft, 1000 / 60));
     }
 
     // animate chicken walking
