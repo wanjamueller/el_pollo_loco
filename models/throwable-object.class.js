@@ -65,10 +65,7 @@ export class ThrowableObject extends MovableObject {
     }
 
     speedX = () => {
-        if (this.otherDirection) {
-            this.x -= this.speed;
-        } else {
-            this.x += this.speed;
-        }
+        this.x += this.otherDirection ? -this.speed : this.speed; // The ternary: condition ? valueIfTrue : valueIfFalse
+        if (this.y > 500) this.hitEnemy = true; // ensures bottles, that never hit are spliced
     };
 }
