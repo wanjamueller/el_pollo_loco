@@ -44,6 +44,7 @@ window.addEventListener("keydown", (e) => {
         Keyboard.DOWN = true;
     }
     if (e.code == "Space") {
+        e.preventDefault();
         Keyboard.SPACE = true;
     }
     if (e.key == "d") {
