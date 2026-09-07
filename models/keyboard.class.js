@@ -7,6 +7,29 @@ export class Keyboard {
     static D = false;
 }
 
+export function mobileButtons(id, key) {
+    const btn = document.getElementById(id);
+
+    btn.addEventListener(`touchstart`, (e) => {
+        e.preventDefault();
+        Keyboard[key] = true;
+    });
+
+    btn.addEventListener(`touchend`, (e) => {
+        e.preventDefault();
+        Keyboard[key] = false;
+    });
+
+    btn.addEventListener(`touchcancel`, () => {
+        Keyboard[key] = false;
+    });
+
+    // to test on desktop, delete later
+    btn.addEventListener(`mousedown`, () => (Keyboard[key] = true));
+    btn.addEventListener(`mouseup`, () => (Keyboard[key] = false));
+    btn.addEventListener(`mouseleave`, () => (Keyboard[key] = false));
+}
+
 window.addEventListener("keydown", (e) => {
     if (e.key == "ArrowRight") {
         Keyboard.RIGHT = true;
