@@ -149,7 +149,20 @@ body {
 }
 
 @media screen and (hover: none) {
+    .canvas {
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .move-button-container {
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
         position: absolute;
         bottom: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
         right: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
@@ -168,6 +181,11 @@ body {
     }
 
     .action-button-container {
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
         position: absolute;
         bottom: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);
         left: clamp(0.3125rem, -0.0368rem + 1.4706vw, 0.625rem);

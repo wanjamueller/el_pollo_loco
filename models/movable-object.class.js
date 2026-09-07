@@ -11,6 +11,7 @@ export class MovableObject extends DrawableObject {
     throwObj = false;
     dead = false;
     soundPlayed = false;
+    intervals = []; // to kill intervals of thrown bootles and dead chicken to save rescources
 
     // gravity for falling after jump
     applyGravity = () => {
@@ -106,8 +107,15 @@ export class MovableObject extends DrawableObject {
     removeEnemy(enemy) {
         if (enemy.isDead())
             setTimeout(() => {
+                enemy.stopIntervals();
                 const index = level1.enemies.indexOf(enemy);
                 if (index > -1) level1.enemies.splice(index, 1);
             }, 1000);
+    }
+
+    // to kill intervals of thrown bootles and dead chicken to save rescources
+    stopIntervals() {
+        this.intervals.forEach((id) => clearInterval(id));
+        this.intervals = [];
     }
 }
