@@ -6,55 +6,44 @@ import { Endboss } from "../models/endboss.class.js";
 import { Imagehub } from "../models/image-hub.class.js";
 import { Level } from "../models/level.class.js";
 
-export const level1 = new Level(
-    [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-        new SmallChicken(),
-        new SmallChicken(),
+export let level1;
 
-        new SmallChicken(),
-    ],
-    [new Endboss()],
-    [
-        new Cloud(100, 0),
-        new Cloud(500, 1),
-        new Cloud(900, 0),
-        new Cloud(1400, 1),
-        new Cloud(1900, 0),
-        new Cloud(2400, 1),
-    ],
-    [
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
+function createBackground(segments) {
+    const bg = Imagehub.BACKGROUND;
+    const layers = [[bg.sky], bg.plain, bg.red, bg.color];
+    const objects = [];
 
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
+    for (let i = 0; i < segments; i++) {
+        const x = -720 + i * 720;
+        layers.forEach((variants) => {
+            objects.push(new BackgroundObject(variants[i % variants.length], x));
+        });
+    }
+    return objects;
+}
 
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
+export function createLevel1() {
+    level1 = new Level(
+        [
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new SmallChicken(),
+            new SmallChicken(),
 
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
-
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[0]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[0]),
-
-        new BackgroundObject(Imagehub.BACKGROUND.sky),
-        new BackgroundObject(Imagehub.BACKGROUND.plain[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.red[1]),
-        new BackgroundObject(Imagehub.BACKGROUND.color[1]),
-    ],
-);
+            new SmallChicken(),
+        ],
+        [new Endboss()],
+        [
+            new Cloud(100, 0),
+            new Cloud(500, 1),
+            new Cloud(900, 0),
+            new Cloud(1400, 1),
+            new Cloud(1900, 0),
+            new Cloud(2400, 1),
+        ],
+        createBackground(6),
+    );
+    return level1;
+}
