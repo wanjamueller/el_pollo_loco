@@ -1,5 +1,5 @@
 import { MyAudio, AudioHub } from "../models/AudioHub.class.js";
-import { Keyboard } from "../models/keyboard.class.js";
+import { Keyboard, mobileButtons } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
 
 let canvas = document.getElementById(`canvas`);
@@ -21,6 +21,10 @@ function startGame() {
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
+    mobileButtons(`btnLeft`, `LEFT`);
+    mobileButtons(`btnRight`, `RIGHT`);
+    mobileButtons(`btnJump`, `SPACE`);
+    mobileButtons(`btnAttack`, `D`);
 }
 
 function toggleMute() {
