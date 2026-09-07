@@ -50,7 +50,7 @@ body {
             }
         }
 
-        .move-button-container {
+        /* .move-button-container {
             position: absolute;
             bottom: 10px;
             right: 10px;
@@ -84,7 +84,7 @@ body {
                     width: 50px;
                 }
             }
-        }
+        } */
 
         .start-button {
             display: flex;
@@ -132,5 +132,43 @@ body {
 
     .d_none {
         display: none;
+    }
+}
+
+@media (hover: none) {
+    .move-button-container {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 1;
+        display: flex;
+        gap: 20px;
+
+        .control {
+            background: none;
+            border: none;
+
+            img {
+                width: 50px;
+            }
+        }
+    }
+
+    .action-button-container {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1;
+        display: flex;
+        gap: 20px;
+
+        .control {
+            background: none;
+            border: none;
+
+            img {
+                width: 50px;
+            }
+        }
     }
 }

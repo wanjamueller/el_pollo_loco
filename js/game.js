@@ -21,10 +21,18 @@ function startGame() {
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
-    mobileButtons(`btnLeft`, `LEFT`);
-    mobileButtons(`btnRight`, `RIGHT`);
-    mobileButtons(`btnJump`, `SPACE`);
-    mobileButtons(`btnAttack`, `D`);
+    mobile();
+}
+
+function mobile() {
+    if (hasTouch()) {
+        mobileButtons(`btnLeft`, `LEFT`);
+        mobileButtons(`btnRight`, `RIGHT`);
+        mobileButtons(`btnJump`, `SPACE`);
+        mobileButtons(`btnAttack`, `D`);
+        document.getElementById("moves").classList.remove("d_none");
+        document.getElementById("actions").classList.remove("d_none");
+    }
 }
 
 function toggleMute() {
@@ -34,4 +42,9 @@ function toggleMute() {
     AudioHub.allSounds.forEach((sound) => {
         sound.file.volume = MyAudio.muted ? 0 : sound.volume;
     });
+}
+
+// check for touch device
+function hasTouch() {
+    return window.matchMedia(`(pointer: coarse)`).matches;
 }
