@@ -42,7 +42,11 @@ body {
                 aspect-ratio: 720 / 480;
                 display: block;
                 border-radius: 10px;
-                /* background-color: beige; */
+                border: 3px solid black;
+            }
+
+            .d_none {
+                display: none;
             }
         }
 

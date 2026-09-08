@@ -9,6 +9,7 @@ let keyboard = new Keyboard();
 window.addEventListener(`load`, () => {
     document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
     document.getElementById(`play`).addEventListener(`click`, startGame);
+    document.getElementById(`home`).addEventListener(`click`, startScreen);
     // document.getElementById(`fullscreen`).addEventListener(`click`, toggleFullscreen);
     fullscreenMode(); // checks if mobile
 });
@@ -16,6 +17,15 @@ window.addEventListener(`load`, () => {
 function init() {
     // world is initialized with canvas
     world = new World(canvas);
+}
+
+function startScreen() {
+    document.getElementById("start").classList.toggle("d_none");
+    document.getElementById("won").classList.add("d_none");
+    document.getElementById("lost").classList.add("d_none");
+    document.getElementById("canvas").classList.add("d_none");
+    document.getElementById("home").classList.add("d_none");
+    document.getElementById("imprint").classList.remove("d_none");
 }
 
 // game starts and overlays settings
@@ -26,6 +36,7 @@ function startGame() {
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
+    document.getElementById("canvas").classList.toggle("d_none");
     mobile();
 }
 
