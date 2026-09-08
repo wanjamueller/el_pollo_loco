@@ -11,11 +11,16 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+
     main {
+        width: min(100%, 720px);
         display: flex;
         flex-direction: column;
         /* width: min(100%, 720px); */
         align-items: center;
+        justify-content: center;
         font-family: "Rancho", Arial, Helvetica, sans-serif;
 
         h1 {
@@ -43,8 +48,8 @@ body {
 
         .mute-button-container {
             position: absolute;
-            top: clamp(0.125rem, -0.0846rem + 0.8824vw, 0.3125rem);
-            right: clamp(0.125rem, -0.0846rem + 0.8824vw, 0.3125rem);
+            top: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
+            right: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
             z-index: 1;
 
             .mute-button {
@@ -62,16 +67,32 @@ body {
             display: flex;
             justify-content: center;
             position: absolute;
-            top: clamp(0.625rem, -0.7721rem + 5.8824vw, 1.875rem);
+            top: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
+            gap: clamp(0.3125rem, -0.7353rem + 4.4118vw, 1.25rem);
             z-index: 1;
 
             #play {
+                background: none;
+                border: none;
+
+                img {
+                    height: clamp(1.75rem, -2.4412rem + 17.6471vw, 5.5rem);
+                }
+            }
+
+            /* #play {
                 background: orange;
                 border: 2px solid black;
                 font-family: "Rancho", Arial, Helvetica, sans-serif;
                 font-size: clamp(1rem, -1.2353rem + 9.4118vw, 3rem);
                 border-radius: clamp(0.625rem, -1.4706rem + 8.8235vw, 2.5rem);
                 padding: 2px clamp(0.3125rem, -0.386rem + 2.9412vw, 0.9375rem);
+            } */
+
+            .menu-button {
+                background: none;
+                border: none;
+                width: clamp(2.5rem, -1.6912rem + 17.6471vw, 6.25rem);
             }
         }
 
@@ -79,19 +100,23 @@ body {
             width: 100%;
             position: absolute;
             top: clamp(4.0625rem, -1.875rem + 25vw, 9.375rem);
-            align-items: center;
 
             img {
                 width: 90%;
                 max-width: 640px;
+                display: flex;
+                justify-self: center;
             }
         }
 
         .start-screen {
+            width: 100%;
             position: absolute;
+            display: flex;
+            justify-content: center;
 
             img {
-                width: clamp(15.625rem, -17.2059rem + 138.2353vw, 45rem);
+                width: min(100%, 720px);
                 border: 3px solid black;
                 border-radius: 20px;
             }
@@ -103,19 +128,19 @@ body {
             top: clamp(1.5625rem, -1.5809rem + 13.2353vw, 4.375rem);
 
             img {
-                width: 90%;
+                width: 80%;
                 max-width: 640px;
                 display: flex;
                 justify-self: center;
             }
         }
+
+        .d_none {
+            display: none;
+        }
     }
 
     .rotate-hint {
-        display: none;
-    }
-
-    .d_none {
         display: none;
     }
 }

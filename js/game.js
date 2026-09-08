@@ -9,7 +9,7 @@ let keyboard = new Keyboard();
 window.addEventListener(`load`, () => {
     document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
     document.getElementById(`play`).addEventListener(`click`, startGame);
-    document.getElementById(`fullscreen`).addEventListener(`click`, toggleFullscreen);
+    // document.getElementById(`fullscreen`).addEventListener(`click`, toggleFullscreen);
     fullscreenMode(); // checks if mobile
 });
 
@@ -22,7 +22,7 @@ function init() {
 function startGame() {
     init();
     document.getElementById("start").classList.toggle("d_none");
-    document.getElementById("play").classList.toggle("d_none");
+    document.getElementById("start-menu").classList.toggle("d_none");
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
