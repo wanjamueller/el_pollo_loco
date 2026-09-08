@@ -14,7 +14,6 @@ window.addEventListener(`load`, () => {
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
     loadMuteState(); // checks mute state
-    // fullscreenMode(); // checks if mobile
 });
 
 function init() {
@@ -118,11 +117,4 @@ function showControls() {
 function closeControls() {
     dialogRef.close();
     dialogRef.classList.remove("open");
-}
-
-// fullscreen by default if mobile (if widescreen orientation)
-function fullscreenMode() {
-    if (hasTouch()) {
-        toggleFullscreen();
-    }
 }

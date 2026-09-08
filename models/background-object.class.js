@@ -5,20 +5,9 @@ export class BackgroundObject extends MovableObject {
     width = 720;
     height = 480;
 
-    // static xPos = -720;
-    // static turn = 0;
-
     constructor(imgPath, x) {
-        // ensuring 4 pics are added on top of each other, before next group is added 720 px further
-        // if (BackgroundObject.turn === 4) {
-        //     BackgroundObject.xPos += 720;
-        //     BackgroundObject.turn = 0;
-        // }
-        // loading images from Imagehub
         super();
         this.loadImage(imgPath);
         this.x = x;
-        // this.x = BackgroundObject.xPos;
-        // BackgroundObject.turn++;
     }
 }

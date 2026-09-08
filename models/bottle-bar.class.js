@@ -11,7 +11,6 @@ export class BottleBar extends DrawableObject {
         super();
         this.loadImage(Imagehub.BARS.bottles[0]);
         this.loadImages(Imagehub.BARS.bottles);
-        // this.setPercentage(0);
     }
 
     setBottlePercentage(percentage) {

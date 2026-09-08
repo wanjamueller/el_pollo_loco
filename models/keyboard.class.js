@@ -24,7 +24,7 @@ export function mobileButtons(id, key) {
         Keyboard[key] = false;
     });
 
-    // to test on desktop, delete later
+    // to click on touch buttons on desktop
     btn.addEventListener(`mousedown`, () => (Keyboard[key] = true));
     btn.addEventListener(`mouseup`, () => (Keyboard[key] = false));
     btn.addEventListener(`mouseleave`, () => (Keyboard[key] = false));

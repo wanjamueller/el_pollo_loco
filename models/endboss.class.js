@@ -31,7 +31,6 @@ export class Endboss extends MovableObject {
         this.loadImages(Imagehub.ENDBOSS.attack);
         // start intervall for moving endboss
         IntervalHub.startInterval(this.animate, 1000 / 10);
-        // IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 
     startMoving() {
