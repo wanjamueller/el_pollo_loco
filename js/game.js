@@ -13,7 +13,7 @@ window.addEventListener(`load`, () => {
     document.getElementById(`play`).addEventListener(`click`, startGame);
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
-    // document.getElementById(`fullscreen`).addEventListener(`click`, toggleFullscreen);
+    loadMuteState(); // checks mute state
     fullscreenMode(); // checks if mobile
 });
 
@@ -58,14 +58,24 @@ function mobile() {
     }
 }
 
-// muting game
+// muting game and saving mute state to local storage
 function toggleMute() {
     MyAudio.muted = !MyAudio.muted;
+    localStorage.setItem(`muted`, MyAudio.muted);
     document.getElementById("mute").classList.toggle("d_none");
     document.getElementById("unmute").classList.toggle("d_none");
     AudioHub.allSounds.forEach((sound) => {
         sound.file.volume = MyAudio.muted ? 0 : sound.volume;
     });
+}
+
+// loads mute state
+function loadMuteState() {
+    MyAudio.muted = localStorage.getItem(`muted`) === `true`;
+    if (MyAudio.muted) {
+        document.getElementById(`mute`).classList.add(`d_none`);
+        document.getElementById(`unmute`).classList.remove(`d_none`);
+    }
 }
 
 // check for touch device
