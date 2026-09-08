@@ -18,6 +18,7 @@ export class World {
     canvas;
     ctx;
     camera_x = 0;
+    cameraLocked = false; // true when camera sits at the right-side offset (PEPE past the boss)
     statusBar = new StatusBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
@@ -289,7 +290,7 @@ export class World {
             obj.flipImage(this.ctx);
         }
         obj.draw(this.ctx);
-        obj.drawFrame(this.ctx); // drawing frame for collisoon implememtation
+        // obj.drawFrame(this.ctx); // drawing frame for collisoon implememtation
 
         if (obj.otherDirection) {
             obj.flipImageBack(this.ctx);
