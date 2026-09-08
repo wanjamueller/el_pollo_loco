@@ -56,19 +56,37 @@ export class World {
         this.draw();
         AudioHub.playOne(AudioHub.GAME_START, false);
 
-        // IntervalHub.startInterval(this.startCounter, 1000);
-        IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
-        IntervalHub.startInterval(this.checkEndbossCollisions, 1000 / 10);
-        IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
-        IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
-        IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
-        IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 60);
-        IntervalHub.startInterval(this.checkBottleHitsEndboss, 1000 / 60);
-        IntervalHub.startInterval(this.checkJumpOnChicken, 1000 / 60);
-        IntervalHub.startInterval(this.characterApproachesEndboss, 1000 / 10);
-        IntervalHub.startInterval(this.endbossAttacks, 1000 / 10);
+        // IntervalHub.startInterval(this.checkCollisions, 1000 / 10);
+        // IntervalHub.startInterval(this.checkEndbossCollisions, 1000 / 10);
+        // IntervalHub.startInterval(this.checkCoinCollections, 1000 / 10);
+        // IntervalHub.startInterval(this.checkBottleCollections, 1000 / 10);
+        // IntervalHub.startInterval(this.checkThrowObjects, 1000 / 10);
+        // IntervalHub.startInterval(this.checkBottleHitsChicken, 1000 / 60);
+        // IntervalHub.startInterval(this.checkBottleHitsEndboss, 1000 / 60);
+        // IntervalHub.startInterval(this.checkJumpOnChicken, 1000 / 60);
+        // IntervalHub.startInterval(this.characterApproachesEndboss, 1000 / 10);
+        // IntervalHub.startInterval(this.endbossAttacks, 1000 / 10);
+        IntervalHub.startInterval(this.slowChecks, 1000 / 10);
+        IntervalHub.startInterval(this.fastChecks, 1000 / 60);
+        IntervalHub.startInterval(this.gameEnds, 1000);
         IntervalHub.startInterval(this.gameEnds, 1000);
     }
+
+    slowChecks = () => {
+        this.checkCollisions();
+        this.checkEndbossCollisions();
+        this.checkCoinCollections();
+        this.checkBottleCollections();
+        this.checkThrowObjects();
+        this.characterApproachesEndboss();
+        this.endbossAttacks();
+    };
+
+    fastChecks = () => {
+        this.checkBottleHitsChicken();
+        this.checkBottleHitsEndboss();
+        this.checkJumpOnChicken();
+    };
 
     // Link world to character (translate camera_x via character)
     setWorld() {
