@@ -94,12 +94,14 @@ body {
             width: 100%;
             position: absolute;
             top: clamp(4.0625rem, -1.875rem + 25vw, 9.375rem);
+            display: flex;
+            justify-content: center;
 
             img {
                 width: 90%;
                 max-width: 640px;
-                display: flex;
-                justify-self: center;
+                /* display: flex;
+                justify-self: center; */
             }
         }
 
@@ -120,12 +122,14 @@ body {
             width: 100%;
             position: absolute;
             top: 20px;
+            display: flex;
+            justify-content: center;
 
             img {
                 width: 80%;
                 max-width: 640px;
-                display: flex;
-                justify-self: center;
+                /* display: flex;
+                justify-self: center; */
             }
         }
 

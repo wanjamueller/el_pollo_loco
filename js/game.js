@@ -14,7 +14,7 @@ window.addEventListener(`load`, () => {
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
     loadMuteState(); // checks mute state
-    fullscreenMode(); // checks if mobile
+    // fullscreenMode(); // checks if mobile
 });
 
 function init() {
