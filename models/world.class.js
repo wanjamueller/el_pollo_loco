@@ -294,15 +294,15 @@ export class World {
             document.getElementById("won").classList.remove("d_none");
             setTimeout(() => {
                 document.getElementById("start-menu").classList.toggle(`d_none`);
-                document.getElementById("home").classList.toggle(`d_none`);
-                document.getElementById("imprint").classList.toggle(`d_none`);
+                document.getElementById("home").classList.remove(`d_none`);
+                document.getElementById("imprint").classList.add(`d_none`);
             }, 3000);
         } else {
             document.getElementById("lost").classList.remove("d_none");
             setTimeout(() => {
                 document.getElementById("start-menu").classList.toggle(`d_none`);
-                document.getElementById("home").classList.toggle(`d_none`);
-                document.getElementById("imprint").classList.toggle(`d_none`);
+                document.getElementById("home").classList.remove(`d_none`);
+                document.getElementById("imprint").classList.add(`d_none`);
             }, 3000);
         }
     }

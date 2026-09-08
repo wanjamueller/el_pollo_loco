@@ -45,9 +45,6 @@ export class Endboss extends MovableObject {
         if (!this.attacking && !this.isDead()) {
             this.speed = 10;
             AudioHub.playOne(AudioHub.ENDBOSS_APPROACH, false);
-            console.log(`speed`, this.speed);
-
-            // this.moveLeft();
         }
     };
 
@@ -64,10 +61,16 @@ export class Endboss extends MovableObject {
     deadAnimation() {
         this.playAnimation(Imagehub.ENDBOSS.dead);
         this.dead = true;
+        this.speed = 0;
         if (!this.soundPlayed) {
             AudioHub.playOne(AudioHub.CHICKEN_DEAD_2, false);
             this.soundPlayed = true;
         }
+    }
+
+    hurtAnimation() {
+        this.playAnimation(Imagehub.ENDBOSS.hurt);
+        AudioHub.playOne(AudioHub.CHICKEN_DEAD_2, false);
     }
 
     // animate endboss walking
@@ -75,7 +78,7 @@ export class Endboss extends MovableObject {
         if (this.isDead()) {
             this.deadAnimation();
         } else if (this.isHurt()) {
-            this.playAnimation(Imagehub.ENDBOSS.hurt);
+            this.hurtAnimation();
         } else if (this.attacking) {
             this.playAnimation(Imagehub.ENDBOSS.attack);
         } else if (this.moving) {

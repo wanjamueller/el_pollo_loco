@@ -36,7 +36,9 @@ function startGame() {
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
-    document.getElementById("canvas").classList.toggle("d_none");
+    document.getElementById("canvas").classList.remove("d_none");
+    document.getElementById("imprint").classList.add("d_none");
+    ocument.getElementById("imprint").classList.add("d_none");
     mobile();
 }
 
