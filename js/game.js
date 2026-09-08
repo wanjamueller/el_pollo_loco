@@ -41,7 +41,8 @@ function startGame() {
     document.getElementById("start").classList.add("d_none");
     document.getElementById("canvas").classList.remove("d_none");
     document.getElementById("imprint").classList.add("d_none");
-    ocument.getElementById("imprint").classList.add("d_none");
+    document.getElementById("imprint").classList.add("d_none");
+    AudioHub.playOne(AudioHub.BACKGROUND, true);
     mobile();
 }
 
@@ -96,6 +97,12 @@ function showControls() {
     dialogRef.classList.add(`open`);
     dialogRef.showModal();
     document.getElementById(`close`).addEventListener(`click`, closeControls);
+    dialogRef.addEventListener(`close`, () => {
+        dialogRef.classList.remove(`open`);
+    });
+    dialogRef.addEventListener(`click`, (e) => {
+        if (e.target === dialogRef) dialogRef.close();
+    });
 }
 
 function closeControls() {
