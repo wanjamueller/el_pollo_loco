@@ -293,14 +293,12 @@ export class World {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");
             setTimeout(() => {
-                document.getElementById("play").classList.toggle(`d_none`);
-                document.getElementById("play").innerText = `PLAY AGAIN!`;
+                document.getElementById("start-menu").classList.toggle(`d_none`);
             }, 3000);
         } else {
             document.getElementById("lost").classList.remove("d_none");
             setTimeout(() => {
-                document.getElementById("play").classList.toggle(`d_none`);
-                document.getElementById("play").innerText = `PLAY AGAIN!`;
+                document.getElementById("start-menu").classList.toggle(`d_none`);
             }, 3000);
         }
     }
