@@ -137,6 +137,48 @@ body {
     .rotate-hint {
         display: none;
     }
+
+    #settings.open {
+        margin: 90px auto;
+        border-radius: 40px;
+        background-color: rgb(235, 154, 49);
+        font-size: clamp(1rem, 0.6rem + 2vw, 1.5rem);
+        padding: 20px;
+        display: flex;
+
+        .close-button {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            #close {
+                background: none;
+                border: none;
+
+                img {
+                    width: clamp(1.25rem, 0.25rem + 5vw, 2.5rem);
+                }
+            }
+        }
+
+        table {
+            img {
+                width: clamp(2.5rem, 1rem + 7.5vw, 4.375rem);
+            }
+
+            th {
+                /* width: 200px; */
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding-right: 20px;
+            }
+
+            .dialog {
+                max-width: 100%;
+            }
+        }
+    }
 }
 
 @media screen and (pointer: coarse) {
@@ -214,6 +256,10 @@ body {
                 .d_none {
                     display: none;
                 }
+            }
+
+            #settings.open {
+                margin: 20px auto;
             }
         }
     }

@@ -1,15 +1,18 @@
 import { MyAudio, AudioHub } from "../models/AudioHub.class.js";
 import { Keyboard, mobileButtons } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
+import { dialogTeamplate } from "./templates.js";
 
 let canvas = document.getElementById(`canvas`);
 let world;
 let keyboard = new Keyboard();
+const dialogRef = document.getElementById("settings");
 
 window.addEventListener(`load`, () => {
     document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
     document.getElementById(`play`).addEventListener(`click`, startGame);
     document.getElementById(`home`).addEventListener(`click`, startScreen);
+    document.getElementById(`controls`).addEventListener(`click`, showControls);
     // document.getElementById(`fullscreen`).addEventListener(`click`, toggleFullscreen);
     fullscreenMode(); // checks if mobile
 });
@@ -86,6 +89,18 @@ function toggleFullscreen() {
             el.webkitRequestFullscreen();
         }
     }
+}
+
+function showControls() {
+    dialogRef.innerHTML = dialogTeamplate();
+    dialogRef.classList.add(`open`);
+    dialogRef.showModal();
+    document.getElementById(`close`).addEventListener(`click`, closeControls);
+}
+
+function closeControls() {
+    dialogRef.close();
+    dialogRef.classList.remove("open");
 }
 
 // fullscreen by default if mobile (if widescreen orientation)
