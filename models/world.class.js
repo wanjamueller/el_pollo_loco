@@ -211,16 +211,31 @@ export class World {
             }
         });
     };
+
     cameraPosition() {
-        // let character move freely at end to level end
-        if (this.character.x >= 1980) {
-            this.camera_x = -1880;
-            this.level.level_end_x = 2480;
-        } else if (this.character.x > this.level.boss.x) {
-            this.camera_x = -this.character.x + 400;
+        const boss = this.level.boss[0];
+        const pastBoss = boss && this.character.x > boss.x; // true when PEPE is to the right of the boss
+
+        if (pastBoss) {
+            const rightLimit = -this.character.x + 470; // puts PEPE 100px from the right edge
+            if (this.camera_x >= rightLimit) this.cameraLocked = true; // he has walked far enough right through the screen
+            this.camera_x = this.cameraLocked
+                ? rightLimit // TRUE track him at the right-side offset
+                : Math.min(this.camera_x, rightLimit); // FALSE reeze camera while he crosses the screen
         } else {
-            this.camera_x = -this.character.x + 100; // move camera with character (also statusbar)
+            const leftLimit = -this.character.x + 100; // puts PEPE 100px from the left edge
+            if (this.camera_x <= leftLimit) this.cameraLocked = false; // he has walked far enough left
+            this.camera_x = this.cameraLocked
+                ? Math.max(this.camera_x, leftLimit) // TRUE freeze camera while he crosses back
+                : leftLimit; // FALSE normal left-side tracking
         }
+
+        if (this.character.x >= 1980) {
+            this.level.level_end_x = 2480; // let PEPE walk to the very end of the level
+        }
+
+        this.camera_x = Math.max(this.camera_x, -1880); // hard stop, camera never scrolls past level end
+        this.camera_x = Math.round(this.camera_x); // whole pixels only, prevents 1px seams in background, nedded as the cam is not always steady on character
     }
 
     addStatusbars() {

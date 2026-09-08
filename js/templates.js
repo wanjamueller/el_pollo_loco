@@ -3,7 +3,7 @@ export function dialogTeamplate() {
         <div>
             <div class="close-button">
                             <h3>Controls</h3>
-                <button id="close"><img src="../assets/icons/close.svg" alt="close icon"></button>
+                <button id="close"><img src="./assets/icons/close.svg" alt="close icon"></button>
             </div>
             <table>
                 <tr>
