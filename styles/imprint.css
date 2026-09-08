@@ -1,6 +1,12 @@
 main {
     padding: 50px 30px;
 
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: clamp(1rem, 0.8571rem + 0.7143vw, 1.5rem);
+    }
+
     .heading {
         display: flex;
         gap: 10px;

@@ -26,6 +26,7 @@ export class AudioHub {
     static ENDBOSS_APPROACH = new MyAudio(`./assets/audio/endboss/endbossApproach.wav`);
     static GAME_START = new MyAudio(`./assets/audio/game/gameStart.mp3`);
     static BOTTLE_BREAK = new MyAudio(`./assets/audio/throwable/bottleBreak.mp3`);
+    static BACKGROUND = new MyAudio(`./assets/audio/background.mp3`);
 
     static allSounds = [
         AudioHub.CHARACTER_DAMAGE,
@@ -40,6 +41,7 @@ export class AudioHub {
         AudioHub.ENDBOSS_APPROACH,
         AudioHub.GAME_START,
         AudioHub.BOTTLE_BREAK,
+        AudioHub.BACKGROUND,
     ];
 
     static playOne(sound, retrigger = false) {

@@ -284,7 +284,7 @@ export class World {
     gameEnds = () => {
         if (this.character.dead || this.level.boss.some((boss) => boss.dead)) {
             IntervalHub.stopAllIntervals();
-            AudioHub.stopOne(AudioHub.CHARACTER_RUN);
+            AudioHub.stopAll();
             this.endScreen();
         }
     };
