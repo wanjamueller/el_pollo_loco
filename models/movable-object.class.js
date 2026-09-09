@@ -20,13 +20,15 @@ export class MovableObject extends DrawableObject {
     /**
      * gravity for falling after jump
      * "above" for falling and speed_y for jumping
-     *
      */
     applyGravity = () => {
-        if (this.isAboveGround() || this.speed_y > 0) {
-            this.y -= this.speed_y;
-            this.speed_y -= this.acc;
+        if (!this.isAboveGround() && this.speed_y <= 0) {
+            this.y = 155;
+            this.speed_y = 0;
+            return;
         }
+        this.y -= this.speed_y;
+        this.speed_y -= this.acc;
     };
 
     /**
