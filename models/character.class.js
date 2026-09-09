@@ -5,6 +5,10 @@ import { IntervalHub } from "./intervallhub.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * creates the playable character PEPE
+ * @class
+ */
 export class Character extends MovableObject {
     x = 120;
     y = 155;
@@ -20,9 +24,11 @@ export class Character extends MovableObject {
     };
     lastActivity = new Date().getTime();
 
+    /**
+     * loads all image sets from the Imagehub and starts the intervals for animation, movement and gravity
+     */
     constructor() {
         super();
-        // loading images from Imagehub
         this.loadImage(Imagehub.PEPE.idle[0]);
         this.loadImages(Imagehub.PEPE.idle);
         this.loadImages(Imagehub.PEPE.move);
@@ -30,17 +36,23 @@ export class Character extends MovableObject {
         this.loadImages(Imagehub.PEPE.hurt);
         this.loadImages(Imagehub.PEPE.dead);
         this.loadImages(Imagehub.PEPE.long_idle);
-        // starting intervalls for PEPE
         IntervalHub.startInterval(this.animatePEPE, 1000 / 10);
         IntervalHub.startInterval(this.move, 1000 / 60);
         IntervalHub.startInterval(this.applyGravity, 1000 / 25);
     }
 
+    /**
+     * checks how long PEPE has been standing still, any key press resets the timer
+     * @returns {boolean} True when there was no input for more than 3 seconds.
+     */
     isLongIdle() {
         const secondsPassed = (new Date().getTime() - this.lastActivity) / 1000;
         return secondsPassed > 3;
     }
 
+    /**
+     * plays the death animation, flags PEPE as dead and plays the death sound only once
+     */
     deadAnimation() {
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         this.playAnimation(Imagehub.PEPE.dead);
@@ -51,38 +63,59 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * plays the standing animation and stops the running sound
+     */
     idleAnimation() {
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         this.playAnimation(Imagehub.PEPE.idle);
     }
 
+    /**
+     * plays the sleeping animation with snoring sound after a long idle
+     */
     longIdleAnimation() {
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         this.playAnimation(Imagehub.PEPE.long_idle);
         AudioHub.playOne(AudioHub.CHARACTER_SNORING, false);
     }
 
+    /**
+     * plays the hurt animation and damage sound after PEPE was hit
+     */
     hurtAnimation() {
         this.playAnimation(Imagehub.PEPE.hurt);
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         AudioHub.playOne(AudioHub.CHARACTER_DAMAGE, false);
     }
 
+    /**
+     * plays the walking animation and starts the looping running sound
+     */
     walkingAnimation() {
         this.playAnimation(Imagehub.PEPE.move);
         AudioHub.playOne(AudioHub.CHARACTER_RUN, false);
     }
 
+    /**
+     * plays the jump sound, retriggered so quick jumps in a row are still audible
+     */
     jumpAnimation() {
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         AudioHub.playOne(AudioHub.CHARACTER_JUMP, true);
     }
 
+    /**
+     * plays the jump animation while PEPE is off the ground
+     */
     aboveGroundAnimation() {
         AudioHub.stopOne(AudioHub.CHARACTER_RUN);
         this.playAnimation(Imagehub.PEPE.jump);
     }
 
+    /**
+     * picks the animation that fits PEPE's current state, checked from most to least important
+     */
     // animate PEPE walking
     animatePEPE = () => {
         if (this.isDead()) {
@@ -100,9 +133,11 @@ export class Character extends MovableObject {
         }
     };
 
+    /**
+     * moves PEPE within the level borders, sets the facing direction and refreshes the idle timer
+     */
     move = () => {
         if (Keyboard.RIGHT && this.x < level1.level_end_x) {
-            // for now fix for level1, need to check on how to open for more levels
             this.otherDirection = false;
             this.moveRight();
             this.lastActivity = new Date().getTime();
@@ -114,7 +149,7 @@ export class Character extends MovableObject {
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
-            this.jumpAnimation(); // in here, as the sound is not triggered while above ground, but only once at the jump
+            this.jumpAnimation();
             this.lastActivity = new Date().getTime();
         }
     };

@@ -3,6 +3,10 @@ import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { AudioHub } from "./AudioHub.class.js";
 
+/**
+ * creates a normal chicken enemy
+ * @class
+ */
 export class Chicken extends MovableObject {
     y = 360;
     height = 70;
@@ -16,20 +20,24 @@ export class Chicken extends MovableObject {
         left: 5,
     };
 
+    /**
+     * loads the image sets, places the chicken at a random spot in the level and starts the intervals for animation and movement
+     * the interval ids are stored so they can be cleared once the chicken is removed
+     */
     constructor() {
         super();
-        // loading images from Imagehub
         this.loadImage(Imagehub.CHICKEN.move[0]);
         this.loadImages(Imagehub.CHICKEN.move);
         this.loadImages(Imagehub.CHICKEN.dead);
-        // random positioning at start
         this.x = 300 + Math.random() * 2000;
-        // start intervall for moving chicken
         this.intervals.push(IntervalHub.startInterval(this.animate, 1000 / 10));
         this.intervals.push(IntervalHub.startInterval(this.moveLeft, 1000 / 60));
     }
 
-    // animate chicken walking
+    /**
+     * plays the walking animation, or the dead frame once the chicken has no energy left
+     * a dead chicken stops moving and its death sound is played only once
+     */
     animate = () => {
         if (this.isDead()) {
             this.playAnimation(Imagehub.CHICKEN.dead);
@@ -43,7 +51,9 @@ export class Chicken extends MovableObject {
         }
     };
 
-    // chicken getting hit rreduces energy by 20
+    /**
+     * overrides the base hit so a single bottle or jump kills the chicken outright
+     */
     hit() {
         this.energy -= 100;
     }

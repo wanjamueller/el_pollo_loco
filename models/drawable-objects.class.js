@@ -1,3 +1,8 @@
+/**
+ * highest superclass
+ * creates all drawn objects
+ * @class
+ */
 export class DrawableObject {
     x;
     y;
@@ -16,25 +21,33 @@ export class DrawableObject {
         bottom: 0,
         left: 0,
     };
-    // real frame of obj
     rX;
     rY;
     rW;
     rH;
-    showFrame = false; // frame for collision implementation
 
-    // images need loading before drawing in world()
+    /**
+     * images need loading before drawing in world()
+     * @param {string} path - provides the path of the image
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
-    // pushing to world.addToMap()
+    /**
+     * pushing to world.addToMap()
+     * @param {string} ctx - provides the ctx of world
+     */
     draw(ctx) {
         this.getRealFrame();
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * leads images ifthey come from an array
+     * @param {string} arr - image paths for images in array
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             const img = new Image();
@@ -43,7 +56,9 @@ export class DrawableObject {
         });
     }
 
-    // defining real frame with formula to shorten drawFrame()
+    /**
+     * defining real frame with formula to for collision management
+     */
     getRealFrame() {
         this.rX = this.x + this.offset.left;
         this.rY = this.y + this.offset.top;
@@ -51,7 +66,11 @@ export class DrawableObject {
         this.rH = this.height - this.offset.top - this.offset.bottom;
     }
 
-    // Collision detection
+    /**
+     * Collision detection
+     * @param {string} obj - actual object that could collide
+     * @returns if object is colliding with another object
+     */
     isColliding(obj) {
         return (
             this.rX + this.rW > obj.rX &&
@@ -61,13 +80,21 @@ export class DrawableObject {
         );
     }
 
+    /**
+     * Collision detection only for the top
+     * @param {string} obj - actual object that could collide
+     * @returns if object is colliding with another object from the top down
+     */
     isJumpingOn(obj) {
         return (
             this.isColliding(obj) && this.speed_y < 0 && this.rY + this.rH < obj.rY + obj.rH // PEPE above Chicken
         );
     }
 
-    // define what image (index) is shown based on percentage
+    /**
+     * define what image (index) is shown based on percentage for the statusbars
+     * @returns index for image array
+     */
     resolveImageIndex() {
         if (this.percentage === 100) {
             return 5;

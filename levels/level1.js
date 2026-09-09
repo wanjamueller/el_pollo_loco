@@ -6,8 +6,18 @@ import { Endboss } from "../models/endboss.class.js";
 import { Imagehub } from "../models/image-hub.class.js";
 import { Level } from "../models/level.class.js";
 
+/**
+ * the level that is currently being played, filled by createLevel1()
+ * @type {Level}
+ */
 export let level1;
 
+/**
+ * builds the background segments layer by layer, each segment is 720px wide and starts one screen to the left
+ * the two variants of a layer alternate per segment, the sky has only one variant and repeats
+ * @param {number} segments - How many 720px segments the background should be wide.
+ * @returns {BackgroundObject[]} All background objects in draw order, back layer first.
+ */
 function createBackground(segments) {
     const bg = Imagehub.BACKGROUND;
     const layers = [[bg.sky], bg.plain, bg.red, bg.color];
@@ -22,6 +32,11 @@ function createBackground(segments) {
     return objects;
 }
 
+/**
+ * creates a fresh level with new enemies, clouds and background objects
+ * called again on every restart so no dead enemies or stopped intervals are carried over from the last game
+ * @returns {Level} The newly built level.
+ */
 export function createLevel1() {
     level1 = new Level(
         [

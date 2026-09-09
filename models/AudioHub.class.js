@@ -1,3 +1,7 @@
+/**
+ * wraps one audio file together with the state needed to control it
+ * @class
+ */
 export class MyAudio {
     file;
     isLoaded;
@@ -5,6 +9,10 @@ export class MyAudio {
     volume = 0.3;
     static muted = false;
 
+    /**
+     * creates the audio element and resets the playing flag once the file has finished
+     * @param {string} _file - Path to the audio file.
+     */
     constructor(_file) {
         this.file = new Audio(_file);
         this.file.addEventListener(`ended`, () => {
@@ -13,6 +21,10 @@ export class MyAudio {
     }
 }
 
+/**
+ * holds every sound of the game and the methods to play and stop them
+ * @class
+ */
 export class AudioHub {
     static CHARACTER_DAMAGE = new MyAudio(`./assets/audio/character/characterDamage.mp3`);
     static CHARACTER_DEAD = new MyAudio(`./assets/audio/character/characterDead.wav`);
@@ -44,17 +56,24 @@ export class AudioHub {
         AudioHub.BACKGROUND,
     ];
 
+    /**
+     * plays a single sound from the start, muted sounds are played at volume 0
+     * @param {MyAudio} sound - The sound to play.
+     * @param {boolean} [retrigger=false] - True restarts a sound that is already running, used for short effects like jumping or collecting.
+     */
     static playOne(sound, retrigger = false) {
         if (sound.isPlaying && !retrigger) return;
         sound.isPlaying = true;
         sound.file.currentTime = 0;
-        sound.file.volume = MyAudio.muted ? 0 : sound.volume; // volume if muted = 0, otherwise default volume
+        sound.file.volume = MyAudio.muted ? 0 : sound.volume;
         sound.file.play().catch(() => {
-            // catch resets the flag (boolean) so a rejected attemt doesn stop future play
             sound.isPlaying = false;
         });
     }
 
+    /**
+     * pauses every sound of the game and clears their playing flags, used at game over
+     */
     static stopAll() {
         AudioHub.allSounds.forEach((sound) => {
             sound.file.pause();
@@ -63,6 +82,10 @@ export class AudioHub {
         });
     }
 
+    /**
+     * pauses one single sound and clears its playing flag
+     * @param {MyAudio} sound - The sound to stop.
+     */
     static stopOne(sound) {
         sound.file.pause();
         sound.file.isPlaying = false;
