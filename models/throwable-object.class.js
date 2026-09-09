@@ -52,6 +52,7 @@ export class ThrowableObject extends MovableObject {
         this.acc = 0;
         AudioHub.playOne(AudioHub.BOTTLE_BREAK, true);
     }
+
     throw() {
         if (this.otherDirection) {
             this.speed_y = -30;

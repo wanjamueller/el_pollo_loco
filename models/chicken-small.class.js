@@ -4,9 +4,9 @@ import { IntervalHub } from "./intervallhub.class.js";
 import { AudioHub } from "./AudioHub.class.js";
 
 export class SmallChicken extends MovableObject {
-    y = 380;
-    height = 50;
-    width = 50;
+    y = 365;
+    height = 60;
+    width = 65;
     counter = 0;
     speed = 0.3 + Math.random();
     offset = {

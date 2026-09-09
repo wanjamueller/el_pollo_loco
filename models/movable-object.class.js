@@ -74,14 +74,11 @@ export class MovableObject extends DrawableObject {
 
     flipImage(ctx) {
         ctx.save();
-        // ctx.translate(this.width, 0); // mirror in same spot and not at egde of img for PEPE
         ctx.translate(this.x * 2 + this.width, 0);
         ctx.scale(-1, 1);
-        // this.x = this.x * -1; // mirrir x value for PEPE
     }
 
     flipImageBack(ctx) {
-        // this.x = this.x * -1; // mirror x value for PEPE
         ctx.restore();
     }
 

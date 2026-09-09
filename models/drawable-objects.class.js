@@ -51,17 +51,6 @@ export class DrawableObject {
         this.rH = this.height - this.offset.top - this.offset.bottom;
     }
 
-    // // add frame to each object for collision implementation
-    // drawFrame(ctx) {
-    //     if (this.showFrame) {
-    //         ctx.beginPath();
-    //         ctx.lineWidth = `5`;
-    //         ctx.strokeStyle = `blue`;
-    //         ctx.rect(this.rX, this.rY, this.rW, this.rH);
-    //         ctx.stroke();
-    //     }
-    // }
-
     // Collision detection
     isColliding(obj) {
         return (
