@@ -1,5 +1,5 @@
 import { Character } from "./character.class.js";
-import { createLevel1, level1 } from "../levels/level1.js";
+import { createLevel1 } from "../levels/level1.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
@@ -27,37 +27,12 @@ export class World {
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
     throwableObjects = [];
-    bottles = [
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-        new BottleObjects(),
-    ];
-
-    coins = [
-        new coinObjects(),
-        new coinObjects(),
-        new coinObjects(),
-        new coinObjects(),
-        new coinObjects(),
-        new coinObjects(),
-    ];
+    bottles = this.createObjects(BottleObjects, 12);
+    coins = this.createObjects(coinObjects, 6);
 
     /**
-     * creates the 2D canvas and draws all the objects
-     * starts intervals for all checks at the. respective speed
-     * canvas handed over from init()
-     * @returns the 2D Canvas
-     * @param {canvas} canvas - canvas is handed over from game.js
-     * @param {boolean} cameraLocked - true when camera sits at the right-side offset (PEPE past the boss)
+     * sets up the 2D canvas context, links the character to the world and starts all game intervals
+     * @param {HTMLCanvasElement} canvas - The canvas element handed over from game.js.
      */
     constructor(canvas) {
         this.ctx = canvas.getContext(`2d`);
@@ -68,6 +43,16 @@ export class World {
         IntervalHub.startInterval(this.slowChecks, 1000 / 10);
         IntervalHub.startInterval(this.fastChecks, 1000 / 60);
         IntervalHub.startInterval(this.gameEnds, 1000);
+    }
+
+    /**
+     * builds an array of new objects, used for the collectable bottles and coins
+     * @param {Function} ObjectType - The class to create instances of, for example BottleObjects.
+     * @param {number} amount - How many objects to create.
+     * @returns {Object[]} The new objects.
+     */
+    createObjects(ObjectType, amount) {
+        return Array.from({ length: amount }, () => new ObjectType());
     }
 
     /**
@@ -93,7 +78,6 @@ export class World {
     };
 
     /**
-     *
      * Link world to character (translate camera_x via character)
      */
     setWorld() {
@@ -102,9 +86,7 @@ export class World {
 
     /**
      * behavior of throwable objects inside thw world
-     * The ternary: condition ? valueIfTrue : valueIfFalse
      * manages throwing to right and left -> flip animation of thrown bottle
-     * updates statusbar for bottles
      */
     checkThrowObjects = () => {
         if (!Keyboard.D || this.character.collectedBottles <= 0) return; // returns if no. collected bottles
@@ -129,7 +111,7 @@ export class World {
             const enemy = this.level.enemies[i];
             if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
                 enemy.hit(i);
-                this.character.speed_y = 15; // bouncing after jumping on chicken
+                this.character.speed_y = 15;
                 enemy.removeEnemy(enemy);
             }
         }
@@ -191,9 +173,8 @@ export class World {
 
     /**
      * behavior when thrown bottle (thorwable Object) hits chicken
-     * enemy dies and is spliced with a delay
+     * enemy dies and is spliced with a delay, bottle is spliced
      * interval for bottle is stopped to reduce strain on system
-     * bottle is spliced
      */
     checkBottleHitsChicken = () => {
         for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
@@ -204,11 +185,7 @@ export class World {
                     enemy.hit();
                     bottle.hit();
                     enemy.removeEnemy(enemy);
-                    setTimeout(() => {
-                        bottle.stopIntervals();
-                        const index = this.throwableObjects.indexOf(bottle);
-                        if (index > -1) this.throwableObjects.splice(index, 1);
-                    }, 600);
+                    this.removeBottle(bottle);
                     break;
                 }
             }
@@ -217,10 +194,7 @@ export class World {
 
     /**
      * behavior when thrown bottle (thorwable Object) hits endboss
-     * endboss loses energy
-     * interval for bottle is stopped to reduce strain on system
-     * bottle is spliced
-     * break stops bottle from reducing energy continueously
+     * interval for bottle is stopped to reduce strain on system, bottle is spliced
      */
     checkBottleHitsEndboss = () => {
         for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
@@ -231,11 +205,7 @@ export class World {
                     enemy.hit();
                     this.endbossBar.setEndbossPercentage(enemy.energy);
                     bottle.hit();
-                    setTimeout(() => {
-                        bottle.stopIntervals();
-                        const index = this.throwableObjects.indexOf(bottle);
-                        if (index > -1) this.throwableObjects.splice(index, 1);
-                    }, 1500);
+                    this.removeBottle(bottle);
                     break;
                 }
             }
@@ -243,24 +213,51 @@ export class World {
     };
 
     /**
+     * splices a bottle out of the array after a delay so the splash animation can finish
+     * the bottle intervals are stopped first to save resources
+     * @param {ThrowableObject} bottle - The bottle that hit an enemy.
+     */
+    removeBottle(bottle) {
+        setTimeout(() => {
+            bottle.stopIntervals();
+            const index = this.throwableObjects.indexOf(bottle);
+            if (index > -1) this.throwableObjects.splice(index, 1);
+        }, 1500);
+    }
+
+    /**
      * behavior when character approaches endboss
-     * Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
+     * the endboss turns towards PEPE and starts walking, out of range he stands still again
      */
     characterApproachesEndboss = () => {
         this.level.boss.forEach((boss) => {
             if (Math.abs(boss.x - this.character.x) < 400 && this.character.x > boss.x) {
                 boss.otherDirection = true;
-                this.level.boss.forEach((boss) => boss.moveRight());
-                this.level.boss.forEach((boss) => boss.startMoving());
+                this.approachFromRight();
             } else if (Math.abs(boss.x - this.character.x) < 500 && this.character.x < boss.x) {
                 boss.otherDirection = false;
-                this.level.boss.forEach((boss) => boss.moveLeft());
-                this.level.boss.forEach((boss) => boss.startMoving());
+                this.approachFromLeft();
             } else {
                 this.level.boss.forEach((boss) => (boss.moving = false));
             }
         });
     };
+
+    /**
+     * sends the endboss to the right, towards a PEPE who has passed him
+     */
+    approachFromRight() {
+        this.level.boss.forEach((boss) => boss.moveRight());
+        this.level.boss.forEach((boss) => boss.startMoving());
+    }
+
+    /**
+     * sends the endboss to the left, towards a PEPE who is still in front of him
+     */
+    approachFromLeft() {
+        this.level.boss.forEach((boss) => boss.moveLeft());
+        this.level.boss.forEach((boss) => boss.startMoving());
+    }
 
     /**
      * being too close to endboss triggers attack
@@ -320,12 +317,8 @@ export class World {
     }
 
     /**
-     *
-     * @param {*} objects - all objects needed inside canvas
-     * triggers draw of all objects
-     * calls camera position this.cameraPosition();
-     * clearing canvas before each draw, so old animated images are deleted
-     * draw() is repeatedly run = animation
+     * triggers draw of all objects and schedules the next frame
+     * the two translate calls have to cancel each other out, canvas transforms add up otherwise
      */
     draw() {
         this.cameraPosition();
@@ -346,7 +339,7 @@ export class World {
 
     /**
      * Loop for Objects to draw
-     * @param {*} obj - inserts each object from arrays to addToMap()
+     * @param {Object[]} objects - All objects of one array that need to be drawn.
      */
     addObjectsToMap(objects) {
         objects.forEach((obj) => {
@@ -356,7 +349,7 @@ export class World {
 
     /**
      * drawing objects
-     * @param {*} obj - now adds all individual opbjects to map
+     * @param {Object} obj - The single object to draw, mirrored first if it faces the other way.
      */
     addToMap(obj) {
         if (obj.otherDirection) {
@@ -385,18 +378,21 @@ export class World {
     endScreen() {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");
-            setTimeout(() => {
-                document.getElementById("start-menu").classList.toggle(`d_none`);
-                document.getElementById("home").classList.remove(`d_none`);
-                document.getElementById("imprint").classList.add(`d_none`);
-            }, 3000);
+            this.continueScreen();
         } else {
             document.getElementById("lost").classList.remove("d_none");
-            setTimeout(() => {
-                document.getElementById("start-menu").classList.toggle(`d_none`);
-                document.getElementById("home").classList.remove(`d_none`);
-                document.getElementById("imprint").classList.add(`d_none`);
-            }, 3000);
+            this.continueScreen();
         }
+    }
+
+    /**
+     * shows the menu again after the end screen so the game can be restarted or left
+     */
+    continueScreen() {
+        setTimeout(() => {
+            document.getElementById("start-menu").classList.toggle(`d_none`);
+            document.getElementById("home").classList.remove(`d_none`);
+            document.getElementById("imprint").classList.add(`d_none`);
+        }, 3000);
     }
 }

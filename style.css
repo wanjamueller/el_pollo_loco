@@ -5,6 +5,10 @@
 }
 
 body {
+    button {
+        cursor: pointer;
+    }
+
     main {
         width: min(100%, 720px);
         display: flex;
