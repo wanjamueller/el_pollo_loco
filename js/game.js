@@ -1,4 +1,5 @@
 import { MyAudio, AudioHub } from "../models/AudioHub.class.js";
+import { Imagehub } from "../models/image-hub.class.js";
 import { Keyboard, mobileButtons } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
 import { dialogTemplate } from "./templates.js";
@@ -11,12 +12,15 @@ const dialogRef = document.getElementById("settings");
 /**
  * connects all menu buttons once the page has finished loading and restores the saved mute state
  */
-window.addEventListener(`load`, () => {
+window.addEventListener(`load`, async () => {
     document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
     document.getElementById(`play`).addEventListener(`click`, startGame);
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
     loadMuteState();
+    document.getElementById(`play`).classList.add(`d_none`);
+    await preloadImages();
+    document.getElementById(`play`).classList.remove(`d_none`);
 });
 
 /**
@@ -24,6 +28,31 @@ window.addEventListener(`load`, () => {
  */
 function init() {
     world = new World(canvas);
+}
+
+/**
+ *
+ * @returns
+ */
+function preloadImages() {
+    const paths = [];
+    Object.values(Imagehub).forEach((group) => {
+        Object.values(group).forEach((set) => {
+            Array.isArray(set) ? paths.push(...set) : paths.push(set);
+        });
+    });
+
+    return Promise.all(
+        paths.map(
+            (path) =>
+                new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = resolve;
+                    img.onerror = resolve; // never block on a missing file
+                    img.src = path;
+                }),
+        ),
+    );
 }
 
 /**
