@@ -1,4 +1,9 @@
-export function dialogTeamplate() {
+/**
+ * builds the HTML for the controls dialog, showing which key or button does what
+ * the close button gets its listener in showControls() because it only exists once this HTML is inserted
+ * @returns {string} The dialog markup as an HTML string.
+ */
+export function dialogTemplate() {
     return /*html*/ `
         <div>
             <div class="close-button">

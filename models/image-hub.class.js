@@ -1,4 +1,12 @@
+/**
+ * holds the paths to every image of the game, sorted by object and animation
+ * @class
+ */
 export class Imagehub {
+    /**
+     * image sets for the character PEPE
+     * @type {Object.<string, string[]>}
+     */
     static PEPE = {
         move: [
             `./assets/img/2_character_pepe/2_walk/W-21.png`,
@@ -59,6 +67,10 @@ export class Imagehub {
         ],
     };
 
+    /**
+     * image sets for the endboss
+     * @type {Object.<string, string[]>}
+     */
     static ENDBOSS = {
         move: [
             `./assets/img/4_enemie_boss_chicken/1_walk/G1.png`,
@@ -98,6 +110,10 @@ export class Imagehub {
         ],
     };
 
+    /**
+     * image sets for the normal chicken
+     * @type {Object.<string, string[]>}
+     */
     static CHICKEN = {
         move: [
             `./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png`,
@@ -110,6 +126,10 @@ export class Imagehub {
         ],
     };
 
+    /**
+     * image sets for the small chicken
+     * @type {Object.<string, string[]>}
+     */
     static SMALL_CHICKEN = {
         move: [
             `./assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png`,
@@ -122,10 +142,18 @@ export class Imagehub {
         ],
     };
 
+    /**
+     * the two cloud images, picked by index when a cloud is created
+     * @type {Object.<string, string[]>}
+     */
     static CLOUD = {
         move: [`./assets/img/5_background/layers/4_clouds/1.png`, `./assets/img/5_background/layers/4_clouds/2.png`],
     };
 
+    /**
+     * the background layers from back to front, each with two variants that alternate per segment
+     * @type {Object}
+     */
     static BACKGROUND = {
         plain: [
             `./assets/img/5_background/layers/3_third_layer/1.png`,
@@ -142,6 +170,10 @@ export class Imagehub {
         sky: `./assets/img/5_background/layers/air.png`,
     };
 
+    /**
+     * statusbar images for health, coins, bottles and endboss, ordered from 0 to 100 percent
+     * @type {Object.<string, string[]>}
+     */
     static BARS = {
         health: [
             `./assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png`,
@@ -177,6 +209,10 @@ export class Imagehub {
         ],
     };
 
+    /**
+     * bottle images for lying on the ground, flying through the air and splashing on impact
+     * @type {Object.<string, string[]>}
+     */
     static BOTTLES = {
         ground: [
             `./assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png`,
@@ -198,6 +234,10 @@ export class Imagehub {
         ],
     };
 
+    /**
+     * the coin image for objects lying in the level
+     * @type {Object.<string, string[]>}
+     */
     static COINS = {
         ground: [`./assets/img/8_coin/coin_2.png`, `./assets/img/8_coin/coin_2.png`],
     };

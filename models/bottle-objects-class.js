@@ -2,6 +2,10 @@ import { AudioHub } from "./AudioHub.class.js";
 import { CollectableObjects } from "./collectable-objects.class.js";
 import { Imagehub } from "./image-hub.class.js";
 
+/**
+ * creates bottles to be collected
+ * @class
+ */
 export class BottleObjects extends CollectableObjects {
     x;
     y = 350;
@@ -14,6 +18,10 @@ export class BottleObjects extends CollectableObjects {
         left: 20,
     };
 
+    /**
+     * loads both ground imnages and randomly places each type on the ground at a random spot starting at 350 px on x earliest
+     * @param {number} amount - defines the amount of bottles to create when being triggered
+     */
     constructor(amount) {
         super();
         const bottles = Imagehub.BOTTLES.ground;

@@ -3,6 +3,10 @@ import { Imagehub } from "./image-hub.class.js";
 import { IntervalHub } from "./intervallhub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
+/**
+ * created the trown bottles
+ * @class
+ */
 export class ThrowableObject extends MovableObject {
     x;
     y;
@@ -18,7 +22,14 @@ export class ThrowableObject extends MovableObject {
     speed = 10;
     throwObj = true;
     hitEnemy = false;
-    throwReversed = Imagehub.BOTTLES.flying.reverse(); // for throwing left
+    throwReversed = Imagehub.BOTTLES.flying.reverse();
+
+    /**
+     *
+     * @param {number} x - positon on canvas
+     * @param {number} y - positon on canvas
+     * throwReversed = Imagehub.BOTTLES.flying.reverse(); // for throwing left
+     */
 
     constructor(x, y) {
         super();
@@ -34,6 +45,12 @@ export class ThrowableObject extends MovableObject {
         this.intervals.push(IntervalHub.startInterval(this.speedX, 1000 / 40));
     }
 
+    /**
+     * returns the actual bottle in the air after throw is triggered
+     * loads images for animation of flying and hitting enemy or endboss
+     * recieves and carries over actual x and y of character to start throw at correct position
+     * triggers intervalls for animation, speed of throw and gravity
+     */
     animateBottle = () => {
         if (this.hitEnemy) {
             this.playAnimation(Imagehub.BOTTLES.splash);

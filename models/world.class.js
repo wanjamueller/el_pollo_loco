@@ -11,13 +11,17 @@ import { BottleBar } from "./bottle-bar.class.js";
 import { EndbossBar } from "./endboss-bar.class.js";
 import { AudioHub } from "./AudioHub.class.js";
 
+/**
+ * creates the world the game lives in
+ *  @class
+ */
 export class World {
     character = new Character();
     level = createLevel1();
     canvas;
     ctx;
     camera_x = 0;
-    cameraLocked = false; // true when camera sits at the right-side offset (PEPE past the boss)
+    cameraLocked = false;
     statusBar = new StatusBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
@@ -47,7 +51,14 @@ export class World {
         new coinObjects(),
     ];
 
-    // canvas handed over from init()
+    /**
+     * creates the 2D canvas and draws all the objects
+     * starts intervals for all checks at the. respective speed
+     * canvas handed over from init()
+     * @returns the 2D Canvas
+     * @param {canvas} canvas - canvas is handed over from game.js
+     * @param {boolean} cameraLocked - true when camera sits at the right-side offset (PEPE past the boss)
+     */
     constructor(canvas) {
         this.ctx = canvas.getContext(`2d`);
         this.canvas = canvas; // need this to clear canvas at start of draw()
@@ -59,7 +70,9 @@ export class World {
         IntervalHub.startInterval(this.gameEnds, 1000);
     }
 
-    // all intervals at 1000/10
+    /**
+     * All methods for intervals at 1000 / 10
+     */
     slowChecks = () => {
         this.checkCollisions();
         this.checkEndbossCollisions();
@@ -70,24 +83,33 @@ export class World {
         this.endbossAttacks();
     };
 
-    // all intervals at 1000/60
+    /**
+     * All methods for intervals at 1000 / 60
+     */
     fastChecks = () => {
         this.checkBottleHitsChicken();
         this.checkBottleHitsEndboss();
         this.checkJumpOnChicken();
     };
 
-    // Link world to character (translate camera_x via character)
+    /**
+     *
+     * Link world to character (translate camera_x via character)
+     */
     setWorld() {
         this.character.world = this;
     }
 
-    // throw bottles
+    /**
+     * behavior of throwable objects inside thw world
+     * The ternary: condition ? valueIfTrue : valueIfFalse
+     * manages throwing to right and left -> flip animation of thrown bottle
+     * updates statusbar for bottles
+     */
     checkThrowObjects = () => {
-        if (!Keyboard.D || this.character.collectedBottles <= 0) return; // return if no. collected bottles
-        if (this.throwableObjects.some((bottle) => !bottle.hitEnemy)) return; // return if bottle still in air
+        if (!Keyboard.D || this.character.collectedBottles <= 0) return; // returns if no. collected bottles
+        if (this.throwableObjects.some((bottle) => !bottle.hitEnemy)) return; // returns if previous bottle still in air
         const facingLeft = this.character.otherDirection;
-        // The ternary: condition ? valueIfTrue : valueIfFalse
         const bottle = new ThrowableObject(
             facingLeft ? this.character.x : this.character.x + 100,
             this.character.y + 150,
@@ -98,6 +120,10 @@ export class World {
         this.bottleBar.setBottlePercentage(this.character.collectedBottles);
     };
 
+    /**
+     * behavior when a chicken is jumped on (both types)
+     * makes the character bounse when landing on chicken
+     */
     checkJumpOnChicken = () => {
         for (let i = this.level.enemies.length - 1; i >= 0; i--) {
             const enemy = this.level.enemies[i];
@@ -109,6 +135,10 @@ export class World {
         }
     };
 
+    /**
+     * behavior when objects are colliding with character
+     * updates characer statusbar
+     */
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy) && !enemy.isDead()) {
@@ -118,6 +148,10 @@ export class World {
         });
     };
 
+    /**
+     * behavior when endboss collides with character
+     * updates character statusbar
+     */
     checkEndbossCollisions = () => {
         this.level.boss.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy) && !enemy.isDead()) {
@@ -127,6 +161,10 @@ export class World {
         });
     };
 
+    /**
+     * behavior when character collides with coins
+     * coins are collected and added to array + coin statusbar is updated
+     */
     checkCoinCollections = () => {
         for (let i = this.coins.length - 1; i >= 0; i--) {
             if (this.character.isColliding(this.coins[i])) {
@@ -137,6 +175,10 @@ export class World {
         }
     };
 
+    /**
+     * behavior when character collides with bottles on ground
+     * bottles are collected and added to array + coin statusbar is updated
+     */
     checkBottleCollections = () => {
         for (let i = this.bottles.length - 1; i >= 0; i--) {
             if (this.character.collectedBottles < 100 && this.character.isColliding(this.bottles[i])) {
@@ -147,6 +189,12 @@ export class World {
         }
     };
 
+    /**
+     * behavior when thrown bottle (thorwable Object) hits chicken
+     * enemy dies and is spliced with a delay
+     * interval for bottle is stopped to reduce strain on system
+     * bottle is spliced
+     */
     checkBottleHitsChicken = () => {
         for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
             const bottle = this.throwableObjects[j];
@@ -167,6 +215,13 @@ export class World {
         }
     };
 
+    /**
+     * behavior when thrown bottle (thorwable Object) hits endboss
+     * endboss loses energy
+     * interval for bottle is stopped to reduce strain on system
+     * bottle is spliced
+     * break stops bottle from reducing energy continueously
+     */
     checkBottleHitsEndboss = () => {
         for (let j = this.throwableObjects.length - 1; j >= 0; j--) {
             const bottle = this.throwableObjects[j];
@@ -181,24 +236,25 @@ export class World {
                         const index = this.throwableObjects.indexOf(bottle);
                         if (index > -1) this.throwableObjects.splice(index, 1);
                     }, 1500);
-                    // stops bottle from reducing energy continueously
                     break;
                 }
             }
         }
     };
 
+    /**
+     * behavior when character approaches endboss
+     * Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
+     */
     characterApproachesEndboss = () => {
         this.level.boss.forEach((boss) => {
             if (Math.abs(boss.x - this.character.x) < 400 && this.character.x > boss.x) {
                 boss.otherDirection = true;
                 this.level.boss.forEach((boss) => boss.moveRight());
-                // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
                 this.level.boss.forEach((boss) => boss.startMoving());
             } else if (Math.abs(boss.x - this.character.x) < 500 && this.character.x < boss.x) {
                 boss.otherDirection = false;
                 this.level.boss.forEach((boss) => boss.moveLeft());
-                // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
                 this.level.boss.forEach((boss) => boss.startMoving());
             } else {
                 this.level.boss.forEach((boss) => (boss.moving = false));
@@ -206,16 +262,21 @@ export class World {
         });
     };
 
+    /**
+     * being too close to endboss triggers attack
+     * Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
+     */
     endbossAttacks = () => {
         this.level.boss.forEach((boss) => {
             if (Math.abs(boss.x - this.character.x) < 150 && !boss.isDead()) {
-                // Math.abs = Math absolute so that it also works when PEPE is to the right of the endboss
                 boss.attack();
             }
         });
     };
 
-    // manages the position of the camera in relation to the character
+    /**
+     * manages the position of the camera in relation to the character
+     */
     cameraPosition() {
         const boss = this.level.boss[0];
         if (boss && this.character.x > boss.x) {
@@ -228,23 +289,28 @@ export class World {
         this.camera_x = Math.round(this.camera_x); // whole pixels, prevents background seams
     }
 
-    // keeps PEPE 100px from the right edge, freezes camera until he gets there
+    /**
+     * keeps PEPE 100px from the right edge, freezes camera until he gets there
+     */
     cameraRightSide() {
         const rightLimit = -this.character.x + 470;
         if (this.camera_x >= rightLimit) this.cameraLocked = true;
         this.camera_x = this.cameraLocked ? rightLimit : Math.min(this.camera_x, rightLimit);
     }
 
-    // keeps PEPE 100px from the left edge, freezes camera while he crosses back
+    /**
+     * keeps PEPE 100px from the left edge, freezes camera while he crosses back
+     */
     cameraLeftSide() {
         const leftLimit = -this.character.x + 100;
         if (this.camera_x <= leftLimit) this.cameraLocked = false;
         this.camera_x = this.cameraLocked ? Math.max(this.camera_x, leftLimit) : leftLimit;
     }
 
-    // adds all statusbars fixed to camera position
+    /**
+     * adds all statusbars fixed to camera position
+     */
     addStatusbars() {
-        // space for fixed objects
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.coinBar);
@@ -253,16 +319,20 @@ export class World {
         this.ctx.translate(this.camera_x, 0);
     }
 
-    // triggers draw of all objects
+    /**
+     *
+     * @param {*} objects - all objects needed inside canvas
+     * triggers draw of all objects
+     * calls camera position this.cameraPosition();
+     * clearing canvas before each draw, so old animated images are deleted
+     * draw() is repeatedly run = animation
+     */
     draw() {
         this.cameraPosition();
-        // clearing canvas before each draw, so old animated images are deleted
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        // adding to map
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        // fix Statusbars
         this.addStatusbars();
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.bottles);
@@ -271,18 +341,23 @@ export class World {
         this.addObjectsToMap(this.throwableObjects);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
-        // draw() is repeatedly run = animation
         requestAnimationFrame(() => this.draw());
     }
 
-    // Loop for Objects to draw
+    /**
+     * Loop for Objects to draw
+     * @param {*} obj - inserts each object from arrays to addToMap()
+     */
     addObjectsToMap(objects) {
         objects.forEach((obj) => {
             this.addToMap(obj);
         });
     }
 
-    // drawing objects
+    /**
+     * drawing objects
+     * @param {*} obj - now adds all individual opbjects to map
+     */
     addToMap(obj) {
         if (obj.otherDirection) {
             obj.flipImage(this.ctx);
@@ -293,7 +368,9 @@ export class World {
         }
     }
 
-    // definition of game over and behavior
+    /**
+     * definition of game over and behavior
+     */
     gameEnds = () => {
         if (this.character.dead || this.level.boss.some((boss) => boss.dead)) {
             IntervalHub.stopAllIntervals();
@@ -302,7 +379,9 @@ export class World {
         }
     };
 
-    // manages screen after game over
+    /**
+     * manages screen after game over
+     */
     endScreen() {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");

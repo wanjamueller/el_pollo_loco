@@ -1,6 +1,10 @@
 import { CollectableObjects } from "./collectable-objects.class.js";
 import { Imagehub } from "./image-hub.class.js";
 
+/**
+ * creates coins to be collected
+ * @class
+ */
 export class coinObjects extends CollectableObjects {
     x;
     y;
@@ -13,6 +17,9 @@ export class coinObjects extends CollectableObjects {
         left: 30,
     };
 
+    /**
+     * loads image for coins and places then randomly in the world between x and y defined borders
+     */
     constructor() {
         super();
         this.loadImage(Imagehub.COINS.ground[0]);
