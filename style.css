@@ -166,7 +166,7 @@ body {
     }
 }
 
-@media screen and (pointer: coarse) {
+@media screen and (hover: none) {
     body {
         main {
             .canvas:fullscreen {
@@ -250,7 +250,7 @@ body {
     }
 }
 
-@media screen and (orientation: portrait) and (pointer: coarse) {
+@media screen and (orientation: portrait) and (hover: none) {
     body {
         main {
             .rotate-hint {

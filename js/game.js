@@ -100,7 +100,7 @@ function loadMuteState() {
  * @returns {boolean} True on touch devices.
  */
 function hasTouch() {
-    return window.matchMedia(`(pointer: coarse)`).matches;
+    return window.matchMedia(`(hover: none)`).matches;
 }
 
 /**
