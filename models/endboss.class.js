@@ -5,10 +5,10 @@ import { IntervalHub } from "./intervallhub.class.js";
 import { MovableObject } from "./movable-object.class.js";
 
 export class Endboss extends MovableObject {
-    y = 230;
+    y = 140;
     x = 2300; // fix for now, based on level1
-    height = 200;
-    width = 200;
+    height = 300;
+    width = 300;
     counter = 0;
     speed = 0;
     offset = {
