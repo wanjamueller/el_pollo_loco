@@ -1,5 +1,6 @@
 main {
     padding: 50px 30px;
+    width: 100%;
 
     a {
         text-decoration: none;
@@ -47,26 +48,40 @@ main {
         }
 
         .table {
-            width: 300px;
+            width: min(100%, 300px);
             align-self: left;
             text-align: left;
 
             th {
-                font-size: 1.5rem;
+                font-size: clamp(1rem, 0.8571rem + 0.7143vw, 1.5rem);
                 font-weight: bold;
             }
 
             tr {
-                font-size: 1.5rem;
+                font-size: clamp(1rem, 0.8571rem + 0.7143vw, 1.5rem);
             }
         }
     }
 }
 
 @media screen and (max-width: 580px) {
+    body {
+        width: 100%;
+    }
     main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         .heading {
+            align-items: center;
             flex-direction: column-reverse;
+            text-align: center;
+        }
+
+        .author {
+            align-items: center;
+            text-align: center;
         }
     }
 }

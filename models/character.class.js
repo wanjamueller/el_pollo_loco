@@ -138,19 +138,41 @@ export class Character extends MovableObject {
      */
     move = () => {
         if (Keyboard.RIGHT && this.x < level1.level_end_x) {
-            this.otherDirection = false;
-            this.moveRight();
-            this.lastActivity = new Date().getTime();
+            this.walkingRight();
         }
         if (Keyboard.LEFT && this.x > level1.level_start_x) {
-            this.otherDirection = true;
-            this.moveLeft();
-            this.lastActivity = new Date().getTime();
+            this.walkingLeft();
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
-            this.jump();
-            this.jumpAnimation();
-            this.lastActivity = new Date().getTime();
+            this.jumping();
         }
     };
+
+    /**
+     * moves PEPE to the right, turns the sprite forward and refreshes the idle timer
+     */
+    walkingRight() {
+        this.otherDirection = false;
+        this.moveRight();
+        this.lastActivity = new Date().getTime();
+    }
+
+    /**
+     * moves PEPE to the left, mirrors the sprite and refreshes the idle timer
+     */
+    walkingLeft() {
+        this.otherDirection = true;
+        this.moveLeft();
+        this.lastActivity = new Date().getTime();
+    }
+
+    /**
+     * starts the jump, plays the jump sound and refreshes the idle timer
+     * the sound is triggered here and not in the animation, so it only plays once per jump
+     */
+    jumping() {
+        this.jump();
+        this.jumpAnimation();
+        this.lastActivity = new Date().getTime();
+    }
 }
