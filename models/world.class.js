@@ -59,6 +59,7 @@ export class World {
         IntervalHub.startInterval(this.gameEnds, 1000);
     }
 
+    // all intervals at 1000/10
     slowChecks = () => {
         this.checkCollisions();
         this.checkEndbossCollisions();
@@ -69,6 +70,7 @@ export class World {
         this.endbossAttacks();
     };
 
+    // all intervals at 1000/60
     fastChecks = () => {
         this.checkBottleHitsChicken();
         this.checkBottleHitsEndboss();
@@ -80,6 +82,7 @@ export class World {
         this.character.world = this;
     }
 
+    // throw bottles
     checkThrowObjects = () => {
         if (!Keyboard.D || this.character.collectedBottles <= 0) return; // return if no. collected bottles
         if (this.throwableObjects.some((bottle) => !bottle.hitEnemy)) return; // return if bottle still in air
@@ -212,6 +215,7 @@ export class World {
         });
     };
 
+    // manages the position of the camera in relation to the character
     cameraPosition() {
         const boss = this.level.boss[0];
         if (boss && this.character.x > boss.x) {
@@ -238,6 +242,7 @@ export class World {
         this.camera_x = this.cameraLocked ? Math.max(this.camera_x, leftLimit) : leftLimit;
     }
 
+    // adds all statusbars fixed to camera position
     addStatusbars() {
         // space for fixed objects
         this.ctx.translate(-this.camera_x, 0);
@@ -248,6 +253,7 @@ export class World {
         this.ctx.translate(this.camera_x, 0);
     }
 
+    // triggers draw of all objects
     draw() {
         this.cameraPosition();
         // clearing canvas before each draw, so old animated images are deleted
@@ -287,6 +293,7 @@ export class World {
         }
     }
 
+    // definition of game over and behavior
     gameEnds = () => {
         if (this.character.dead || this.level.boss.some((boss) => boss.dead)) {
             IntervalHub.stopAllIntervals();
@@ -295,6 +302,7 @@ export class World {
         }
     };
 
+    // manages screen after game over
     endScreen() {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");

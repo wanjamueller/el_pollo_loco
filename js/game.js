@@ -16,11 +16,13 @@ window.addEventListener(`load`, () => {
     loadMuteState(); // checks mute state
 });
 
+// creates world when play button is clickec
 function init() {
     // world is initialized with canvas
     world = new World(canvas);
 }
 
+// manages start screen
 function startScreen() {
     document.getElementById("start").classList.toggle("d_none");
     document.getElementById("won").classList.add("d_none");
@@ -82,25 +84,7 @@ function hasTouch() {
     return window.matchMedia(`(pointer: coarse)`).matches;
 }
 
-// fullscreen
-function toggleFullscreen() {
-    const el = document.querySelector(`.canvas`);
-
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        }
-    } else {
-        if (el.requestFullscreen) {
-            el.requestFullscreen().catch(() => {});
-        } else if (el.webkitRequestFullscreen) {
-            el.webkitRequestFullscreen();
-        }
-    }
-}
-
+// manages dialog for control description
 function showControls() {
     dialogRef.innerHTML = dialogTeamplate();
     dialogRef.classList.add(`open`);
