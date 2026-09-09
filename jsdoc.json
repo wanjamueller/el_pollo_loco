@@ -1,0 +1,12 @@
+{
+    "source": {
+        "include": ["js", "models", "levels"],
+        "includePattern": ".+\\.js$"
+    },
+    "opts": {
+        "destination": "./out",
+        "recurse": true,
+        "private": true,
+        "readme": "README.md"
+    }
+}
