@@ -76,8 +76,12 @@ body {
                 background: none;
                 border: none;
 
-                img {
+                #start-game {
                     height: clamp(1.75rem, -2.4412rem + 17.6471vw, 5.5rem);
+                }
+
+                #loading {
+                    height: 63px;
                 }
             }
 
