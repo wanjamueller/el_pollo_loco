@@ -19,9 +19,9 @@ window.addEventListener(`load`, async () => {
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
     loadMuteState();
-    document.getElementById(`play`).classList.add(`d_none`);
     await preloadImages();
-    document.getElementById(`play`).classList.remove(`d_none`);
+    document.getElementById("start-game").classList.remove("d_none");
+    document.getElementById("loading").classList.add("d_none");
 });
 
 /**
