@@ -378,9 +378,11 @@ export class World {
     endScreen() {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");
+            document.getElementById("overlay").classList.remove("d_none");
             this.continueScreen();
         } else {
             document.getElementById("lost").classList.remove("d_none");
+            document.getElementById("overlay").classList.remove("d_none");
             this.continueScreen();
         }
     }

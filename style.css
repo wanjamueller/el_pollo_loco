@@ -34,6 +34,14 @@ body {
                 border: 3px solid black;
             }
 
+            .overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                border-radius: 10px;
+                z-index: 1;
+            }
+
             .d_none {
                 display: none;
             }
@@ -43,7 +51,7 @@ body {
             position: absolute;
             top: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
             right: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
-            z-index: 1;
+            z-index: 3;
 
             .mute-button {
                 background: none;
@@ -62,7 +70,7 @@ body {
             position: absolute;
             top: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
             gap: clamp(0.3125rem, -0.7353rem + 4.4118vw, 1.25rem);
-            z-index: 1;
+            z-index: 3;
 
             #play {
                 background: none;
@@ -86,6 +94,7 @@ body {
             top: clamp(4.0625rem, -1.875rem + 25vw, 9.375rem);
             display: flex;
             justify-content: center;
+            z-index: 2;
 
             img {
                 width: 90%;
@@ -112,6 +121,7 @@ body {
             top: 20px;
             display: flex;
             justify-content: center;
+            z-index: 2;
 
             img {
                 width: 80%;

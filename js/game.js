@@ -36,6 +36,7 @@ function startScreen() {
     document.getElementById("canvas").classList.add("d_none");
     document.getElementById("home").classList.add("d_none");
     document.getElementById("imprint").classList.remove("d_none");
+    document.getElementById("overlay").classList.add("d_none");
 }
 
 /**
@@ -51,6 +52,7 @@ function startGame() {
     document.getElementById("canvas").classList.remove("d_none");
     document.getElementById("imprint").classList.add("d_none");
     document.getElementById("imprint").classList.add("d_none");
+    document.getElementById("overlay").classList.add("d_none");
     AudioHub.playOne(AudioHub.BACKGROUND, true);
     mobile();
 }
