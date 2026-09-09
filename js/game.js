@@ -11,6 +11,7 @@ const dialogRef = document.getElementById("settings");
 
 /**
  * connects all menu buttons once the page has finished loading and restores the saved mute state
+ * the play button stays hidden until every image is cached, so the game never starts on missing sprites
  */
 window.addEventListener(`load`, async () => {
     document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
@@ -31,8 +32,10 @@ function init() {
 }
 
 /**
- *
- * @returns
+ * loads every image of the Imagehub into the browser cache before the game can be started
+ * each image gets its own promise, Promise.all waits until the last one is done
+ * onerror also resolves, so one missing file never blocks the play button
+ * @returns {Promise} Resolves once all images are loaded.
  */
 function preloadImages() {
     const paths = [];
@@ -48,7 +51,7 @@ function preloadImages() {
                 new Promise((resolve) => {
                     const img = new Image();
                     img.onload = resolve;
-                    img.onerror = resolve; // never block on a missing file
+                    img.onerror = resolve;
                     img.src = path;
                 }),
         ),
