@@ -113,7 +113,7 @@ function toggleMute() {
     document.getElementById("mute").classList.toggle("d_none");
     document.getElementById("unmute").classList.toggle("d_none");
     AudioHub.allSounds.forEach((sound) => {
-        sound.file.volume = MyAudio.muted ? 0 : sound.volume;
+        sound.file.muted = MyAudio.muted;
     });
 }
 
@@ -123,6 +123,7 @@ function toggleMute() {
  */
 function loadMuteState() {
     MyAudio.muted = localStorage.getItem(`muted`) === `true`;
+    AudioHub.allSounds.forEach((sound) => (sound.file.muted = MyAudio.muted));
     if (MyAudio.muted) {
         document.getElementById(`mute`).classList.add(`d_none`);
         document.getElementById(`unmute`).classList.remove(`d_none`);

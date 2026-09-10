@@ -5,10 +5,6 @@
 }
 
 body {
-    button {
-        cursor: pointer;
-    }
-
     main {
         width: min(100%, 720px);
         display: flex;
@@ -51,11 +47,15 @@ body {
             position: absolute;
             top: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
             right: clamp(0.3125rem, -0.0272rem + 1.4493vw, 0.625rem);
-            z-index: 3;
+            z-index: 5;
 
             .mute-button {
                 background: none;
                 border: none;
+
+                img {
+                    pointer-events: none;
+                }
 
                 .mute,
                 .unmute {
@@ -186,6 +186,8 @@ body {
 
 @media screen and (hover: none) {
     body {
+        width: 100svw;
+
         main {
             .canvas:fullscreen {
                 width: 100dvw;
