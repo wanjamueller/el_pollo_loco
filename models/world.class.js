@@ -231,7 +231,7 @@ export class World {
      */
     characterApproachesEndboss = () => {
         this.level.boss.forEach((boss) => {
-            if (Math.abs(boss.x - this.character.x) < 400 && this.character.x > boss.x) {
+            if (Math.abs(boss.x - this.character.x) < 500 && this.character.x > boss.x) {
                 boss.otherDirection = true;
                 this.approachFromRight();
             } else if (Math.abs(boss.x - this.character.x) < 500 && this.character.x < boss.x) {

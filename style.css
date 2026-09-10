@@ -166,20 +166,22 @@ body {
         }
 
         table {
-            img {
-                width: clamp(2.5rem, 1rem + 7.5vw, 4.375rem);
-            }
+            tr {
+                th {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding-right: 20px;
 
-            th {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                padding-right: 20px;
+                    img {
+                        width: 40px;
+                    }
+                }
             }
+        }
 
-            .dialog {
-                max-width: 100%;
-            }
+        .dialog {
+            max-width: 100%;
         }
     }
 }
