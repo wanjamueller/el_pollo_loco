@@ -44,15 +44,13 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * object getting hit reduces eneergy by 5
+     * object getting hit reduces eneergy by 20
      */
     hit() {
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
+        if (this.isHurt()) return;
+        this.energy -= 20;
+        if (this.energy < 0) this.energy = 0;
+        this.lastHit = new Date().getTime();
     }
 
     /**
