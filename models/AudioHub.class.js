@@ -57,7 +57,8 @@ export class AudioHub {
     ];
 
     /**
-     * plays a single sound from the start, muted sounds are played at volume 0
+     * plays a single sound from the start, the mute flag is applied per sound
+     * volume is set separately because iOS ignores volume changes and only honours muted
      * @param {MyAudio} sound - The sound to play.
      * @param {boolean} [retrigger=false] - True restarts a sound that is already running, used for short effects like jumping or collecting.
      */
@@ -65,7 +66,8 @@ export class AudioHub {
         if (sound.isPlaying && !retrigger) return;
         sound.isPlaying = true;
         sound.file.currentTime = 0;
-        sound.file.volume = MyAudio.muted ? 0 : sound.volume;
+        sound.file.muted = MyAudio.muted;
+        sound.file.volume = sound.volume;
         sound.file.play().catch(() => {
             sound.isPlaying = false;
         });
