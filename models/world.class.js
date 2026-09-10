@@ -59,7 +59,6 @@ export class World {
      * All methods for intervals at 1000 / 10
      */
     slowChecks = () => {
-        this.checkCollisions();
         this.checkEndbossCollisions();
         this.checkCoinCollections();
         this.checkBottleCollections();
@@ -72,9 +71,9 @@ export class World {
      * All methods for intervals at 1000 / 60
      */
     fastChecks = () => {
+        this.checkCollisions();
         this.checkBottleHitsChicken();
         this.checkBottleHitsEndboss();
-        this.checkJumpOnChicken();
     };
 
     /**
@@ -103,31 +102,26 @@ export class World {
     };
 
     /**
-     * behavior when a chicken is jumped on (both types)
-     * makes the character bounse when landing on chicken
-     */
-    checkJumpOnChicken = () => {
-        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
-            const enemy = this.level.enemies[i];
-            if (!enemy.isDead() && this.character.isJumpingOn(enemy)) {
-                enemy.hit(i);
-                this.character.speed_y = 15;
-                enemy.removeEnemy(enemy);
-            }
-        }
-    };
-
-    /**
-     * behavior when objects are colliding with character
-     * updates characer statusbar
+     * behavior when the character collides with a chicken
+     * landing on top kills it, any other contact costs energy and updates the statusbar
+     * the bounce is applied after the loop, otherwise it would flip speed_y and break the check for a second chicken in the same tick
      */
     checkCollisions = () => {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy) && !enemy.isDead()) {
+        let stomped = false;
+        for (let i = this.level.enemies.length - 1; i >= 0; i--) {
+            const enemy = this.level.enemies[i];
+            if (enemy.isDead() || !this.character.isColliding(enemy)) continue;
+
+            if (this.character.isJumpingOn(enemy)) {
+                enemy.hit();
+                enemy.removeEnemy(enemy);
+                stomped = true;
+            } else {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
-        });
+        }
+        if (stomped) this.character.speed_y = 15;
     };
 
     /**
@@ -373,28 +367,53 @@ export class World {
     };
 
     /**
-     * manages screen after game over
+     * shows the win or lose screen with a dark overlay over the canvas
      */
     endScreen() {
         if (this.level.boss.some((boss) => boss.dead)) {
             document.getElementById("won").classList.remove("d_none");
             document.getElementById("overlay").classList.remove("d_none");
-            this.continueScreen();
+            this.wonAndLostScreen();
+            this.wonScreen();
         } else {
             document.getElementById("lost").classList.remove("d_none");
             document.getElementById("overlay").classList.remove("d_none");
-            this.continueScreen();
+            this.wonAndLostScreen();
+            this.lostScreen();
         }
     }
 
     /**
-     * shows the menu again after the end screen so the game can be restarted or left
+     * hides the canvas and shows the menu again after three seconds, so the game can be restarted or left
+     * runs for both endings, the win and the lose screen
      */
-    continueScreen() {
+    wonAndLostScreen() {
         setTimeout(() => {
             document.getElementById("start-menu").classList.toggle(`d_none`);
             document.getElementById("home").classList.remove(`d_none`);
-            document.getElementById("imprint").classList.add(`d_none`);
+            document.getElementById("imprint-button").classList.add(`d_none`);
+            document.getElementById("canvas").classList.add("d_none");
+            document.getElementById("overlay").classList.add("d_none");
+        }, 3000);
+    }
+
+    /**
+     * swaps the lose banner for the full lose screen after three seconds
+     */
+    lostScreen() {
+        setTimeout(() => {
+            document.getElementById("end-lost").classList.remove("d_none");
+            document.getElementById("lost").classList.add("d_none");
+        }, 3000);
+    }
+
+    /**
+     * swaps the win banner for the full win screen after three seconds
+     */
+    wonScreen() {
+        setTimeout(() => {
+            document.getElementById("end-won").classList.remove("d_none");
+            document.getElementById("won").classList.add("d_none");
         }, 3000);
     }
 }
