@@ -2,12 +2,13 @@ import { MyAudio, AudioHub } from "../models/AudioHub.class.js";
 import { Imagehub } from "../models/image-hub.class.js";
 import { Keyboard, mobileButtons } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
-import { dialogTemplate } from "./templates.js";
+import { dialogTemplate, imprintTemplate } from "./templates.js";
 
 let canvas = document.getElementById(`canvas`);
 let world;
 let keyboard = new Keyboard();
-const dialogRef = document.getElementById("settings");
+const controlRef = document.getElementById("settings");
+const imprintRef = document.getElementById("imprint");
 
 /**
  * connects all menu buttons once the page has finished loading and restores the saved mute state
@@ -18,6 +19,7 @@ window.addEventListener(`load`, async () => {
     document.getElementById(`play`).addEventListener(`click`, startGame);
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
+    document.getElementById(`imprint-button`).addEventListener(`click`, showImprint);
     loadMuteState();
     await preloadImages();
     document.getElementById("start-game").classList.remove("d_none");
@@ -67,8 +69,10 @@ function startScreen() {
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("canvas").classList.add("d_none");
     document.getElementById("home").classList.add("d_none");
-    document.getElementById("imprint").classList.remove("d_none");
+    document.getElementById("imprint-button").classList.remove("d_none");
     document.getElementById("overlay").classList.add("d_none");
+    document.getElementById("end-lost").classList.add("d_none");
+    document.getElementById("end-won").classList.add("d_none");
 }
 
 /**
@@ -82,9 +86,11 @@ function startGame() {
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
     document.getElementById("canvas").classList.remove("d_none");
-    document.getElementById("imprint").classList.add("d_none");
-    document.getElementById("imprint").classList.add("d_none");
+    document.getElementById("imprint-button").classList.add("d_none");
+    document.getElementById("imprint-button").classList.add("d_none");
     document.getElementById("overlay").classList.add("d_none");
+    document.getElementById("end-lost").classList.add("d_none");
+    document.getElementById("end-won").classList.add("d_none");
     AudioHub.playOne(AudioHub.BACKGROUND, true);
     mobile();
 }
@@ -105,7 +111,7 @@ function mobile() {
 
 /**
  * switches sound on or off, swaps the button icon and stores the choice in local storage
- * the volume is applied to all sounds at once so sounds go quiet immediately
+ * the muted flag is set on every sound because iOS ignores volume changes and only honours muted
  */
 function toggleMute() {
     MyAudio.muted = !MyAudio.muted;
@@ -144,15 +150,15 @@ function hasTouch() {
  * a click on the backdrop closes the dialog, e.target is only the dialog itself when the backdrop was hit
  */
 function showControls() {
-    dialogRef.innerHTML = dialogTemplate();
-    dialogRef.classList.add(`open`);
-    dialogRef.showModal();
+    controlRef.innerHTML = dialogTemplate();
+    controlRef.classList.add(`open`);
+    controlRef.showModal();
     document.getElementById(`close`).addEventListener(`click`, closeControls);
-    dialogRef.addEventListener(`close`, () => {
-        dialogRef.classList.remove(`open`);
+    controlRef.addEventListener(`close`, () => {
+        controlRef.classList.remove(`open`);
     });
-    dialogRef.addEventListener(`click`, (e) => {
-        if (e.target === dialogRef) dialogRef.close();
+    controlRef.addEventListener(`click`, (e) => {
+        if (e.target === controlRef) controlRef.close();
     });
 }
 
@@ -160,6 +166,32 @@ function showControls() {
  * closes the controls dialog
  */
 function closeControls() {
-    dialogRef.close();
-    dialogRef.classList.remove("open");
+    controlRef.close();
+    controlRef.classList.remove("open");
+}
+
+/**
+ * fills the dialog with the imprint template and opens it
+ * the close button is connected here because it only exists after the template was inserted
+ * a click on the backdrop closes the dialog, e.target is only the dialog itself when the backdrop was hit
+ */
+function showImprint() {
+    imprintRef.innerHTML = imprintTemplate();
+    imprintRef.classList.add(`open`);
+    imprintRef.showModal();
+    document.getElementById(`close-imprint`).addEventListener(`click`, closeImprint);
+    imprintRef.addEventListener(`close`, () => {
+        imprintRef.classList.remove(`open`);
+    });
+    imprintRef.addEventListener(`click`, (e) => {
+        if (e.target === imprintRef) imprintRef.close();
+    });
+}
+
+/**
+ * closes the imprint dialog
+ */
+function closeImprint() {
+    imprintRef.close();
+    imprintRef.classList.remove("open");
 }

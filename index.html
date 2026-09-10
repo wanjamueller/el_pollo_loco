@@ -46,13 +46,19 @@
                 <div id="start" class="start-screen">
                     <img src="./assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="startscreen image" />
                 </div>
+                <div id="end-lost" class="lost-screen d_none">
+                    <img src="./assets/img/You won, you lost/Game Over.png" alt="endscreen image" />
+                </div>
+                <div id="end-won" class="won-screen d_none">
+                    <img src="./assets/img/You won, you lost/You won A.png" alt="endscreen image" />
+                </div>
                 <div id="start-menu" class="start-button">
                     <button id="home" class="menu-button d_none">
                         <img src="./assets/icons/home.svg" alt="home icon" />
                     </button>
-                    <a id="imprint" class="menu-button" href="./pages/imprint.html"
-                        ><img src="./assets/icons/imprint.svg" alt="imprint icon" />
-                    </a>
+                    <button id="imprint-button" class="menu-button">
+                        <img src="./assets/icons/imprint.svg" alt="imprint icon" />
+                    </button>
                     <button id="play">
                         <img id="start-game" class="d_none" src="./assets/icons/play2.svg" alt="start icon" />
                         <img id="loading" src="./assets/icons/loading.svg" alt="loading icon" />
@@ -65,9 +71,10 @@
                     <img src="./assets/img/You won, you lost/You Won B.png" alt="you-won image" />
                 </div>
                 <div id="lost" class="you-lost d_none">
-                    <img src="./assets/img/You won, you lost/Game over A.png" alt="you-lost image" />
+                    <img src="./assets/img/9_intro_outro_screens/game_over/you lost.png" alt="you-lost image" />
                 </div>
                 <dialog id="settings" class="settings"></dialog>
+                <dialog id="imprint" class="imprint"></dialog>
                 <div id="overlay" class="overlay d_none"></div>
             </section>
         </main>
