@@ -44,7 +44,7 @@ export function imprintTemplate() {
                 </div>
             </section>
             <section class="author">
-                <img src="../assets/img/wanja-headshot.png" alt="headshot author" />
+                <img src="./assets/img/wanja-headshot.png" alt="headshot author" />
                 <h4>Wanja Müller</h4>
                 <p>Fullstack Developer</p>
                 <a href="mailto:me@wanjamueller.com">me@wanjamueller.com</a>
