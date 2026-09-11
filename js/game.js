@@ -16,7 +16,8 @@ const imprintRef = document.getElementById("imprint");
  */
 window.addEventListener(`load`, async () => {
     document.getElementById(`mute-button`).addEventListener(`click`, toggleMute);
-    document.getElementById(`play`).addEventListener(`click`, startGame);
+    document.getElementById(`start-game`).addEventListener(`click`, startGame);
+    document.getElementById(`again`).addEventListener(`click`, startGame);
     document.getElementById(`home`).addEventListener(`click`, startScreen);
     document.getElementById(`controls`).addEventListener(`click`, showControls);
     document.getElementById(`imprint-button`).addEventListener(`click`, showImprint);
@@ -65,6 +66,9 @@ function preloadImages() {
  */
 function startScreen() {
     document.getElementById("start").classList.toggle("d_none");
+    document.getElementById("controls").classList.remove("d_none");
+    document.getElementById("start-game").classList.remove("d_none");
+    document.getElementById("again").classList.add("d_none");
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("canvas").classList.add("d_none");
@@ -73,6 +77,8 @@ function startScreen() {
     document.getElementById("overlay").classList.add("d_none");
     document.getElementById("end-lost").classList.add("d_none");
     document.getElementById("end-won").classList.add("d_none");
+    document.getElementById("mute-button").classList.remove("d_none");
+    document.getElementById("mute-button-container").style.right = `clamp(0.3125rem, -0.9375rem + 6.25vw, 1.875rem)`;
 }
 
 /**
@@ -80,17 +86,17 @@ function startScreen() {
  */
 function startGame() {
     init();
-    document.getElementById("start").classList.toggle("d_none");
     document.getElementById("start-menu").classList.toggle("d_none");
     document.getElementById("won").classList.add("d_none");
     document.getElementById("lost").classList.add("d_none");
     document.getElementById("start").classList.add("d_none");
     document.getElementById("canvas").classList.remove("d_none");
     document.getElementById("imprint-button").classList.add("d_none");
-    document.getElementById("imprint-button").classList.add("d_none");
     document.getElementById("overlay").classList.add("d_none");
     document.getElementById("end-lost").classList.add("d_none");
     document.getElementById("end-won").classList.add("d_none");
+    document.getElementById("mute-button").classList.remove("d_none");
+    document.getElementById("mute-button-container").style.right = `5px`;
     AudioHub.playOne(AudioHub.BACKGROUND, true);
     mobile();
 }
