@@ -2,7 +2,7 @@
 
 A browser-based 2D jump-and-run game built with vanilla JavaScript and the HTML5 Canvas API — no frameworks, no game engine, no build step.
 
-**[▶ Play it here](https://wanjamueller.developerakademie.net)**
+**[▶ Play it here](https://wanjamueller.developerakademie.net/el_pollo_loco/index.html)**
 
 ![El Pollo Loco gameplay](./assets/img/screenshot.png)
 
