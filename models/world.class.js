@@ -390,10 +390,14 @@ export class World {
     wonAndLostScreen() {
         setTimeout(() => {
             document.getElementById("start-menu").classList.toggle(`d_none`);
+            document.getElementById("start-game").classList.add(`d_none`);
+            document.getElementById("again").classList.remove(`d_none`);
             document.getElementById("home").classList.remove(`d_none`);
             document.getElementById("imprint-button").classList.add(`d_none`);
+            document.getElementById("controls").classList.add(`d_none`);
             document.getElementById("canvas").classList.add("d_none");
             document.getElementById("overlay").classList.add("d_none");
+            document.getElementById("mute-button").classList.add("d_none");
         }, 3000);
     }
 
